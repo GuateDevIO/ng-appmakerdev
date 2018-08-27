@@ -28,7 +28,7 @@ import { reducers, metaReducers } from './core.state';
     environment.production
       ? []
       : StoreDevtoolsModule.instrument({
-          name: 'Angular NgRx Material Starter'
+          name: 'App Maker Developers'
         }),
 
     // 3rd party
