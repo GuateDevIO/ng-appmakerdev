@@ -43,7 +43,7 @@ npm start
 ## Make It Your Own
 When using this starter project to build your own app you might consider some of the following steps:
   
-  * use `search and replace` functionality of your favourite IDE to replace `anms` with `<your-app-prefix>`
+  * use `search and replace` functionality of your favourite IDE to replace `amds` with `<your-app-prefix>`
   * rename project in `package.json` `name` property and set appropriate version (eg `0.0.0` or `1.0.0`)
   * rename app in `src/environments/` files (will be shown in browser tab)
   * delete pre-existing `CHANGELOG.md` (you will generate your own with future releases of your features)

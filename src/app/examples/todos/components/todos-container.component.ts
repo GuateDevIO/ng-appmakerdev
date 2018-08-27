@@ -18,7 +18,7 @@ import { Todo, TodosFilter, TodosState } from '../todos.model';
 import { State } from '../../examples.state';
 
 @Component({
-  selector: 'anms-todos',
+  selector: 'amds-todos',
   templateUrl: './todos-container.component.html',
   styleUrls: ['./todos-container.component.scss']
 })

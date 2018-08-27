@@ -2,7 +2,7 @@
 
   <mat-sidenav #sidenav mode="push">
     <div class="branding"><img [src]="logo"/>
-      <span>{{ 'anms.title.short' | translate}}</span></div>
+      <span>{{ 'amds.title.short' | translate}}</span></div>
     <mat-nav-list>
       <a mat-list-item *ngFor="let item of navigationSideMenu" (click)="sidenav.close()"
          [routerLink]="[item.link]" routerLinkActive="active">
@@ -26,9 +26,9 @@
           <img [src]="logo"/></span>
       <span routerLink=""
             class="branding spacer center d-none d-sm-inline d-md-none"><img
-        [src]="logo"/> {{ 'anms.title.short' | translate }}</span>
+        [src]="logo"/> {{ 'amds.title.short' | translate }}</span>
       <span routerLink="" class="branding spacer d-none d-md-inline"><img
-        [src]="logo"/> {{ 'anms.title' | translate }}</span>
+        [src]="logo"/> {{ 'amds.title' | translate }}</span>
 
       <span class="d-none d-md-inline">
           <button mat-button class="nav-button" *ngFor="let item of navigation"
@@ -40,7 +40,7 @@
       <button mat-button class="sign-in-button "
               *ngIf="!isAuthenticated"
               (click)="onLoginClick()">
-        {{ 'anms.menu.login' | translate }}
+        {{ 'amds.menu.login' | translate }}
       </button>
 
       <button *ngIf="isAuthenticated"
@@ -51,7 +51,7 @@
       <mat-menu #toolbarUserMenu="matMenu">
         <button mat-menu-item (click)="onLogoutClick()">
           <mat-icon fontSet="fas" fontIcon="fa-power-off"></mat-icon>
-          <span>{{ 'anms.menu.logout' | translate }}</span>
+          <span>{{ 'amds.menu.logout' | translate }}</span>
         </button>
       </mat-menu>
 
@@ -59,7 +59,7 @@
         <mat-icon fontSet="fas" fontIcon="fa-cog"></mat-icon>
       </button>
 
-      <a [matTooltip]="'anms.header.github' | translate"
+      <a [matTooltip]="'amds.header.github' | translate"
          matdTooltipPosition="before"
          mat-icon-button
          class="link d-none d-sm-inline"
@@ -120,7 +120,7 @@
         <div class="col-12 signature">
           &#169; <span class="year">{{year}}</span> - Tomas Trajan
           <br class="d-block d-sm-none">
-          <a [matTooltip]="'anms.footer.changelog' | translate"
+          <a [matTooltip]="'amds.footer.changelog' | translate"
              matTooltipPosition="before"
              href="https://github.com/tomastrajan/angular-ngrx-material-starter/blob/master/CHANGELOG.md">
             <mat-icon fontSet="fas" fontIcon="fa-rocket"></mat-icon>

@@ -8,7 +8,7 @@ import { ActionStockMarketRetrieve } from '../stock-market.actions';
 import { State } from '../../examples.state';
 
 @Component({
-  selector: 'anms-stock-market',
+  selector: 'amds-stock-market',
   templateUrl: './stock-market-container.component.html',
   styleUrls: ['./stock-market-container.component.scss']
 })

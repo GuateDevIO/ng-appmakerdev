@@ -12,7 +12,7 @@ import { State } from '../examples.state';
 import { selectAuth } from '@app/core/auth/auth.selectors';
 
 @Component({
-  selector: 'anms-examples',
+  selector: 'amds-examples',
   templateUrl: './examples.component.html',
   styleUrls: ['./examples.component.scss'],
   animations: [routeAnimations]
@@ -22,10 +22,10 @@ export class ExamplesComponent implements OnInit, OnDestroy {
   private isAuthenticated$: Observable<boolean>;
 
   examples = [
-    { link: 'todos', label: 'anms.examples.menu.todos' },
-    { link: 'stock-market', label: 'anms.examples.menu.stocks' },
-    { link: 'theming', label: 'anms.examples.menu.theming' },
-    { link: 'authenticated', label: 'anms.examples.menu.auth', auth: true }
+    { link: 'todos', label: 'amds.examples.menu.todos' },
+    { link: 'stock-market', label: 'amds.examples.menu.stocks' },
+    { link: 'theming', label: 'amds.examples.menu.theming' },
+    { link: 'authenticated', label: 'amds.examples.menu.auth', auth: true }
   ];
 
   constructor(

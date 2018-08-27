@@ -7,7 +7,7 @@
       "root": "",
       "sourceRoot": "/src",
       "projectType": "application",
-      "prefix": "anms",
+      "prefix": "amds",
       "schematics": {},
       "architect": {
         "build": {
