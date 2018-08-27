@@ -28,33 +28,33 @@
 @import 'app/examples/examples/examples.component.scss-theme';
 
 @mixin custom-components-theme($theme) {
-  @include anms-styles-reset-theme($theme);
-  @include anms-app-component-theme($theme);
-  @include anms-about-component-theme($theme);
-  @include anms-big-input-component-theme($theme);
-  @include anms-todos-container-component-theme($theme);
-  @include anms-stock-market-container-component-theme($theme);
-  @include anms-parent-component-theme($theme);
-  @include anms-child-component-theme($theme);
-  @include anms-examples-component-theme($theme);
+  @include amds-styles-reset-theme($theme);
+  @include amds-app-component-theme($theme);
+  @include amds-about-component-theme($theme);
+  @include amds-big-input-component-theme($theme);
+  @include amds-todos-container-component-theme($theme);
+  @include amds-stock-market-container-component-theme($theme);
+  @include amds-parent-component-theme($theme);
+  @include amds-child-component-theme($theme);
+  @include amds-examples-component-theme($theme);
 }
 
 .default-theme {
-  @include angular-material-theme($anms-theme);
-  @include custom-components-theme($anms-theme);
+  @include angular-material-theme($amds-theme);
+  @include custom-components-theme($amds-theme);
 }
 
 .light-theme {
-  @include angular-material-theme($anms-light-theme);
-  @include custom-components-theme($anms-light-theme);
+  @include angular-material-theme($amds-light-theme);
+  @include custom-components-theme($amds-light-theme);
 }
 
 .black-theme {
-  @include angular-material-theme($anms-black-theme);
-  @include custom-components-theme($anms-black-theme);
+  @include angular-material-theme($amds-black-theme);
+  @include custom-components-theme($amds-black-theme);
 }
 
 .nature-theme {
-  @include angular-material-theme($anms-nature-theme);
-  @include custom-components-theme($anms-nature-theme);
+  @include angular-material-theme($amds-nature-theme);
+  @include custom-components-theme($amds-nature-theme);
 }

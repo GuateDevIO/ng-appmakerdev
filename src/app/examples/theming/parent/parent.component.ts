@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'anms-parent',
+  selector: 'amds-parent',
   templateUrl: './parent.component.html',
   styleUrls: ['./parent.component.scss']
 })

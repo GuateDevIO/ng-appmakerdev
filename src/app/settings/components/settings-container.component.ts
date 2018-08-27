@@ -15,7 +15,7 @@ import { SettingsState } from '../settings.model';
 import { selectSettings } from '../settings.selectors';
 
 @Component({
-  selector: 'anms-settings',
+  selector: 'amds-settings',
   templateUrl: './settings-container.component.html',
   styleUrls: ['./settings-container.component.scss']
 })

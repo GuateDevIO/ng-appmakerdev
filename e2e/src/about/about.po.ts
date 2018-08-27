@@ -6,7 +6,7 @@ export class AboutPage {
   }
 
   getParagraphText() {
-    return element(by.css('anms-about h1')).getText();
+    return element(by.css('amds-about h1')).getText();
   }
 
   getGettingStarted() {
