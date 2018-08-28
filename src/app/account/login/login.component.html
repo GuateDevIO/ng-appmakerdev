@@ -1,3 +1,110 @@
-<p>
-  login works!
-</p>
+<div class="wrapper">
+  <mat-card class="heading-card" [class.mat-elevation-z0]="true">
+    <img mat-card-image src="https://tpc.googlesyndication.com/simgad/5087173954933374359" [ngClass]="routeAnimationsElements"
+      alt="login header">
+  </mat-card>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5 offset-md-0 col-lg-5 offset-lg-1 ">
+        <mat-card class="register-card" [class.mat-elevation-z0]="true">
+
+          <img mat-card-image src="https://www.gstatic.com/images/branding/product/2x/app_maker_64dp.png" alt="amds logo" [ngClass]="routeAnimationsElements">
+
+          <mat-card-content class="register-card-content">
+
+            <h1 class="headline" [ngClass]="routeAnimationsElements">App Maker Developers</h1>
+            <h2 class="title" [ngClass]="routeAnimationsElements">
+              The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes
+              very well with mountainous terrains.
+            </h2>
+            <button mat-flat-button color="primary" [ngClass]="routeAnimationsElements">NEW ACCOUNT? SIGN UP HERE</button>
+
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+
+      <div class="col-md-6 offset-md-1 col-lg-5 offset-lg-1">
+        <mat-card class="login-card" [ngClass]="routeAnimationsElements">
+          <mat-card-content class="login-card-content">
+
+            <h3 class="mat-subheading-2" [ngClass]="routeAnimationsElements">App Maker Developers | Sign in:</h3>
+            <mat-icon color="primary" [ngClass]="routeAnimationsElements">keyboard_arrow_down</mat-icon>
+
+            <div class="social-btn">
+              <button class="btn-google" (click)="signInWithGoogle()" mat-raised-button [ngClass]="routeAnimationsElements">
+                <mat-icon class="google-icon" svgIcon="google-ic"></mat-icon>
+                <span>Connect with Google</span>
+              </button>
+            </div>
+            <div class="social-btn">
+              <button class="btn-fb" mat-raised-button [ngClass]="routeAnimationsElements">
+                <mat-icon class="fb-icon" svgIcon="facebook-ic"></mat-icon>
+                <span>Connect with Facebook</span>
+              </button>
+            </div>
+            <div class="social-btn">
+              <button class="btn-twitter" mat-raised-button [ngClass]="routeAnimationsElements">
+                <mat-icon class="twitter-icon" svgIcon="twitter-ic"></mat-icon>
+                <span>Connect with Twitter</span>
+              </button>
+            </div>
+
+
+            <div class="em-or">
+              <span>or login with</span>
+            </div>
+
+
+            <form class="form-container" [formGroup]="loginForm" (ngSubmit)="submitHandler()" [ngClass]="routeAnimationsElements">
+              <mat-form-field appearance="outline">
+                <mat-label>Email Address</mat-label>
+                <input matInput placeholder="Enter email address here" formControlName="email" required>
+                <mat-icon matSuffix matTooltip="Click to insert @" aria-label="displays tooltip on focused/hovered over" (click)="insertAt()">
+                  alternate_email
+                </mat-icon>
+                <mat-error *ngIf="loginForm.controls.email.invalid">{{getFormErrorMsg()}}</mat-error>
+                <mat-hint align="end">Please make sure email is valid</mat-hint>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput placeholder="Enter password here" formControlName="password" [type]="hidePass ? 'password' : 'text'" required>
+                <mat-icon matSuffix matTooltip="Show / Hide Password" aria-label="displays tooltip on focused/hovered over" (click)="hidePass = !hidePass">{{hidePass
+                  ? 'visibility' : 'visibility_off'}}</mat-icon>
+                <mat-hint align="end">Must have at least 6 characters</mat-hint>
+                <mat-error *ngIf="loginForm.controls.password.invalid">{{getPassErrorMsg()}}</mat-error>
+              </mat-form-field>
+
+              <div class="email-btns">
+                <button class="btn-email" mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+                  <span>Connect with Email</span>
+                </button>
+                <button class="btn-password" type="button" mat-button color="warn" (click)="resetPassword()">
+                  <span>Forgot password?</span>
+                </button>
+              </div>
+            </form>
+
+            <mat-divider [inset]="true"></mat-divider>
+
+            <div class="terms-container">
+              <h4 class="mat-subheading-1">
+                By proceeding, you agree to our
+                <a style="text-decoration: underline;" href="https://opensource.org/licenses/MIT" target="_blank">Terms of
+                  Service
+                </a>
+                and
+                <a style="text-decoration: underline;" href="https://opensource.org/licenses/MIT" target="_blank">Privacy
+                  Notice.
+                </a>
+              </h4>
+            </div>
+
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

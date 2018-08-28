@@ -44,6 +44,7 @@ $custom-typography: mat-typography-config(
 @import 'app/examples/theming/parent/parent.component.scss-theme';
 @import 'app/examples/theming/child/child.component.scss-theme';
 @import 'app/examples/examples/examples.component.scss-theme';
+@import 'app/account/login/login.component.scss-theme';
 
 @mixin custom-components-theme($theme) {
   @include amds-styles-reset-theme($theme);
@@ -55,6 +56,7 @@ $custom-typography: mat-typography-config(
   @include amds-parent-component-theme($theme);
   @include amds-child-component-theme($theme);
   @include amds-examples-component-theme($theme);
+  @include amds-login-component-theme($theme);
 }
 
 .default-theme {

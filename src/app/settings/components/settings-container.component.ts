@@ -30,13 +30,7 @@ export class SettingsContainerComponent implements OnInit, OnDestroy {
     { value: 'BLACK-THEME', label: 'dark' }
   ];
 
-  languages = [
-    { value: 'en', label: 'en' },
-    { value: 'de', label: 'de' },
-    { value: 'sk', label: 'sk' },
-    { value: 'fr', label: 'fr' },
-    { value: 'es', label: 'es' }
-  ];
+  languages = [{ value: 'en', label: 'en' }, { value: 'es', label: 'es' }];
 
   constructor(private store: Store<{}>) {
     store
