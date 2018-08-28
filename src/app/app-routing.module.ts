@@ -19,13 +19,16 @@ const routes: Routes = [
     loadChildren: 'app/examples/examples.module#ExamplesModule'
   },
   {
+    path: 'account',
+    loadChildren: 'app/account/account.module#AccountModule'
+  },
+  {
     path: '**',
     redirectTo: 'about'
   }
 ];
 
 @NgModule({
-  // useHash supports github.io demo page, remove in your app
   imports: [
     RouterModule.forRoot(routes, {
       useHash: false,

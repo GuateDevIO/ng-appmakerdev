@@ -1,6 +1,8 @@
 import browser from 'browser-detect';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material';
 import { ActivationEnd, Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Store, select } from '@ngrx/store';
@@ -63,12 +65,51 @@ export class AppComponent implements OnInit, OnDestroy {
     private router: Router,
     private titleService: TitleService,
     private animationService: AnimationsService,
-    private translate: TranslateService
-  ) {}
+    private translate: TranslateService,
+    iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer
+  ) {
+    iconRegistry.addSvgIcon(
+      'google-ic',
+      sanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/social-icons/google.svg'
+      )
+    );
+    iconRegistry.addSvgIcon(
+      'facebook-ic',
+      sanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/social-icons/facebook.svg'
+      )
+    );
+    iconRegistry.addSvgIcon(
+      'twitter-ic',
+      sanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/social-icons/twitter.svg'
+      )
+    );
+    iconRegistry.addSvgIcon(
+      'github-ic',
+      sanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/social-icons/github.svg'
+      )
+    );
+    iconRegistry.addSvgIcon(
+      'mail-ic',
+      sanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/social-icons/mail.svg'
+      )
+    );
+    iconRegistry.addSvgIcon(
+      'phone-ic',
+      sanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/social-icons/phone.svg'
+      )
+    );
+  }
 
   private static trackPageView(event: NavigationEnd) {
-    (<any>window).ga('set', 'page', event.urlAfterRedirects);
-    (<any>window).ga('send', 'pageview');
+    (<any>window).gtag('set', 'page', event.urlAfterRedirects);
+    (<any>window).gtag('send', 'pageview');
   }
 
   private static isIEorEdge() {
