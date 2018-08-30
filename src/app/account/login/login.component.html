@@ -18,6 +18,7 @@
               The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes
               very well with mountainous terrains.
             </h2>
+
             <button mat-flat-button color="primary" [ngClass]="routeAnimationsElements">NEW ACCOUNT? SIGN UP HERE</button>
 
           </mat-card-content>
@@ -29,7 +30,7 @@
         <mat-card class="login-card" [ngClass]="routeAnimationsElements">
           <mat-card-content class="login-card-content">
 
-            <h3 class="mat-subheading-2" [ngClass]="routeAnimationsElements">App Maker Developers | Sign in:</h3>
+            <h3 class="mat-subheading-2" [ngClass]="routeAnimationsElements">Sign in to App Maker Developers</h3>
             <mat-icon color="primary" [ngClass]="routeAnimationsElements">keyboard_arrow_down</mat-icon>
 
             <div class="social-btn">
@@ -53,7 +54,7 @@
 
 
             <div class="em-or">
-              <span>or login with</span>
+              <span>{{ 'amds.account.login.sign-or' | translate }}</span>
             </div>
 
 
