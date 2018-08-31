@@ -43,4 +43,16 @@ export class LoginComponent implements OnInit {
     const formEmail = this.loginForm.value.email;
     this.loginForm.patchValue({ email: formEmail + '@' });
   }
+
+  signInWithGoogle() {
+    console.log('sign in with Google');
+  }
+
+  submitHandler() {
+    console.log('sign in with Email Address');
+  }
+
+  resetPassword() {
+    console.log('reset password');
+  }
 }
