@@ -1,3 +1,9 @@
-<div [@routeAnimations]="true">
+<div class="content" [@routeAnimations]="true">
+
     <router-outlet></router-outlet>
+
+    <mat-card class="built-card" [class.mat-elevation-z0]="true">
+        <img mat-card-image src="../../../assets/firebase-built.svg" alt="Built with Firebase">
+    </mat-card>
+
 </div>
