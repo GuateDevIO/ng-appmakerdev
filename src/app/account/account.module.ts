@@ -1,22 +1,19 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { SharedModule } from '@app/shared';
-import { Routes, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@env/environment';
 
 import { AccountRoutingModule } from './account-routing.module';
+import { AccountComponent } from './account/account.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { AccountComponent } from './account/account.component';
 
 @NgModule({
   imports: [
-    CommonModule,
     SharedModule,
     AccountRoutingModule,
     TranslateModule.forChild({
@@ -29,11 +26,11 @@ import { AccountComponent } from './account/account.component';
     })
   ],
   declarations: [
+    AccountComponent,
     LoginComponent,
     RegisterComponent,
     WelcomeComponent,
-    ResetPasswordComponent,
-    AccountComponent
+    ResetPasswordComponent
   ]
 })
 export class AccountModule {
