@@ -17,9 +17,9 @@ describe('SettingsReducer', () => {
   });
 
   it('should update language', () => {
-    const action = new ActionSettingsChangeLanguage({ language: 'sk' });
+    const action = new ActionSettingsChangeLanguage({ language: 'es' });
     const state = settingsReducer(undefined, action);
-    expect(state.language).toEqual('sk');
+    expect(state.language).toEqual('es');
   });
 
   it('should update theme', () => {

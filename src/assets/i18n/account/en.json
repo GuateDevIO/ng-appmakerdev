@@ -1,0 +1,30 @@
+{
+  "amds.account.login.headline": "App Maker Developers",
+  "amds.account.login.title":
+    "The App Maker Developers Platform is a free collection of tools and resources to help you learn and get started with App Maker. You can also share or sell your own apps to other users!",
+  "amds.account.login.register-now": "CREATE NEW ACCOUNT",
+  "amds.account.login.sign-head": "Sign in",
+  "amds.account.login.sign-sub-head": "Use your existing account",
+  "amds.account.login.sign-google": "Sign in with Google",
+  "amds.account.login.sign-facebook": "Sign in with Facebook",
+  "amds.account.login.sign-twitter": "Sign in with Twitter",
+  "amds.account.login.sign-github": "Sign in with Github",
+  "amds.account.login.sign-email": "Sign in with Email",
+  "amds.account.login.sign-phone": "Sign in with Phone",
+  "amds.account.login.sign-or": "or login with",
+  "amds.account.login.form-mail": "Email Address",
+  "amds.account.login.form-mail-invalid": "That email address isn't correct",
+  "amds.account.login.form-mail-req": "Enter your email address",
+  "amds.account.login.form-pass": "Password",
+  "amds.account.login.form-pass-invalid": "Enter your password",
+  "amds.account.login.form-pass-req":
+    "Strong passwords have at least 6 characters and a mix of letters and numbers",
+  "amds.account.login.form-pass-reset": "Reset your password",
+  "amds.account.login.form-terms":
+    "By continuing, you are indicating that you accept our Terms of Service and Privacy Policy",
+  "amds.account.register.form-register": "Create account",
+  "amds.account.register.form-pass-req": "Enter your password",
+  "amds.account.register.input": "I am going to...",
+  "amds.account.register.tooltip.add": "Add new todo",
+  "amds.account.register.tooltip.remove": "Remove done todos"
+}

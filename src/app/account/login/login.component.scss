@@ -1,0 +1,269 @@
+@import '../../../styles-variables';
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+.heading-card {
+  width: 100%;
+  text-align: center;
+  margin: 0px;
+  padding: 0px;
+  border-radius: 0px;
+
+  img {
+    width: 100%;
+    max-width: 728px;
+    padding: 0px;
+    margin: 0px;
+  }
+}
+
+.register-card {
+  text-align: left;
+  background-color: transparent;
+  margin: 7vh 0;
+  padding: 0px 0px 0px 25px;
+
+  img {
+    width: 96px;
+    height: 96px;
+    margin: 0px;
+    padding: 0px;
+  }
+  button {
+    width: 100%;
+    max-width: 270px;
+    font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.login-card {
+  text-align: center;
+  margin: 7vh 0;
+  padding: 20px;
+
+  h3 {
+    padding: 5px;
+    margin: 0px;
+  }
+}
+
+.social-btn > * {
+  width: 100%;
+  height: 42px;
+  max-width: 228px;
+  margin: 7px 0px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  span {
+    padding-left: 16px;
+  }
+  mat-icon {
+    width: 18px;
+    height: 18px;
+    margin-left: 16px;
+    display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
+  }
+}
+
+.btn-google {
+  color: #757575;
+  background-color: white;
+  padding: 0px;
+  margin: 0px;
+}
+
+.google-icon {
+  padding: 0px;
+  margin: 0px;
+}
+
+.btn-fb {
+  color: white;
+  background-color: #29487d;
+  padding: 0px;
+  margin: 0px;
+}
+
+.fb-icon {
+  padding: 0px;
+  margin: 0px;
+}
+
+.btn-twitter {
+  color: white;
+  background-color: #1da1f2;
+  padding: 0px;
+  margin: 0px;
+}
+
+.twitter-icon {
+  padding: 0px;
+  margin: 0px;
+}
+
+.em-or {
+  padding-top: 0px;
+  width: 75%;
+  margin: 10px auto 30px auto;
+  text-align: center;
+  border-bottom: 1px solid #e4e4e4;
+  span {
+    padding: 7px;
+    position: relative;
+    top: 7px;
+  }
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+
+  mat-icon {
+    cursor: pointer;
+  }
+}
+
+.form-container > * {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.email-btns {
+  text-align: center;
+  margin: 10px 0px;
+
+  button {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 42px;
+  }
+}
+
+.btn-email {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.btn-password {
+  width: 100%;
+  max-width: 70%;
+}
+
+.terms-container {
+  margin-top: 7px;
+
+  h4 {
+    margin: 0px;
+  }
+}
+
+@media (min-width: map-get($grid-breakpoints, xl)) {
+  .register-card {
+    margin: 7vh 0;
+    padding: 0px 0px 0px 25px;
+    text-align: left;
+
+    h2 {
+      margin: 25px 0px;
+    }
+    button {
+      margin-bottom: 25px;
+    }
+  }
+  .login-card {
+    margin: 7vh 0;
+    padding: 44px;
+  }
+}
+
+@media (max-width: map-get($grid-breakpoints, xl)) {
+  .register-card {
+    margin: 6vh 0;
+    padding: 0px 0px 0px 20px;
+    text-align: left;
+
+    h2 {
+      margin: 25px 0px;
+    }
+    button {
+      margin-bottom: 25px;
+    }
+  }
+  .login-card {
+    margin: 6vh 0;
+    padding: 34px;
+  }
+}
+
+@media (max-width: map-get($grid-breakpoints, lg)) {
+  .register-card {
+    margin: 5vh 0;
+    padding: 0px 0px 0px 15px;
+    text-align: left;
+
+    h2 {
+      margin: 20px 0px;
+    }
+    button {
+      margin-bottom: 20px;
+    }
+  }
+  .login-card {
+    margin: 5vh 0;
+    padding: 24px;
+  }
+}
+
+@media (max-width: map-get($grid-breakpoints, md)) {
+  .register-card {
+    margin: 4vh 0;
+    padding: 0px;
+    text-align: center;
+
+    h2 {
+      margin: 15px 0px;
+    }
+    button {
+      margin-bottom: 15px;
+    }
+  }
+  .login-card {
+    margin: 4vh 0;
+    padding: 38px;
+  }
+}
+
+@media (max-width: map-get($grid-breakpoints, sm)) {
+  .register-card {
+    margin: 3vh 0;
+    padding: 0px;
+    text-align: center;
+
+    h2 {
+      margin: 10px 0px;
+    }
+    button {
+      margin-bottom: 10px;
+    }
+  }
+  .login-card {
+    margin: 3vh 0;
+    padding: 28px;
+  }
+}

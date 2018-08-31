@@ -1,0 +1,42 @@
+@import '~@angular/material/theming';
+
+@mixin amds-login-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $background: map-get($theme, background);
+
+  mat-divider {
+    background-color: mat-color($accent);
+  }
+
+  amds-login {
+    > .wrapper {
+      background: url('../src/assets/fx-accent.png') top center no-repeat,
+        linear-gradient(87deg, mat-color($accent) 0, mat-color($primary) 100%);
+
+      > .heading-card {
+        background-color: transparentize(
+          $color: mat-color($primary),
+          $amount: 0.5
+        );
+      }
+
+      > .container {
+        > .row {
+          > .col-md-6 {
+            > .login-card {
+              background: mat-color($background, background);
+              > .login-card-content {
+                > .em-or {
+                  > span {
+                    background: mat-color($background, background);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
