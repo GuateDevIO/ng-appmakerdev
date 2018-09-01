@@ -13,18 +13,19 @@
   "amds.account.login.sign-phone": "Sign in with Phone",
   "amds.account.login.sign-or": "or login with",
   "amds.account.login.form-mail": "Email Address",
-  "amds.account.login.form-mail-invalid": "That email address isn't correct",
-  "amds.account.login.form-mail-req": "Enter your email address",
+  "amds.account.login.form-mail-input": "Enter your email address",
+  "amds.account.login.form-mail-req": "Enter an email address",
+  "amds.account.login.form-mail-invalid": "Invalid email address",
   "amds.account.login.form-pass": "Password",
-  "amds.account.login.form-pass-invalid": "Enter your password",
-  "amds.account.login.form-pass-req":
-    "Strong passwords have at least 6 characters and a mix of letters and numbers",
-  "amds.account.login.form-pass-reset": "Reset your password",
-  "amds.account.login.form-terms":
-    "By continuing, you are indicating that you accept our Terms of Service and Privacy Policy",
-  "amds.account.register.form-register": "Create account",
-  "amds.account.register.form-pass-req": "Enter your password",
-  "amds.account.register.input": "I am going to...",
-  "amds.account.register.tooltip.add": "Add new todo",
-  "amds.account.register.tooltip.remove": "Remove done todos"
+  "amds.account.login.form-pass-req": "Enter your password",
+  "amds.account.login.form-pass-input": "Enter a password",
+  "amds.account.login.form-pass-invalid":
+    "Password must have at least 6 characters",
+  "amds.account.login.form-pass-reset": "Reset password",
+  "amds.account.login.form-terms-a":
+    "By continuing, you are indicating that you accept our",
+  "amds.account.login.form-terms-b": "Terms of Service",
+  "amds.account.login.form-terms-c": "and",
+  "amds.account.login.form-terms-d": "Privacy Policy",
+  "amds.account.register.input": "I am going to..."
 }
