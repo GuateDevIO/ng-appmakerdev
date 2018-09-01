@@ -23,22 +23,6 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  getFormErrorMsg() {
-    return this.loginForm.controls.email.hasError('required')
-      ? 'You must enter an email'
-      : this.loginForm.controls.email.hasError('email')
-        ? 'Not a valid email'
-        : '';
-  }
-
-  getPassErrorMsg() {
-    return this.loginForm.controls.password.hasError('required')
-      ? 'You must enter a password'
-      : this.loginForm.controls.password.hasError('minlength')
-        ? 'Password must have at least 6 characters'
-        : '';
-  }
-
   insertAt() {
     const formEmail = this.loginForm.value.email;
     this.loginForm.patchValue({ email: formEmail + '@' });
