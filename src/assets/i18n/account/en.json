@@ -22,6 +22,8 @@
   "amds.account.login.form-pass-invalid":
     "Password must have at least 6 characters",
   "amds.account.login.form-pass-reset": "Reset password",
+  "amds.account.login.form-mail-tooltip": "Click to insert @",
+  "amds.account.login.form-pass-tooltip": "Show / Hide Password",
   "amds.account.login.form-terms-a":
     "By continuing, you are indicating that you accept our",
   "amds.account.login.form-terms-b": "Terms of Service",
