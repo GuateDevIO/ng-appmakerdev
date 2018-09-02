@@ -30,5 +30,16 @@
   "amds.account.login.form-terms-b": "condiciones del servicio",
   "amds.account.login.form-terms-c": "y nuestra",
   "amds.account.login.form-terms-d": "política de privacidad",
-  "amds.account.register.input": "testererere"
+  "amds.account.register.title": "REGISTRAR CUENTA",
+  "amds.account.register.btn-login":
+    "¿Usuario existente? Clic aquí para ingresar",
+  "amds.account.register.sign-head": "Regístrate",
+  "amds.account.register.sign-sub-head": "Crear una nueva cuenta",
+  "amds.account.register.sign-google": "Regístrate con Google",
+  "amds.account.register.sign-facebook": "Regístrate con Facebook",
+  "amds.account.register.sign-twitter": "Regístrate con Twitter",
+  "amds.account.register.sign-github": "Regístrate con Github",
+  "amds.account.register.sign-email": "Regístrate con Correo",
+  "amds.account.register.sign-phone": "Regístrate con Telefono",
+  "amds.account.register.sign-or": "o registrarse con"
 }

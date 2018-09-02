@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TestingModule } from '@testing/utils';
 import { RegisterComponent } from './register.component';
 
 describe('RegisterComponent', () => {
@@ -9,6 +9,7 @@ describe('RegisterComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
+        imports: [TestingModule],
         declarations: [RegisterComponent]
       }).compileComponents();
     })
@@ -20,7 +21,7 @@ describe('RegisterComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 });
