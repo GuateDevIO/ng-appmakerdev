@@ -56,13 +56,14 @@
                 </button>
             </div>
 
-            
+
             <div class="em-or">
               <span>{{ 'amds.account.login.sign-or' | translate }}</span>
             </div>
 
 
             <form class="form-container" [formGroup]="loginForm" (ngSubmit)="submitHandler()" [ngClass]="routeAnimationsElements">
+              
               <mat-form-field appearance="fill">
                 <mat-label>{{ 'amds.account.login.form-mail' | translate }}</mat-label>
                 <input matInput placeholder="{{ 'amds.account.login.form-mail-input' | translate }}" formControlName="email" required>
@@ -79,10 +80,8 @@
                 <mat-icon matSuffix matTooltip="Show / Hide Password" aria-label="tooltip on focused/hovered over" (click)="hidePass = !hidePass">{{hidePass
                   ? 'visibility' : 'visibility_off'}}</mat-icon>
                 <mat-hint align="end">0/25</mat-hint>
-
                 <mat-error *ngIf="loginForm.get('password').hasError('required')">{{ 'amds.account.login.form-pass-req' | translate }}</mat-error>
                 <mat-error *ngIf="loginForm.get('password').hasError('minlength')">{{ 'amds.account.login.form-pass-invalid' | translate }}</mat-error>
-
               </mat-form-field>
 
               <div class="social-btn">
@@ -97,11 +96,11 @@
                       <span>{{ 'amds.account.login.form-pass-reset' | translate }}</span>
                   </button>
               </div>
-
-      
             </form>
 
+
             <mat-divider [inset]="true"></mat-divider>
+
 
             <div class="terms-container">
               <h4 class="mat-subheading-1">
