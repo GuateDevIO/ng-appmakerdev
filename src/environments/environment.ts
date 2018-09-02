@@ -23,5 +23,13 @@ export const environment = {
       packageJson.dependencies['@fortawesome/fontawesome-free-webfonts'],
     angularCli: packageJson.devDependencies['@angular/cli'],
     typescript: packageJson.devDependencies['typescript']
+  },
+  firebaseConfig: {
+    apiKey: 'AIzaSyDhSRYCtnQCfWF1NBuQGDv8Kk2QOUb0jSA',
+    authDomain: 'guatedev-platform.firebaseapp.com',
+    databaseURL: 'https://guatedev-platform.firebaseio.com',
+    projectId: 'guatedev-platform',
+    storageBucket: 'guatedev-platform.appspot.com',
+    messagingSenderId: '1072313633743'
   }
 };

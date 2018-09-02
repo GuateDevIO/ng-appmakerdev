@@ -11,6 +11,15 @@ import { StaticModule } from './static';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+// AngularFire2 Modules
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireFunctionsModule } from 'angularfire2/functions';
+
+import { environment } from '../environments/environment';
+
 @NgModule({
   imports: [
     // angular
@@ -26,7 +35,17 @@ import { AppComponent } from './app.component';
     SettingsModule,
 
     // app
-    AppRoutingModule
+    AppRoutingModule,
+
+    // firebase
+    AngularFireModule.initializeApp(
+      environment.firebaseConfig,
+      'app-maker-developers'
+    ),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule,
+    AngularFireFunctionsModule
   ],
   declarations: [AppComponent],
   providers: [],
