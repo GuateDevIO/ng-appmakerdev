@@ -129,7 +129,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   onLoginClick() {
-    this.store.dispatch(new ActionAuthLogin());
+    // this.store.dispatch(new ActionAuthLogin());
+    this.router.navigate(['account/']);
   }
 
   onLogoutClick() {

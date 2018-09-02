@@ -13,9 +13,19 @@
   margin: 0px;
   padding: 0px;
   border-radius: 0px;
+
   h1 {
     padding: 15px 0px 5px 0px;
     margin: 0px;
+    font-weight: 700;
+  }
+  button {
+    width: 80%;
+    height: 42px;
+    max-width: 310px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
