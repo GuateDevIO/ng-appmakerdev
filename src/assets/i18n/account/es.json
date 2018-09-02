@@ -23,6 +23,8 @@
   "amds.account.login.form-pass-invalid":
     "La contraseña debe tener al menos 6 caracteres",
   "amds.account.login.form-pass-reset": "Cambiar contraseña",
+  "amds.account.login.form-mail-tooltip": "Clic para insertar @",
+  "amds.account.login.form-pass-tooltip": "Ver / Ocultar contraseña",
   "amds.account.login.form-terms-a":
     "Al continuar, confirmas que aceptas nuestras",
   "amds.account.login.form-terms-b": "condiciones del servicio",
