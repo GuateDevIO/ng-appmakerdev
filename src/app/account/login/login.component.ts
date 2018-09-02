@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ROUTE_ANIMATIONS_ELEMENTS } from '@app/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';

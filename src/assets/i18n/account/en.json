@@ -29,5 +29,15 @@
   "amds.account.login.form-terms-b": "Terms of Service",
   "amds.account.login.form-terms-c": "and",
   "amds.account.login.form-terms-d": "Privacy Policy",
-  "amds.account.register.input": "I am going to..."
+  "amds.account.register.title": "REGISTER ACCOUNT",
+  "amds.account.register.btn-login": "Existing user? Click here to login",
+  "amds.account.register.sign-head": "Sign up",
+  "amds.account.register.sign-sub-head": "Create new account",
+  "amds.account.register.sign-google": "Sign up with Google",
+  "amds.account.register.sign-facebook": "Sign up with Facebook",
+  "amds.account.register.sign-twitter": "Sign up with Twitter",
+  "amds.account.register.sign-github": "Sign up with Github",
+  "amds.account.register.sign-email": "Sign up with Email",
+  "amds.account.register.sign-phone": "Sign up with Phone",
+  "amds.account.register.sign-or": "or register with"
 }
