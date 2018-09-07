@@ -4,12 +4,4 @@
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $background: map-get($theme, background);
-
-  amds-account {
-    .content {
-      > .built-card {
-        background-color: mat-color($primary, darker);
-      }
-    }
-  }
 }

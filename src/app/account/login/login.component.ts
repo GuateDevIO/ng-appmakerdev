@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ROUTE_ANIMATIONS_ELEMENTS } from '@app/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { UserFacade } from '../../core/auth-fire/auth-fire.facade';
 
 @Component({
   selector: 'amds-login',
@@ -13,7 +14,11 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   hidePass = true;
 
-  constructor(private router: Router, private fb: FormBuilder) {}
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private userService: UserFacade
+  ) {}
 
   ngOnInit() {
     // Login Form Field configuration and validators
@@ -30,6 +35,7 @@ export class LoginComponent implements OnInit {
 
   signInWithGoogle() {
     console.log('sign in with Google');
+    this.userService.login();
   }
 
   submitHandler() {

@@ -7,6 +7,14 @@ import { CoreModule } from '@app/core';
 
 import { AppComponent } from './app.component';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireFunctionsModule } from 'angularfire2/functions';
+
+import { environment } from '../environments/environment';
+
 describe('AppComponent', () => {
   beforeEach(
     async(() => {
@@ -15,7 +23,15 @@ describe('AppComponent', () => {
           NoopAnimationsModule,
           RouterTestingModule,
           SharedModule,
-          CoreModule
+          CoreModule,
+          AngularFireModule.initializeApp(
+            environment.firebaseConfig,
+            'app-maker-developers'
+          ),
+          AngularFirestoreModule,
+          AngularFireAuthModule,
+          AngularFireStorageModule,
+          AngularFireFunctionsModule
         ],
         declarations: [AppComponent]
       }).compileComponents();

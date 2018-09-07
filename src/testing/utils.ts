@@ -12,6 +12,12 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { UserFacade } from '../app/core/auth-fire/auth-fire.facade';
+
+import { environment } from '../environments/environment';
+
 @Injectable()
 export class MockStore<T> extends Store<T> {
   private stateSubject = new BehaviorSubject<T>({} as T);
@@ -42,6 +48,11 @@ export function provideMockStore() {
     NoopAnimationsModule,
     RouterTestingModule,
     SharedModule,
+    AngularFireModule.initializeApp(
+      environment.firebaseConfig,
+      'app-maker-developers'
+    ),
+    AngularFireAuthModule,
     TranslateModule.forRoot(),
     StoreModule.forRoot({})
   ],
@@ -51,7 +62,7 @@ export function provideMockStore() {
     SharedModule,
     TranslateModule
   ],
-  providers: [provideMockStore()]
+  providers: [provideMockStore(), UserFacade]
 })
 export class TestingModule {
   constructor() {}

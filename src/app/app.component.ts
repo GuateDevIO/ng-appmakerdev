@@ -1,13 +1,19 @@
 import browser from 'browser-detect';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { MatIconRegistry } from '@angular/material';
 import { ActivationEnd, Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Store, select } from '@ngrx/store';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
+// Register & sanitize SVG icons
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material';
+
+// User Facade for Firebase authentication
+import { User } from './core/auth-fire/auth-fire.model';
+import { UserFacade } from './core/auth-fire/auth-fire.facade';
 
 import {
   ActionAuthLogin,
@@ -38,6 +44,9 @@ import {
 export class AppComponent implements OnInit, OnDestroy {
   private unsubscribe$: Subject<void> = new Subject<void>();
 
+  // Observable User Facade property
+  user$: Observable<User> = this.userService.user$;
+
   @HostBinding('class') componentCssClass;
 
   isProd = env.production;
@@ -58,6 +67,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   settings: SettingsState;
   isAuthenticated: boolean;
+  userPhotoUrl: any;
 
   constructor(
     public overlayContainer: OverlayContainer,
@@ -66,8 +76,9 @@ export class AppComponent implements OnInit, OnDestroy {
     private titleService: TitleService,
     private animationService: AnimationsService,
     private translate: TranslateService,
-    iconRegistry: MatIconRegistry,
-    sanitizer: DomSanitizer
+    private userService: UserFacade,
+    private sanitizer: DomSanitizer,
+    iconRegistry: MatIconRegistry
   ) {
     iconRegistry.addSvgIcon(
       'google-ic',
@@ -112,14 +123,28 @@ export class AppComponent implements OnInit, OnDestroy {
     (<any>window).gtag('send', 'pageview');
   }
 
-  private static isIEorEdge() {
-    return ['ie', 'edge'].includes(browser().name);
+  private static isIEorEdgeOrSafari() {
+    return ['ie', 'edge', 'safari'].includes(browser().name);
   }
 
   ngOnInit(): void {
+    // Subscribe to User facade authentication
+    this.user$.subscribe(user => {
+      console.log('ngOnInit User ID:' + user.uid);
+
+      if (user.uid !== null) {
+        this.userPhotoUrl = this.sanitizer.bypassSecurityTrustStyle(
+          `url(${user.photoUrl}) no-repeat center center/40px 40px`
+        );
+        this.isAuthenticated = true;
+      } else {
+        this.isAuthenticated = false;
+      }
+    });
+
+    // this.subscribeToIsAuthenticated();
     this.translate.setDefaultLang('en');
     this.subscribeToSettings();
-    this.subscribeToIsAuthenticated();
     this.subscribeToRouterEvents();
   }
 
@@ -129,11 +154,14 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   onLoginClick() {
-    this.store.dispatch(new ActionAuthLogin());
+    // this.store.dispatch(new ActionAuthLogin());
+    this.router.navigate(['account/login']);
   }
 
   onLogoutClick() {
-    this.store.dispatch(new ActionAuthLogout());
+    // this.store.dispatch(new ActionAuthLogout());
+    this.userService.logoutFirebase();
+    this.router.navigate(['/about']);
   }
 
   onLanguageSelect({ value: language }) {
@@ -148,7 +176,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToSettings() {
-    if (AppComponent.isIEorEdge()) {
+    if (AppComponent.isIEorEdgeOrSafari()) {
       this.store.dispatch(
         new ActionSettingsChangeAnimationsPageDisabled({
           pageAnimationsDisabled: true

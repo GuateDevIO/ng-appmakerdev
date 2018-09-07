@@ -37,16 +37,18 @@
           </button>
         </span>
 
-      <button mat-button class="sign-in-button "
+      <button mat-button class="sign-in-button"
               *ngIf="!isAuthenticated"
               (click)="onLoginClick()">
         {{ 'amds.menu.login' | translate }}
       </button>
 
-      <button *ngIf="isAuthenticated"
+      <button class="user-button" *ngIf="isAuthenticated && user$ | async as user"
               mat-icon-button
               [matMenuTriggerFor]="toolbarUserMenu">
-        <mat-icon fontSet="fas" fontIcon="fa-user-circle"></mat-icon>
+        <mat-icon [style.background]="userPhotoUrl">
+          account_circle
+        </mat-icon>
       </button>
       <mat-menu #toolbarUserMenu="matMenu">
         <button mat-menu-item (click)="onLogoutClick()">
@@ -54,19 +56,6 @@
           <span>{{ 'amds.menu.logout' | translate }}</span>
         </button>
       </mat-menu>
-
-      <button mat-icon-button routerLink="settings" class="d-none d-sm-inline">
-        <mat-icon fontSet="fas" fontIcon="fa-cog"></mat-icon>
-      </button>
-
-      <a [matTooltip]="'amds.header.github' | translate"
-         matdTooltipPosition="before"
-         mat-icon-button
-         class="link d-none d-sm-inline"
-         href="https://github.com/tomastrajan/angular-ngrx-material-starter"
-         target="_blank">
-        <mat-icon fontSet="fab" fontIcon="fa-github"></mat-icon>
-      </a>
 
       <span>
         <mat-select [ngModel]="settings?.language"
@@ -76,6 +65,11 @@
           </mat-option>
         </mat-select>
       </span>
+
+      <button mat-icon-button routerLink="settings" class="d-none d-sm-inline">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+
     </mat-toolbar>
   </div>
 

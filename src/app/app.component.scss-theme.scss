@@ -18,6 +18,15 @@
         border: 1px solid mat-color($accent);
       }
 
+      .user-button {
+        color: mat-color($primary);
+        background-color: mat-color($primary, darker);
+
+        mat-icon {
+          color: transparent;
+        }
+      }
+
       .link {
         color: mat-color($primary, default-contrast);
       }

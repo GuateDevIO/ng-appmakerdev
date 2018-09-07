@@ -11,9 +11,12 @@ import { initStateFromLocalStorage } from './meta-reducers/init-state-from-local
 import { debug } from './meta-reducers/debug.reducer';
 import { AuthState } from './auth/auth.models';
 import { authReducer } from './auth/auth.reducer';
+import { User } from './auth-fire/auth-fire.model';
+import { userReducer } from './auth-fire/auth-fire.reducer';
 
 export const reducers: ActionReducerMap<AppState> = {
-  auth: authReducer
+  auth: authReducer,
+  user: userReducer
 };
 
 export const metaReducers: MetaReducer<AppState>[] = [
@@ -30,6 +33,9 @@ export const selectAuthState = createFeatureSelector<AppState, AuthState>(
   'auth'
 );
 
+export const selectUserState = createFeatureSelector<AppState>('user');
+
 export interface AppState {
   auth: AuthState;
+  user: User;
 }
