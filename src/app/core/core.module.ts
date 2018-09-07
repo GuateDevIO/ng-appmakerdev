@@ -16,15 +16,16 @@ import { AnimationsService } from './animations/animations.service';
 import { TitleService } from './title/title.service';
 import { reducers, metaReducers } from './core.state';
 
+import { UserFacade } from './auth-fire/auth-fire.facade';
+
 @NgModule({
   imports: [
     // angular
     CommonModule,
     HttpClientModule,
-
     // ngrx
     StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, UserFacade]),
     environment.production
       ? []
       : StoreDevtoolsModule.instrument({

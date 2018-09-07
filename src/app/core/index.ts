@@ -5,6 +5,13 @@ export * from './auth/auth.reducer';
 export * from './auth/auth.actions';
 export * from './auth/auth.selectors';
 export * from './auth/auth-guard.service';
+
+export * from './auth-fire/auth-fire.actions';
+export * from './auth-fire/auth-fire.model';
+export * from './auth-fire/auth-fire.reducer';
+export * from './auth-fire/auth-fire.facade';
+export * from './auth-fire/auth-fire.selectors';
+
 export * from './title/title.service';
 export * from './core.state';
 export * from './core.module';
