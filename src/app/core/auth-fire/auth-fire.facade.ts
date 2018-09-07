@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Effect, Actions } from '@ngrx/effects';
+import { Store, select } from '@ngrx/store';
+import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Router } from '@angular/router';
 
 import { auth } from 'firebase/app';
@@ -22,15 +22,15 @@ export class UserFacade {
   // ************************************************
   // Observable Queries available for consumption by views
   // ************************************************
-  user$ = this.store.select(UsersQuery.getUser);
+  user$ = this.store.pipe(select(UsersQuery.getUser));
 
   // ************************************************
   // Effects to be registered at the Module level
   // ************************************************
   @Effect()
-  getUser$: Observable<Action> = this.actions$
-    .ofType(userActions.GET_USER)
-    .pipe(
+  getUser$: Observable<Action> = this.actions$.pipe(
+    ofType(userActions.GET_USER),
+    pipe(
       map((action: userActions.GetUser) => action.payload),
       switchMap(payload => this.afAuth.authState),
       // delay(2000)  delay to show loading spinner, delete me!
@@ -52,15 +52,16 @@ export class UserFacade {
         }
       }),
       catchError(err => of(new userActions.AuthError()))
-    );
+    )
+  );
 
   /**
    * Login with Google OAuth
    */
   @Effect()
-  login$: Observable<Action> = this.actions$
-    .ofType(userActions.GOOGLE_LOGIN)
-    .pipe(
+  login$: Observable<Action> = this.actions$.pipe(
+    ofType(userActions.GOOGLE_LOGIN),
+    pipe(
       map((action: userActions.GoogleLogin) => action.payload),
       switchMap(payload => {
         return from(this.googleLogin());
@@ -74,12 +75,13 @@ export class UserFacade {
         console.log('Google Login error');
         return of(new userActions.AuthError({ error: err.message }));
       })
-    );
+    )
+  );
 
   @Effect()
-  logout$: Observable<Action> = this.actions$
-    .ofType(userActions.LOGOUT_FIREBASE)
-    .pipe(
+  logout$: Observable<Action> = this.actions$.pipe(
+    ofType(userActions.LOGOUT_FIREBASE),
+    pipe(
       map((action: userActions.LogoutFirebase) => action.payload),
       switchMap(payload => {
         console.log('LogoutFirebase userAction');
@@ -90,7 +92,8 @@ export class UserFacade {
         return new userActions.LogoutSuccess();
       }),
       catchError(err => of(new userActions.AuthError({ error: err.message })))
-    );
+    )
+  );
 
   @Effect({ dispatch: false })
   init$: Observable<any> = defer(() => {

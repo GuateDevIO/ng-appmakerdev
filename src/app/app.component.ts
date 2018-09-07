@@ -83,13 +83,13 @@ export class AppComponent implements OnInit, OnDestroy {
     iconRegistry.addSvgIcon(
       'google-ic',
       sanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/social-icons/google.svg'
+        '/assets/social-icons/google.svg'
       )
     );
     iconRegistry.addSvgIcon(
       'facebook-ic',
       sanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/social-icons/facebook.svg'
+        './assets/social-icons/facebook.svg'
       )
     );
     iconRegistry.addSvgIcon(
