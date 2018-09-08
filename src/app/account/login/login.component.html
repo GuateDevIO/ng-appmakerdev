@@ -25,7 +25,11 @@
 
       <div class="col-md-6 offset-md-1 col-lg-5 offset-lg-1">
         <mat-card class="login-card" [ngClass]="routeAnimationsElements">
-          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          
+          <div *ngIf="user$ | async as user">
+          <mat-progress-bar *ngIf="user.loading" mode="indeterminate" ></mat-progress-bar>
+          </div>
+
           <mat-card-content class="login-card-content">
 
             <h3 class="mat-subheading-2" [ngClass]="routeAnimationsElements">{{ 'amds.account.login.sign-head' | translate }}</h3>
