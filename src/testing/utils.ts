@@ -15,6 +15,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { UserFacade } from '../app/core/auth-fire/auth-fire.facade';
 
 import { environment } from '../environments/environment';
@@ -59,6 +60,7 @@ export function provideMockStore() {
       'app-maker-developers'
     ),
     AngularFireAuthModule,
+    AngularFirestoreModule,
     TranslateModule.forRoot(),
     StoreModule.forRoot({})
   ],
