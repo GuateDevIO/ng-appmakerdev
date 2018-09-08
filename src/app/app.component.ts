@@ -160,8 +160,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   onLogoutClick() {
     // this.store.dispatch(new ActionAuthLogout());
-    this.userService.logoutFirebase();
-    this.router.navigate(['/about']);
+    this.userService.logoutUser();
   }
 
   onLanguageSelect({ value: language }) {

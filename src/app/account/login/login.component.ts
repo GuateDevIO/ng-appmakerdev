@@ -35,11 +35,12 @@ export class LoginComponent implements OnInit {
 
   signInWithGoogle() {
     console.log('sign in with Google');
-    this.userService.login();
+    this.userService.loginGoogle();
   }
 
   submitHandler() {
     console.log('sign in with Email Address');
+    this.userService.loginEmail('a@a.com', 'aaaaaa');
   }
 
   resetPassword() {
