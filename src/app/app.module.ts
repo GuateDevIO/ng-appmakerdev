@@ -12,11 +12,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 // AngularFire2 Modules
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireStorageModule } from 'angularfire2/storage';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFireFunctionsModule } from 'angularfire2/functions';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireFunctionsModule } from '@angular/fire/functions';
 
 import { environment } from '../environments/environment';
 
@@ -42,8 +42,8 @@ import { environment } from '../environments/environment';
       environment.firebaseConfig,
       'app-maker-developers'
     ),
-    AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireFunctionsModule
   ],

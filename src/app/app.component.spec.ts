@@ -7,11 +7,9 @@ import { CoreModule } from '@app/core';
 
 import { AppComponent } from './app.component';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireStorageModule } from 'angularfire2/storage';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFireFunctionsModule } from 'angularfire2/functions';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { environment } from '../environments/environment';
 
@@ -28,10 +26,8 @@ describe('AppComponent', () => {
             environment.firebaseConfig,
             'app-maker-developers'
           ),
-          AngularFirestoreModule,
           AngularFireAuthModule,
-          AngularFireStorageModule,
-          AngularFireFunctionsModule
+          AngularFirestoreModule
         ],
         declarations: [AppComponent]
       }).compileComponents();
