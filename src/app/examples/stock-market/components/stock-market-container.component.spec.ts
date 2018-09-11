@@ -33,13 +33,8 @@ describe('StockMarketContainerComponent', () => {
   const getExchange = () =>
     fixture.debugElement.query(By.css('mat-card mat-card-content'));
 
-  const getChange = () =>
-    fixture.debugElement.query(By.css('mat-card mat-card-subtitle'));
-
   const getCaretUpDownItem = () =>
-    fixture.debugElement.query(
-      By.css('mat-card mat-icon[fontIcon="fa-caret-down"]')
-    );
+    fixture.debugElement.query(By.css('mat-card mat-icon'));
 
   describe('given component booted', () => {
     beforeEach(
@@ -166,12 +161,6 @@ describe('StockMarketContainerComponent', () => {
       it('should display correct exchange', () => {
         expect(getExchange().nativeElement.textContent.trim()).toEqual(
           exchange
-        );
-      });
-
-      it('should display correct change', () => {
-        expect(getChange().nativeElement.textContent.trim()).toEqual(
-          `${change} (${changePercent})`
         );
       });
     });

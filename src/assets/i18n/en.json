@@ -39,7 +39,6 @@
     "Responsive layout from battle tested, world most famous UI library",
   "amds.features.typescript":
     "Superior developer experience, code completion, refactoring and less bugs",
-  "amds.features.fontawesome": "Easy to use vector icons and social logos",
   "amds.features.themes":
     "Flexible theming support for provided and custom components",
   "amds.features.themes.title": "Themes",

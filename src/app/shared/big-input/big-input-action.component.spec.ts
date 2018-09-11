@@ -59,12 +59,10 @@ describe('BigInputActionComponent', () => {
     expect(getButton().nativeElement.disabled).toBeTruthy();
   });
 
-  it('should display icon if fontSet and fontIcon properties are set', () => {
-    const template = `<amds-big-input-action fontSet="fas" fontIcon="fa-trash"></amds-big-input-action>`;
+  it('should display icon if fontIcon properties are set', () => {
+    const template = `<amds-big-input-action fontIcon="delete">delete</amds-big-input-action>`;
     fixture = createHostComponent(template);
     expect(getIcon()).toBeTruthy();
-    expect(getIcon().nativeElement.classList.contains('fa-trash')).toBeTruthy();
-    expect(getIcon().nativeElement.classList.contains('fas')).toBeTruthy();
   });
 
   it('should display label with provided text when label property is set', () => {

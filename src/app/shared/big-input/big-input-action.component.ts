@@ -14,7 +14,6 @@ import {
 })
 export class BigInputActionComponent {
   @Input() disabled = false;
-  @Input() fontSet = '';
   @Input() fontIcon = '';
   @Input() label = '';
   @Input() color = '';
