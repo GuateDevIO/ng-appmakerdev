@@ -154,11 +154,6 @@ mat-sidenav-container {
         @media (min-width: map-get($grid-breakpoints, sm)) {
           .signature {
             position: relative;
-
-            a {
-              position: absolute;
-              right: 15px;
-            }
           }
         }
       }
