@@ -116,6 +116,24 @@ export class AppComponent implements OnInit, OnDestroy {
         '../assets/social-icons/phone.svg'
       )
     );
+    iconRegistry.addSvgIcon(
+      'youtube-ic',
+      sanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/social-icons/youtube.svg'
+      )
+    );
+    iconRegistry.addSvgIcon(
+      'googleplus-ic',
+      sanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/social-icons/google-plus.svg'
+      )
+    );
+    iconRegistry.addSvgIcon(
+      'medium-ic',
+      sanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/social-icons/medium.svg'
+      )
+    );
   }
 
   private static trackPageView(event: NavigationEnd) {

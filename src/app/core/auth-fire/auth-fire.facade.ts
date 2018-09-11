@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 import { auth } from 'firebase/app';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import {
   AngularFirestore,
   AngularFirestoreDocument
-} from 'angularfire2/firestore';
+} from '@angular/fire/firestore';
 
 import { Observable, pipe, of, from, defer } from 'rxjs';
 import { first, map, filter, catchError, switchMap, tap } from 'rxjs/operators';
@@ -106,7 +107,11 @@ export class UserFacade {
       map(credential => {
         // successful login
         console.log('Firebase credential: ' + credential.user.uid);
-        this.store.dispatch(new userActions.VerifyUser(credential.user.uid));
+        const payload = {
+          uid: credential.user.uid
+        };
+
+        this.store.dispatch(new userActions.VerifyUser(payload));
         return new userActions.GetUser();
       }),
       catchError(err => {
@@ -122,19 +127,39 @@ export class UserFacade {
     pipe(
       map((action: userActions.VerifyUser) => action.payload),
       switchMap(payload => {
-        console.log('verifyUser$ payload: ' + payload);
+        console.log('verifyUser$ payload: ' + payload.uid);
         return from(
-          this.afs.doc<UserProfile>(`users/${payload}`).valueChanges()
+          this.afs.doc<UserProfile>(`users/${payload.uid}`).valueChanges()
         );
       }),
       map(userData => {
         // successful login
         if (userData) {
           // User is Registered
-          console.log('Firebase data: ' + userData.uid);
+          console.log('Firebase verifyUser data: ' + userData.uid);
+          const message = 'login succsfull';
+
+          /*
+          new User(
+            userData.uid,
+            userData.displayName,
+            userData.photoURL,
+            false,
+            true,
+            message
+          );
+          */
+          this.snackBar.open('Login success', 'Check activity', {
+            duration: 2500
+          });
+
           return new userActions.LoginSuccess();
         } else {
           // User is NOT Registered
+          const message = 'Welcome to App Maker Devs';
+          this.snackBar.open('Welcome success', 'Check Profile', {
+            duration: 2500
+          });
           return new userActions.WelcomeUser();
         }
       }),
@@ -189,8 +214,8 @@ export class UserFacade {
 
   @Effect({ dispatch: false })
   init$: Observable<any> = defer(() => {
+    console.log('Effect init$ GetUser');
     this.store.dispatch(new userActions.GetUser());
-    console.log('Effect INIT GetUser');
   });
 
   // ************************************************
@@ -200,6 +225,7 @@ export class UserFacade {
     private actions$: Actions,
     private store: Store<AppState>,
     private router: Router,
+    private snackBar: MatSnackBar,
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore
   ) {}

@@ -13,9 +13,9 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { UserFacade } from '../app/core/auth-fire/auth-fire.facade';
 
 import { environment } from '../environments/environment';
@@ -108,6 +108,24 @@ export class TestingModule {
       'phone-ic',
       sanitizer.bypassSecurityTrustResourceUrl(
         '../assets/social-icons/phone.svg'
+      )
+    );
+    iconRegistry.addSvgIcon(
+      'youtube-ic',
+      sanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/social-icons/youtube.svg'
+      )
+    );
+    iconRegistry.addSvgIcon(
+      'googleplus-ic',
+      sanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/social-icons/google-plus.svg'
+      )
+    );
+    iconRegistry.addSvgIcon(
+      'medium-ic',
+      sanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/social-icons/medium.svg'
       )
     );
   }
