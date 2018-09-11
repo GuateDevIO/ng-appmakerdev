@@ -56,6 +56,15 @@
           &:hover {
             color: mat-color($accent);
           }
+          mat-icon #Shape {
+            fill: mat-color($primary, lighter);
+            &:hover {
+              fill: mat-color($accent);
+            }
+          }
+          #Rectangle-path {
+            fill: mat-color($primary, darker);
+          }
         }
       }
     }
