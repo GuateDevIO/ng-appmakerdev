@@ -1,17 +1,22 @@
 import { Action } from '@ngrx/store';
-import { User } from './auth-fire.model';
 
-export const GET_USER = '[Auth] Get user';
-export const AUTHENTICATED = '[Auth] User Authenticated';
-export const NOT_AUTHENTICATED = '[Auth] User NOT Authenticated';
-export const EMAIL_LOGIN = '[Auth] Email login action';
-export const GOOGLE_LOGIN = '[Auth] Google login action';
-export const VERIFY_USER = '[Auth] Verify user';
-export const LOGIN_SUCCESS = '[Auth] Login success';
-export const LOGOUT_USER = '[Auth] Logout user';
-export const LOGOUT_SUCCESS = '[Auth] Logout success';
-export const WELCOME_USER = '[Auth] Welcome user';
-export const AUTH_ERROR = '[Auth] Error';
+export const GET_USER = '[Auth] GET_USER action';
+export const AUTHENTICATED = '[Auth] AUTHENTICATED action';
+export const NOT_AUTHENTICATED = '[Auth] NOT_AUTHENTICATED action';
+export const EMAIL_LOGIN = '[Auth] EMAIL_LOGIN action';
+export const EMAIL_SIGN_UP = '[Auth] EMAIL_SIGN_UP action';
+export const GOOGLE_LOGIN = '[Auth] GOOGLE_LOGIN action';
+export const FACEBOOK_LOGIN = '[Auth] FACEBOOK_LOGIN action';
+export const TWITTER_LOGIN = '[Auth] TWITTER_LOGIN action';
+export const GITHUB_LOGIN = '[Auth] GITHUB_LOGIN action';
+export const UPDATE_USER = '[Auth] UPDATE_USER action';
+export const UPDATE_SUCCESS = '[Auth] UPDATE_SUCCESS action';
+export const VERIFY_USER = '[Auth] VERIFY_USER action';
+export const LOGIN_SUCCESS = '[Auth] LOGIN_SUCCESS action';
+export const LOGOUT_USER = '[Auth] LOGOUT_USER action';
+export const LOGOUT_SUCCESS = '[Auth] LOGOUT_SUCCESS action';
+export const WELCOME_USER = '[Auth] WELCOME_USER action';
+export const AUTH_ERROR = '[Auth] AUTH_ERROR action';
 
 // Get User AuthState
 export class GetUser implements Action {
@@ -29,6 +34,12 @@ export class NotAuthenticated implements Action {
   constructor(public payload?: any) {}
 }
 
+// Email Sign Up Actions
+export class EmailSignUp implements Action {
+  readonly type = EMAIL_SIGN_UP;
+  constructor(public payload?: any) {}
+}
+
 // Email Login Actions
 export class EmailLogin implements Action {
   readonly type = EMAIL_LOGIN;
@@ -38,6 +49,36 @@ export class EmailLogin implements Action {
 // Google Login Actions
 export class GoogleLogin implements Action {
   readonly type = GOOGLE_LOGIN;
+  constructor(public payload?: any) {}
+}
+
+// Facebook Login Actions
+export class FacebookLogin implements Action {
+  readonly type = FACEBOOK_LOGIN;
+  constructor(public payload?: any) {}
+}
+
+// Twitter Login Actions
+export class TwitterLogin implements Action {
+  readonly type = TWITTER_LOGIN;
+  constructor(public payload?: any) {}
+}
+
+// Github Login Actions
+export class GithubLogin implements Action {
+  readonly type = GITHUB_LOGIN;
+  constructor(public payload?: any) {}
+}
+
+// User Update Actions
+export class UpdateUser implements Action {
+  readonly type = UPDATE_USER;
+  constructor(public payload?: any) {}
+}
+
+// User Update Success Actions
+export class UpdateSuccess implements Action {
+  readonly type = UPDATE_SUCCESS;
   constructor(public payload?: any) {}
 }
 
@@ -80,8 +121,14 @@ export type All =
   | GetUser
   | Authenticated
   | NotAuthenticated
+  | EmailSignUp
   | EmailLogin
   | GoogleLogin
+  | FacebookLogin
+  | TwitterLogin
+  | GithubLogin
+  | UpdateUser
+  | UpdateSuccess
   | VerifyUser
   | LoginSuccess
   | LogoutUser

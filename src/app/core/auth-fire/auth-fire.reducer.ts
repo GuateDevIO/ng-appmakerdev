@@ -22,37 +22,55 @@ export namespace UsersQuery {
 export function userReducer(state: User = defaultUser, action: Action) {
   switch (action.type) {
     case userActions.GET_USER:
-      return { ...state, loading: true, notify: false };
+      return { ...state, loading: true };
 
     case userActions.AUTHENTICATED:
-      return { ...state, ...action.payload, loading: false, notify: false };
+      return { ...state, ...action.payload, loading: false };
 
     case userActions.NOT_AUTHENTICATED:
-      return { ...state, ...defaultUser, loading: false, notify: false };
+      return { ...state, ...defaultUser, loading: false };
+
+    case userActions.EMAIL_SIGN_UP:
+      return { ...state, ...action.payload, loading: true };
 
     case userActions.EMAIL_LOGIN:
-      return { ...state, loading: true, notify: false };
+      return { ...state, ...action.payload, loading: true };
 
     case userActions.GOOGLE_LOGIN:
-      return { ...state, loading: true, notify: false };
+      return { ...state, loading: true };
+
+    case userActions.FACEBOOK_LOGIN:
+      return { ...state, loading: true };
+
+    case userActions.TWITTER_LOGIN:
+      return { ...state, loading: true };
+
+    case userActions.GITHUB_LOGIN:
+      return { ...state, loading: true };
+
+    case userActions.UPDATE_USER:
+      return { ...state, ...action.payload, loading: true };
+
+    case userActions.UPDATE_SUCCESS:
+      return { ...state, loading: false };
 
     case userActions.VERIFY_USER:
-      return { ...state, ...action.payload, loading: true, notify: false };
+      return { ...state, loading: true };
 
     case userActions.LOGIN_SUCCESS:
-      return { ...state, loading: false, notify: true };
+      return { ...state, loading: false };
 
     case userActions.LOGOUT_USER:
-      return { ...state, loading: true, notify: false };
+      return { ...state, loading: true };
 
     case userActions.LOGOUT_SUCCESS:
-      return { ...state, ...defaultUser, loading: false, notify: true };
+      return { ...state, loading: false };
 
     case userActions.WELCOME_USER:
-      return { ...state, loading: true, notify: true };
+      return { ...state, loading: false };
 
     case userActions.AUTH_ERROR:
-      return { ...state, ...action.payload, loading: false, notify: true };
+      return { ...state, ...action.payload, loading: false };
 
     default:
       return state;

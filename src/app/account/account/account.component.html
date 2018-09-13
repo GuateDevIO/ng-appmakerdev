@@ -1,6 +1,5 @@
-<div class="content" [@routeAnimations]="true">
+<div [@routeAnimations]="o.isActivated && o.activatedRoute.routeConfig.path">
 
-    <router-outlet></router-outlet>
-
+    <router-outlet #o="outlet"></router-outlet>
 
 </div>

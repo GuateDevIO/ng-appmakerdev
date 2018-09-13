@@ -1,7 +1,7 @@
 <div class="wrapper">
   <mat-card class="heading-card" [class.mat-elevation-z0]="true">
     <img mat-card-image src="https://tpc.googlesyndication.com/simgad/5087173954933374359" [ngClass]="routeAnimationsElements"
-      alt="login header">
+      alt="login header" (click)="goRegister()">
   </mat-card>
 
   <div class="container">
@@ -16,7 +16,7 @@
             <h2 class="title" [ngClass]="routeAnimationsElements">
                 {{ 'amds.account.login.title' | translate }}
             </h2>
-            <button mat-flat-button color="primary" [ngClass]="routeAnimationsElements">{{ 'amds.account.login.register-now' | translate }}</button>
+            <button mat-flat-button color="primary" (click)="goRegister()" [ngClass]="routeAnimationsElements">{{ 'amds.account.login.register-now' | translate }}</button>
 
           </mat-card-content>
         </mat-card>
@@ -36,35 +36,33 @@
             <h4 class="mat-subheading-1" [ngClass]="routeAnimationsElements">{{ 'amds.account.login.sign-sub-head' | translate }}</h4>
 
             <div class="social-btn">
-              <button class="btn-google" (click)="signInWithGoogle()" mat-raised-button [ngClass]="routeAnimationsElements">
+              <button class="btn-google" mat-raised-button (click)="signInWithGoogle()" [ngClass]="routeAnimationsElements">
                 <mat-icon svgIcon="google-ic"></mat-icon>
                 <span>{{ 'amds.account.login.sign-google' | translate }}</span>
               </button>
             </div>
             <div class="social-btn">
-              <button class="btn-fb" mat-raised-button [ngClass]="routeAnimationsElements">
+              <button class="btn-fb" mat-raised-button (click)="signInWithFacebook()" [ngClass]="routeAnimationsElements">
                 <mat-icon svgIcon="facebook-ic"></mat-icon>
                 <span>{{ 'amds.account.login.sign-facebook' | translate }}</span>
               </button>
             </div>
             <div class="social-btn">
-              <button class="btn-twitter" mat-raised-button [ngClass]="routeAnimationsElements">
+              <button class="btn-twitter" mat-raised-button (click)="signInWithTwitter()" [ngClass]="routeAnimationsElements">
                 <mat-icon svgIcon="twitter-ic"></mat-icon>
                 <span>{{ 'amds.account.login.sign-twitter' | translate }}</span>
               </button>
             </div>
             <div class="social-btn">
-                <button class="btn-github" mat-raised-button [ngClass]="routeAnimationsElements">
+                <button class="btn-github" mat-raised-button (click)="signInWithGithub()" [ngClass]="routeAnimationsElements">
                   <mat-icon svgIcon="github-ic"></mat-icon>
                   <span>{{ 'amds.account.login.sign-github' | translate }}</span>
                 </button>
             </div>
 
-
             <div class="em-or">
               <span>{{ 'amds.account.login.sign-or' | translate }}</span>
             </div>
-
 
             <form class="form-container" [formGroup]="loginForm" (ngSubmit)="submitHandler()" [ngClass]="routeAnimationsElements">
               

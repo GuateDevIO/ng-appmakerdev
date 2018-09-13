@@ -8,8 +8,6 @@ export class User {
     public uid: string,
     public displayName: string,
     public photoUrl: string,
-    public loading?: boolean,
-    public notify?: boolean,
-    public message?: string
+    public loading?: boolean
   ) {}
 }

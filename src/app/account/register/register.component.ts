@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ROUTE_ANIMATIONS_ELEMENTS } from '@app/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { UserFacade } from '../../core/auth-fire/auth-fire.facade';
+import { User } from '../../core/auth-fire/auth-fire.model';
 
 @Component({
   selector: 'amds-register',
@@ -13,7 +16,14 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   hidePass = true;
 
-  constructor(private router: Router, private fb: FormBuilder) {}
+  // Observable User Facade property
+  user$: Observable<User> = this.userService.user$;
+
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private userService: UserFacade
+  ) {}
 
   ngOnInit() {
     // Register Form Field configuration and validators
@@ -28,15 +38,35 @@ export class RegisterComponent implements OnInit {
     this.registerForm.patchValue({ email: formEmail + '@' });
   }
 
-  signInWithGoogle() {
-    console.log('sign in with Google');
-  }
-
   submitHandler() {
-    console.log('sign in with Email Address');
+    // Sign up with Email Address
+    console.log('sign up with Email Address');
+    const formData = this.registerForm.value;
+    this.userService.signUpEmail(formData.email, formData.password);
   }
 
-  resetPassword() {
-    console.log('reset password');
+  signUpWithGoogle() {
+    console.log('sign up with Google');
+    this.userService.loginGoogle();
+  }
+
+  signUpWithFacebook() {
+    console.log('sign up with Faceebook');
+    this.userService.loginFacebook();
+  }
+
+  signUpWithTwitter() {
+    console.log('sign up with Twitter');
+    this.userService.loginTwitter();
+  }
+
+  signUpWithGithub() {
+    console.log('sign up with Github');
+    this.userService.loginGithub();
+  }
+
+  goLogin() {
+    console.log('Redirect to Register Page');
+    this.router.navigate(['account/login']);
   }
 }
