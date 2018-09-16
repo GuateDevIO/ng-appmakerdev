@@ -24,6 +24,11 @@
   "amds.examples.todos.filter.description": "Mostrando",
   "amds.examples.todos.filter.items": "recordatorios",
   "amds.examples.todos.filter.item": "recordatorio",
+  "amds.examples.todos.filter.notification": "Filtrado a",
+  "amds.examples.todos.remove.notification": "Hechos eliminados",
+  "amds.examples.todos.toggle.notification": "Alternadas de {{name}} a",
+  "amds.examples.todos.added.notification": "{{name}} agregado",
+  "amds.examples.todos.undo": "Deshacer",
   "amds.examples.stocks.title": "Mercado de valores",
   "amds.examples.stocks.symbol": "Símbolo de la acción",
   "amds.examples.stocks.description":

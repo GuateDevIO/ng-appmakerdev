@@ -23,6 +23,11 @@
   "amds.examples.todos.filter.description": "Displaying",
   "amds.examples.todos.filter.items": "todos",
   "amds.examples.todos.filter.item": "todo",
+  "amds.examples.todos.filter.notification": "Filtered to",
+  "amds.examples.todos.remove.notification": "Removed done todos",
+  "amds.examples.todos.toggle.notification": "Toggled {{name}} to",
+  "amds.examples.todos.added.notification": "{{name}} added",
+  "amds.examples.todos.undo": "Undo",
   "amds.examples.stocks.title": "Stock market",
   "amds.examples.stocks.symbol": "Stock symbol",
   "amds.examples.stocks.description":

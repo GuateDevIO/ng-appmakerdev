@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TranslateModule } from '@ngx-translate/core';
 
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
@@ -21,6 +22,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatStepperModule } from '@angular/material/stepper';
 
 import { BigInputComponent } from './big-input/big-input.component';
 import { BigInputActionComponent } from './big-input/big-input-action.component';
@@ -33,6 +36,7 @@ import { BigInputActionComponent } from './big-input/big-input-action.component'
 
     TranslateModule,
 
+    FlexLayoutModule,
     MatButtonModule,
     MatToolbarModule,
     MatSelectModule,
@@ -49,7 +53,9 @@ import { BigInputActionComponent } from './big-input/big-input-action.component'
     MatTooltipModule,
     MatSnackBarModule,
     MatSlideToggleModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatDividerModule,
+    MatStepperModule
   ],
   declarations: [BigInputComponent, BigInputActionComponent],
   exports: [
@@ -59,6 +65,7 @@ import { BigInputActionComponent } from './big-input/big-input-action.component'
 
     TranslateModule,
 
+    FlexLayoutModule,
     MatButtonModule,
     MatMenuModule,
     MatTabsModule,
@@ -76,6 +83,8 @@ import { BigInputActionComponent } from './big-input/big-input-action.component'
     MatSnackBarModule,
     MatSlideToggleModule,
     MatProgressBarModule,
+    MatDividerModule,
+    MatStepperModule,
 
     BigInputComponent,
     BigInputActionComponent

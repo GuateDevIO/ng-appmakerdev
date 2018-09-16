@@ -11,7 +11,7 @@ export const FEATURE_NAME = 'examples';
 
 export const reducers: ActionReducerMap<ExamplesState> = {
   todos: todosReducer,
-  stockMarket: stockMarketReducer
+  stocks: stockMarketReducer
 };
 
 export const selectExamples = createFeatureSelector<State, ExamplesState>(
@@ -20,7 +20,7 @@ export const selectExamples = createFeatureSelector<State, ExamplesState>(
 
 export interface ExamplesState {
   todos: TodosState;
-  stockMarket: StockMarketState;
+  stocks: StockMarketState;
 }
 
 export interface State extends AppState {
