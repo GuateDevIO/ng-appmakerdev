@@ -9,13 +9,13 @@ export const GOOGLE_LOGIN = '[Auth] GOOGLE_LOGIN action';
 export const FACEBOOK_LOGIN = '[Auth] FACEBOOK_LOGIN action';
 export const TWITTER_LOGIN = '[Auth] TWITTER_LOGIN action';
 export const GITHUB_LOGIN = '[Auth] GITHUB_LOGIN action';
-export const UPDATE_USER = '[Auth] UPDATE_USER action';
-export const UPDATE_SUCCESS = '[Auth] UPDATE_SUCCESS action';
 export const VERIFY_USER = '[Auth] VERIFY_USER action';
+export const LOGIN_USER = '[Auth] LOGIN_USER action';
+export const NEW_USER = '[Auth] NEW_USER action';
 export const LOGIN_SUCCESS = '[Auth] LOGIN_SUCCESS action';
+export const WELCOME_USER = '[Auth] WELCOME_USER action';
 export const LOGOUT_USER = '[Auth] LOGOUT_USER action';
 export const LOGOUT_SUCCESS = '[Auth] LOGOUT_SUCCESS action';
-export const WELCOME_USER = '[Auth] WELCOME_USER action';
 export const AUTH_ERROR = '[Auth] AUTH_ERROR action';
 
 // Get User AuthState
@@ -70,21 +70,21 @@ export class GithubLogin implements Action {
   constructor(public payload?: any) {}
 }
 
-// User Update Actions
-export class UpdateUser implements Action {
-  readonly type = UPDATE_USER;
-  constructor(public payload?: any) {}
-}
-
-// User Update Success Actions
-export class UpdateSuccess implements Action {
-  readonly type = UPDATE_SUCCESS;
-  constructor(public payload?: any) {}
-}
-
 // Verify User Actions
 export class VerifyUser implements Action {
   readonly type = VERIFY_USER;
+  constructor(public payload?: any) {}
+}
+
+// New User AuthState
+export class LoginUser implements Action {
+  readonly type = LOGIN_USER;
+  constructor(public payload?: any) {}
+}
+
+// New User AuthState
+export class NewUser implements Action {
+  readonly type = NEW_USER;
   constructor(public payload?: any) {}
 }
 
@@ -94,15 +94,15 @@ export class LoginSuccess implements Action {
   constructor(public payload?: any) {}
 }
 
-// Logout Actions
-export class LogoutUser implements Action {
-  readonly type = LOGOUT_USER;
-  constructor(public payload?: any) {}
-}
-
 // Welcome User Actions
 export class WelcomeUser implements Action {
   readonly type = WELCOME_USER;
+  constructor(public payload?: any) {}
+}
+
+// Logout Actions
+export class LogoutUser implements Action {
+  readonly type = LOGOUT_USER;
   constructor(public payload?: any) {}
 }
 
@@ -127,11 +127,11 @@ export type All =
   | FacebookLogin
   | TwitterLogin
   | GithubLogin
-  | UpdateUser
-  | UpdateSuccess
   | VerifyUser
+  | LoginUser
+  | NewUser
   | LoginSuccess
+  | WelcomeUser
   | LogoutUser
   | LogoutSuccess
-  | WelcomeUser
   | AuthError;

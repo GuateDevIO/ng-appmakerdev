@@ -66,7 +66,7 @@ export class RegisterComponent implements OnInit {
   }
 
   goLogin() {
-    console.log('Redirect to Register Page');
+    console.log('Redirect to Login Page');
     this.router.navigate(['account/login']);
   }
 }

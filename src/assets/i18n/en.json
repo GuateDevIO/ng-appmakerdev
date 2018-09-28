@@ -62,5 +62,30 @@
   "amds.settings.themes.night-mode": "Auto night mode (from 21:00 to 7:00)",
   "amds.settings.animations": "Animations",
   "amds.settings.animations.page": "Navigation whole page transition",
-  "amds.settings.animations.elements": "Navigation page elements slide up"
+  "amds.settings.animations.elements": "Navigation page elements slide up",
+
+  "amds.auth-fire.signin-success": "Signed in as {{email}}",
+  "amds.auth-fire.signup-success": "Signed up as {{email}}",
+
+  "amds.auth-fire.error-wrong-pass": "Invalid password. Try again",
+  "amds.auth-fire.action-reset-pass": "Reset password",
+
+  "amds.auth-fire.error-user-not-found": "The user does not exist",
+  "amds.auth-fire.action-register-account": "Register Account",
+
+  "amds.auth-fire.error-user-disabled": "The Account is disabled",
+  "amds.auth-fire.action-contact-admin": "Contact Administrator",
+
+  "amds.auth-fire.error-email-already-used": "The user already exists",
+  "amds.auth-fire.action-login-account": "Login here",
+
+  "amds.auth-fire.error-credential-exists": "Email address already exists",
+  "amds.auth-fire.action-credential-account": "Login to account",
+
+  "amds.auth-fire.error-popup-closed": "Popup window was closed, try again",
+  "amds.auth-fire.action-popup-blocked": "Popup window was blocked, try again",
+  "amds.auth-fire.action-popup-cancelled":
+    "Popup window was cancelled, try again",
+
+  "amds.auth-fire.error-unkown": "An error occurred. Please try again"
 }

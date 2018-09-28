@@ -5,11 +5,7 @@ import { User } from './auth-fire.model';
 
 export type Action = userActions.All;
 
-const defaultUser = new User(
-  null,
-  'GUEST',
-  'https://i.stack.imgur.com/nUJ73.png'
-);
+const defaultUser = new User(null, 'nameless', null);
 
 /**
  * Define all store queries for User
@@ -48,25 +44,25 @@ export function userReducer(state: User = defaultUser, action: Action) {
     case userActions.GITHUB_LOGIN:
       return { ...state, loading: true };
 
-    case userActions.UPDATE_USER:
+    case userActions.VERIFY_USER:
       return { ...state, ...action.payload, loading: true };
 
-    case userActions.UPDATE_SUCCESS:
-      return { ...state, loading: false };
+    case userActions.LOGIN_USER:
+      return { ...state, ...action.payload, loading: true };
 
-    case userActions.VERIFY_USER:
-      return { ...state, loading: true };
+    case userActions.NEW_USER:
+      return { ...state, ...action.payload, loading: true };
 
     case userActions.LOGIN_SUCCESS:
-      return { ...state, loading: false };
+      return { ...state, ...action.payload, loading: false };
+
+    case userActions.WELCOME_USER:
+      return { ...state, ...action.payload, loading: false };
 
     case userActions.LOGOUT_USER:
       return { ...state, loading: true };
 
     case userActions.LOGOUT_SUCCESS:
-      return { ...state, loading: false };
-
-    case userActions.WELCOME_USER:
       return { ...state, loading: false };
 
     case userActions.AUTH_ERROR:

@@ -67,5 +67,32 @@
   "amds.settings.animations.page":
     "Navegación de transición de página completa",
   "amds.settings.animations.elements":
-    "Los elementos de la página de navegación se deslizan"
+    "Los elementos de la página de navegación se deslizan",
+
+  "amds.auth-fire.signin-success": "Conectado como {{email}}",
+  "amds.auth-fire.signup-success": "Registrado como {{email}}",
+
+  "amds.auth-fire.error-wrong-pass": "Contraseña invalida. Inténtalo de nuevo",
+  "amds.auth-fire.action-reset-pass": "Restablecer contraseña",
+
+  "amds.auth-fire.error-user-not-found": "El usuario no existe",
+  "amds.auth-fire.action-register-account": "Registrar Cuenta",
+
+  "amds.auth-fire.error-user-disabled": "La cuenta está deshabilitada",
+  "amds.auth-fire.action-contact-admin": "Contactar al Administrador",
+
+  "amds.auth-fire.error-email-already-used": "El usuario ya existe",
+  "amds.auth-fire.action-login-account": "Iniciar sesión aquí",
+
+  "amds.auth-fire.error-credential-exists": "Correo electrónico ya existe",
+  "amds.auth-fire.action-credential-account": "Ingresar a la cuenta",
+
+  "amds.auth-fire.error-popup-closed":
+    "Ventana emergente fue cerrada, inténtalo de nuevo",
+  "amds.auth-fire.action-popup-blocked":
+    "Ventana emergente fue bloqueada, inténtalo de nuevo",
+  "amds.auth-fire.action-popup-cancelled":
+    "Ventana emergente fue cancelada, inténtalo de nuevo",
+
+  "amds.auth-fire.error-unkown": "Ha ocurrido un error. Intente de nuevo"
 }

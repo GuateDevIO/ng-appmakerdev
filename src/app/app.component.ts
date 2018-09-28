@@ -149,11 +149,12 @@ export class AppComponent implements OnInit, OnDestroy {
     // Subscribe to User facade authentication
     this.user$.subscribe(user => {
       console.log('ngOnInit User ID:' + user.uid);
-
       if (user.uid !== null) {
-        this.userPhotoUrl = this.sanitizer.bypassSecurityTrustStyle(
-          `url(${user.photoUrl}) no-repeat center center/40px 40px`
-        );
+        if (user.photoUrl !== null) {
+          this.userPhotoUrl = this.sanitizer.bypassSecurityTrustStyle(
+            `url(${user.photoUrl}) no-repeat center center/40px 40px`
+          );
+        }
         this.isAuthenticated = true;
       } else {
         this.isAuthenticated = false;

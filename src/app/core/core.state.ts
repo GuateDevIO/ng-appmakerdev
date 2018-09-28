@@ -33,8 +33,6 @@ export const selectAuthState = createFeatureSelector<AppState, AuthState>(
   'auth'
 );
 
-export const selectUserState = createFeatureSelector<AppState>('user');
-
 export interface AppState {
   auth: AuthState;
   user: User;

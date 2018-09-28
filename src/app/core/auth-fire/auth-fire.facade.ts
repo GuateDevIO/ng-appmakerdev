@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
+import { TranslateService } from '@ngx-translate/core';
 
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -13,12 +14,10 @@ import {
 
 import { Observable, pipe, of, from, defer } from 'rxjs';
 import {
-  first,
   map,
-  filter,
   catchError,
   switchMap,
-  mergeMap,
+  concatMap,
   tap,
   take
 } from 'rxjs/operators';
@@ -33,20 +32,12 @@ type Action = userActions.All;
 interface UserProfile {
   uid: string;
   email?: string | null;
-  photoURL?: string;
   displayName?: string;
-  organization?: string;
-  country?: string;
+  photoURL?: string;
   provider?: string;
   verified?: boolean;
-}
-
-interface UserUpdate {
-  uid: string;
-  email?: string | null;
-  photoURL?: string;
-  displayName?: string;
-  provider?: string;
+  organization?: string;
+  country?: string;
 }
 
 @Injectable()
@@ -67,11 +58,11 @@ export class UserFacade {
       switchMap(payload => this.afAuth.authState),
       map(authData => {
         if (authData) {
-          console.log('getUser$: User logged in');
+          console.log('getUser$: User is logged in');
           const user = new User(
             authData.uid,
-            authData.displayName,
-            authData.photoURL
+            authData.displayName || 'nameless user',
+            authData.photoURL || 'https://angularfirebase.com/images/logo.png'
           );
           return new userActions.Authenticated(user);
         } else {
@@ -80,7 +71,7 @@ export class UserFacade {
         }
       }),
       catchError((err, caught) => {
-        this.store.dispatch(new userActions.AuthError());
+        this.store.dispatch(new userActions.AuthError({ error: err.message }));
         return caught;
       })
     )
@@ -100,23 +91,18 @@ export class UserFacade {
       }),
       map(credential => {
         console.log('signUpEmail$ success > uid: ' + credential.user.uid);
-        credential.user.updateProfile({
-          displayName: 'nameless email user',
-          photoURL: 'https://goo.gl/Fz9nrQ'
-        });
         const payload = {
           uid: credential.user.uid,
           email: credential.user.email,
-          photoURL: 'https://goo.gl/Fz9nrQ',
-          displayName: 'nameless email user',
-          provider: 'email',
+          displayName: 'nameless email',
+          photoURL: 'https://angularfirebase.com/images/logo.png',
+          provider: credential.user.providerId,
           verified: false
         };
-        this.store.dispatch(new userActions.GetUser());
-        return new userActions.UpdateUser(payload);
+        return new userActions.NewUser(payload);
       }),
       catchError((err, caught) => {
-        this.store.dispatch(new userActions.AuthError({ error: err.message }));
+        this.store.dispatch(new userActions.AuthError({ error: err.code }));
         return caught;
       })
     )
@@ -137,17 +123,12 @@ export class UserFacade {
       map(credential => {
         console.log('loginEmail$ success > uid: ' + credential.user.uid);
         const payload = {
-          uid: credential.user.uid,
-          email: credential.user.email,
-          photoURL: credential.user.photoURL || 'https://goo.gl/Fz9nrQ',
-          displayName: credential.user.displayName || 'nameless email',
-          provider: 'email'
+          uid: credential.user.uid
         };
-        this.store.dispatch(new userActions.GetUser());
-        return new userActions.UpdateUser(payload);
+        return new userActions.VerifyUser(payload);
       }),
       catchError((err, caught) => {
-        this.store.dispatch(new userActions.AuthError({ error: err.message }));
+        this.store.dispatch(new userActions.AuthError({ error: err.code }));
         return caught;
       })
     )
@@ -167,17 +148,12 @@ export class UserFacade {
       map(credential => {
         console.log('loginGoogle$ success > uid: ' + credential.user.uid);
         const payload = {
-          uid: credential.user.uid,
-          email: credential.user.email || null,
-          photoURL: credential.user.photoURL || 'https://goo.gl/Fz9nrQ',
-          displayName: credential.user.displayName || 'nameless google',
-          provider: 'google'
+          uid: credential.user.uid
         };
-        this.store.dispatch(new userActions.GetUser());
-        return new userActions.UpdateUser(payload);
+        return new userActions.VerifyUser(payload);
       }),
       catchError((err, caught) => {
-        this.store.dispatch(new userActions.AuthError({ error: err.message }));
+        this.store.dispatch(new userActions.AuthError({ error: err.code }));
         return caught;
       })
     )
@@ -197,17 +173,12 @@ export class UserFacade {
       map(credential => {
         console.log('loginFacebook$ success > uid: ' + credential.user.uid);
         const payload = {
-          uid: credential.user.uid,
-          email: credential.user.email || null,
-          photoURL: credential.user.photoURL || 'https://goo.gl/Fz9nrQ',
-          displayName: credential.user.displayName || 'nameless facebook',
-          provider: 'facebook'
+          uid: credential.user.uid
         };
-        this.store.dispatch(new userActions.GetUser());
-        return new userActions.UpdateUser(payload);
+        return new userActions.VerifyUser(payload);
       }),
       catchError((err, caught) => {
-        this.store.dispatch(new userActions.AuthError({ error: err.message }));
+        this.store.dispatch(new userActions.AuthError({ error: err.code }));
         return caught;
       })
     )
@@ -227,17 +198,12 @@ export class UserFacade {
       map(credential => {
         console.log('loginTwitter$ success > uid: ' + credential.user.uid);
         const payload = {
-          uid: credential.user.uid,
-          email: credential.user.email || null,
-          photoURL: credential.user.photoURL || 'https://goo.gl/Fz9nrQ',
-          displayName: credential.user.displayName || 'nameless twitter',
-          provider: 'twitter'
+          uid: credential.user.uid
         };
-        this.store.dispatch(new userActions.GetUser());
-        return new userActions.UpdateUser(payload);
+        return new userActions.VerifyUser(payload);
       }),
       catchError((err, caught) => {
-        this.store.dispatch(new userActions.AuthError({ error: err.message }));
+        this.store.dispatch(new userActions.AuthError({ error: err.code }));
         return caught;
       })
     )
@@ -257,59 +223,28 @@ export class UserFacade {
       map(credential => {
         console.log('loginGithub$ success > uid: ' + credential.user.uid);
         const payload = {
-          uid: credential.user.uid,
-          email: credential.user.email || null,
-          photoURL: credential.user.photoURL || 'https://goo.gl/Fz9nrQ',
-          displayName: credential.user.displayName || 'nameless github',
-          provider: 'github'
+          uid: credential.user.uid
         };
-        this.store.dispatch(new userActions.GetUser());
-        return new userActions.UpdateUser(payload);
+        return new userActions.VerifyUser(payload);
       }),
       catchError((err, caught) => {
-        this.store.dispatch(new userActions.AuthError({ error: err.message }));
+        this.store.dispatch(new userActions.AuthError({ error: err.code }));
         return caught;
       })
     )
   );
 
   /**
-   * Update user profile information in Firestore
+   * Verify if profile exist in Firestore and REDIRECT USER
    */
-  @Effect()
-  updateUser$: Observable<Action> = this.actions$.pipe(
-    ofType(userActions.UPDATE_USER),
-    pipe(
-      map((action: userActions.UpdateUser) => action.payload),
-      switchMap(payload => {
-        const userRef: AngularFirestoreDocument<UserUpdate> = this.afs.doc(
-          `users/${payload.uid}`
-        );
-        console.log('updateUser$ Firestore write > uid: ' + payload.uid);
-        return of(userRef.set(payload, { merge: true }));
-      }),
-      map(authData => {
-        authData.then(() => {
-          console.log('updateUser$ Doc successfully written! > VerifyUser');
-          this.store.dispatch(new userActions.VerifyUser());
-        });
-        return new userActions.UpdateSuccess();
-      }),
-      catchError((err, caught) => {
-        this.store.dispatch(new userActions.AuthError({ error: err.message }));
-        return caught;
-      })
-    )
-  );
-
   @Effect()
   verifyUser$: Observable<Action> = this.actions$.pipe(
     ofType(userActions.VERIFY_USER),
     pipe(
       map((action: userActions.VerifyUser) => action.payload),
       switchMap(payload => {
-        const uid = this.afAuth.auth.currentUser.uid;
-        console.log('verifyUser$ CHECK Firebase uid: ' + uid);
+        console.log('verifyUser$ payload uid: ' + payload.uid);
+        const uid = payload.uid;
         return from(
           this.afs
             .doc<UserProfile>(`users/${uid}`)
@@ -317,28 +252,48 @@ export class UserFacade {
             .pipe(take(1))
         );
       }),
-      map(authData => {
-        console.log('verifyUser$ Firebase uid: ' + authData.uid);
-        console.log('verifyUser$ Firebase email: ' + authData.email);
-        console.log(
-          'verifyUser$ Firebase displayName: ' + authData.displayName
-        );
-        console.log('verifyUser$ Firebase provider: ' + authData.provider);
-        console.log('verifyUser$ Firebase verified: ' + authData.verified);
+      map(afsData => {
+        if (afsData) {
+          // User is already Registered in Firestore
+          console.log('verifyUser$ afs DATA: TRUE');
+          console.log('verifyUser$ afs uid: ' + afsData.uid);
+          console.log('verifyUser$ afs email: ' + afsData.email);
+          console.log('verifyUser$ afs displayName: ' + afsData.displayName);
+          console.log('verifyUser$ afs photoUrl: ' + afsData.photoURL);
+          console.log('verifyUser$ afs provider: ' + afsData.provider);
+          console.log('verifyUser$ afs verified: ' + afsData.verified);
 
-        if (authData.verified) {
-          console.log('verifyUser$ authData.verified: TRUE');
-
-          const userProvider = authData.provider;
-
-          if (userProvider === 'email') {
-            console.log('verifyUser$ provider: ' + userProvider);
-          }
-          return new userActions.LoginSuccess();
+          const payload = {
+            uid: afsData.uid,
+            email: afsData.email || afsData.displayName,
+            displayName: afsData.displayName,
+            photoURL: afsData.photoURL,
+            provider: afsData.provider,
+            verified: afsData.verified
+          };
+          return new userActions.LoginUser(payload);
         } else {
           // User is NOT Registered in Firestore
-          console.log('verifyUser$ authData.verified: FALSE');
-          return new userActions.WelcomeUser();
+          const afAuthData = this.afAuth.auth.currentUser;
+          console.log('verifyUser$ afs: FALSE');
+          console.log('verifyUser$ afAuth uid: ' + afAuthData.uid);
+          console.log('verifyUser$ afAuth email: ' + afAuthData.email);
+          console.log(
+            'verifyUser$ afAuth displayName: ' + afAuthData.displayName
+          );
+          console.log('verifyUser$ afAuth photoUrl: ' + afAuthData.photoURL);
+          console.log('verifyUser$ afAuth provider: ' + afAuthData.providerId);
+
+          const payload = {
+            uid: afAuthData.uid,
+            email: afAuthData.email || afAuthData.displayName,
+            displayName: afAuthData.displayName || 'update is required',
+            photoURL:
+              afAuthData.photoURL ||
+              'https://angularfirebase.com/images/logo.png',
+            provider: afAuthData.providerId
+          };
+          return new userActions.NewUser(payload);
         }
       }),
       catchError((err, caught) => {
@@ -346,6 +301,62 @@ export class UserFacade {
         return caught;
       })
     )
+  );
+
+  @Effect()
+  loginUser$: Observable<Action> = this.actions$.pipe(
+    ofType(userActions.LOGIN_USER),
+    map((action: userActions.LoginUser) => action.payload),
+    concatMap(payload => [
+      new userActions.GetUser(),
+      new userActions.LoginSuccess(payload)
+    ])
+  );
+
+  @Effect()
+  newUser$: Observable<Action> = this.actions$.pipe(
+    ofType(userActions.NEW_USER),
+    map((action: userActions.NewUser) => action.payload),
+    concatMap(payload => [
+      new userActions.GetUser(),
+      new userActions.WelcomeUser(payload)
+    ])
+  );
+
+  @Effect({ dispatch: false })
+  loginSuccess$ = this.actions$.pipe(
+    ofType(userActions.LOGIN_SUCCESS),
+    map((action: userActions.LoginSuccess) => action.payload),
+    tap(payload => {
+      console.log('loginSuccess$ > user/profile [payload]:');
+      console.log('loginSuccess$ > payload uid:' + payload.uid);
+      console.log('loginSuccess$ > payload email:' + payload.email);
+      console.log('loginSuccess$ > payload displayName:' + payload.displayName);
+      const successMsg = this.translateService.instant(
+        'amds.auth-fire.signin-success',
+        { email: payload.email }
+      );
+      this.showNotification(successMsg, 'Logout');
+      this.router.navigate(['account/reset']);
+    })
+  );
+
+  @Effect({ dispatch: false })
+  welcomeUser$ = this.actions$.pipe(
+    ofType(userActions.WELCOME_USER),
+    map((action: userActions.WelcomeUser) => action.payload),
+    tap(payload => {
+      console.log('welcomeUser$ > account/welcome [payload]:');
+      console.log('welcomeUser$ > payload uid:' + payload.uid);
+      console.log('welcomeUser$ > payload email:' + payload.email);
+      console.log('welcomeUser$ > payload displayName:' + payload.displayName);
+      const welcomeMsg = this.translateService.instant(
+        'amds.auth-fire.signup-success',
+        { email: payload.email }
+      );
+      this.showNotification(welcomeMsg, 'Check Profile');
+      this.router.navigate(['account/welcome']);
+    })
   );
 
   @Effect()
@@ -360,28 +371,8 @@ export class UserFacade {
       map(authData => {
         return new userActions.LogoutSuccess();
       }),
-      catchError(err => of(new userActions.AuthError({ error: err.message })))
+      catchError(err => of(new userActions.AuthError({ error: err.code })))
     )
-  );
-
-  @Effect({ dispatch: false })
-  updateSuccess$ = this.actions$.pipe(
-    ofType(userActions.UPDATE_SUCCESS),
-    tap(() => {
-      console.log('updateSuccess$ > action completed!');
-    })
-  );
-
-  @Effect({ dispatch: false })
-  loginSuccess$ = this.actions$.pipe(
-    ofType(userActions.LOGIN_SUCCESS),
-    tap(() => {
-      console.log('loginSuccess$ > user/profile');
-      this.snackBar.open('Login successfull', 'Logout', {
-        duration: 2500
-      });
-      this.router.navigate(['account/reset']);
-    })
   );
 
   @Effect({ dispatch: false })
@@ -394,20 +385,145 @@ export class UserFacade {
   );
 
   @Effect({ dispatch: false })
-  welcomeUser$ = this.actions$.pipe(
-    ofType(userActions.WELCOME_USER),
-    tap(() => {
-      console.log('welcomeUser$ > account/welcome');
-      this.snackBar.open('Welcome App Maker Dev', 'Update Profile', {
-        duration: 2500
-      });
-      this.router.navigate(['account/welcome']);
+  authError$ = this.actions$.pipe(
+    ofType(userActions.AUTH_ERROR),
+    map((action: userActions.AuthError) => action.payload),
+    tap(payload => {
+      // ******** EMAIL LOGIN ERROR MESSAGES ********
+
+      if (payload.error === 'auth/user-not-found') {
+        console.log('authError$: The user does not exist.');
+        const errorMsg = this.translateService.instant(
+          'amds.auth-fire.error-user-not-found'
+        );
+        const errorAction = this.translateService.instant(
+          'amds.auth-fire.action-register-account'
+        );
+        this.snackBar
+          .open(errorMsg, errorAction, {
+            duration: 4000,
+            panelClass: 'app-notification-overlay'
+          })
+          .onAction()
+          .subscribe(() => this.signUpRedirect());
+      } else if (payload.error === 'auth/wrong-password') {
+        console.log('authError$: Password is invalid or does not exist');
+        const errorMsg = this.translateService.instant(
+          'amds.auth-fire.error-wrong-pass'
+        );
+        const errorAction = this.translateService.instant(
+          'amds.auth-fire.action-reset-pass'
+        );
+        this.snackBar
+          .open(errorMsg, errorAction, {
+            duration: 4000,
+            panelClass: 'app-notification-overlay'
+          })
+          .onAction()
+          .subscribe(() => this.resetPassRedirect());
+      } else if (payload.error === 'auth/user-disabled') {
+        console.log('authError$: The Account is disabled.');
+        const errorMsg = this.translateService.instant(
+          'amds.auth-fire.error-user-disabled'
+        );
+        const errorAction = this.translateService.instant(
+          'amds.auth-fire.action-contact-admin'
+        );
+        this.snackBar
+          .open(errorMsg, errorAction, {
+            duration: 4000,
+            panelClass: 'app-notification-overlay'
+          })
+          .onAction()
+          .subscribe(() => this.resetPassRedirect());
+      } else if (payload.error === 'auth/email-already-in-use') {
+        // ******** EMAIL SIGN UP ERROR MESSAGES ********
+        // Note: The other error codes are beomg handled by ANGULAR REACTIVE FORMS.
+
+        console.log('authError$: The user already exist.');
+        const errorMsg = this.translateService.instant(
+          'amds.auth-fire.error-email-already-used'
+        );
+        const errorAction = this.translateService.instant(
+          'amds.auth-fire.action-login-account'
+        );
+        this.snackBar
+          .open(errorMsg, errorAction, {
+            duration: 4000,
+            panelClass: 'app-notification-overlay'
+          })
+          .onAction()
+          .subscribe(() => this.loginRedirect());
+      } else if (
+        payload.error === 'auth/account-exists-with-different-credential'
+      ) {
+        // ******** OAUTH WITH POPUP ERROR MESSAGES ********
+
+        console.log('authError$: Credential email already exist.');
+        const errorMsg = this.translateService.instant(
+          'amds.auth-fire.error-credential-exists'
+        );
+        const errorAction = this.translateService.instant(
+          'amds.auth-fire.action-credential-account'
+        );
+        this.snackBar
+          .open(errorMsg, errorAction, {
+            duration: 4000,
+            panelClass: 'app-notification-overlay'
+          })
+          .onAction()
+          .subscribe(() => this.loginRedirect());
+      } else if (payload.error === 'auth/popup-closed-by-user') {
+        console.log('authError$: OAuth popup CLOSED, try again.');
+        const errorMsg = this.translateService.instant(
+          'amds.auth-fire.error-popup-closed'
+        );
+        this.zone.run(() => {
+          this.snackBar.open(errorMsg, '', {
+            duration: 3500,
+            panelClass: 'app-notification-overlay'
+          });
+        });
+      } else if (payload.error === 'auth/popup-blocked') {
+        console.log('authError$: OAuth popup is BLOCKED, try again.');
+        const errorMsg = this.translateService.instant(
+          'amds.auth-fire.error-popup-blocked'
+        );
+        this.zone.run(() => {
+          this.snackBar.open(errorMsg, '', {
+            duration: 3500,
+            panelClass: 'app-notification-overlay'
+          });
+        });
+      } else if (payload.error === 'auth/cancelled-popup-request') {
+        console.log('authError$: OAuth popup CANCELLED, try again.');
+        const errorMsg = this.translateService.instant(
+          'amds.auth-fire.error-popup-cancelled'
+        );
+        this.zone.run(() => {
+          this.snackBar.open(errorMsg, '', {
+            duration: 3500,
+            panelClass: 'app-notification-overlay'
+          });
+        });
+      } else {
+        console.log('authError$: UNKOWN ERROR: ' + payload.error);
+        const errorMsg = this.translateService.instant(
+          'amds.auth-fire.error-unkown'
+        );
+        this.zone.run(() => {
+          this.snackBar.open(errorMsg, '', {
+            duration: 3500,
+            panelClass: 'app-notification-overlay'
+          });
+        });
+      }
     })
   );
 
   @Effect({ dispatch: false })
   init$: Observable<any> = defer(() => {
-    console.log('init$ Effect GetUser');
+    console.log('init$ Effect > GetUser');
     this.store.dispatch(new userActions.GetUser());
   });
 
@@ -418,9 +534,11 @@ export class UserFacade {
     private actions$: Actions,
     private store: Store<AppState>,
     private router: Router,
+    private zone: NgZone,
     private snackBar: MatSnackBar,
     private afAuth: AngularFireAuth,
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private translateService: TranslateService
   ) {}
 
   signUpEmail(email: string, password: string): Observable<User> {
@@ -466,6 +584,21 @@ export class UserFacade {
     return this.user$;
   }
 
+  resetPassRedirect(): void {
+    console.log('resetPassRedirect triggered!');
+    this.router.navigate(['account/reset']);
+  }
+
+  signUpRedirect(): void {
+    console.log('signUpRedirect triggered!');
+    this.router.navigate(['account/register']);
+  }
+
+  loginRedirect(): void {
+    console.log('loginRedirect triggered!');
+    this.router.navigate(['account/login']);
+  }
+
   // ******************************************
   // Internal Methods
   // ******************************************
@@ -500,5 +633,12 @@ export class UserFacade {
   protected githubLogin(): Promise<any> {
     const provider = new auth.GithubAuthProvider();
     return this.afAuth.auth.signInWithPopup(provider);
+  }
+
+  private showNotification(message: string, action?: string) {
+    return this.snackBar.open(message, action, {
+      duration: 5000,
+      panelClass: 'app-notification-overlay'
+    });
   }
 }
