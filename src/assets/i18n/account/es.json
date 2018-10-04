@@ -30,6 +30,7 @@
   "amds.account.login.form-terms-b": "condiciones del servicio",
   "amds.account.login.form-terms-c": "y nuestra",
   "amds.account.login.form-terms-d": "política de privacidad",
+
   "amds.account.register.title": "REGISTRAR CUENTA",
   "amds.account.register.btn-login":
     "¿Usuario existente? Clic aquí para ingresar",
@@ -41,5 +42,56 @@
   "amds.account.register.sign-github": "Regístrate con Github",
   "amds.account.register.sign-email": "Regístrate con Correo",
   "amds.account.register.sign-phone": "Regístrate con Telefono",
-  "amds.account.register.sign-or": "o registrarse con"
+  "amds.account.register.sign-or": "o registrarse con",
+
+  "amds.account.welcome.verify-email":
+    "Se envió un enlace de verificación al correo electrónico:",
+  "amds.account.welcome.verify-msg":
+    "Revise su correo y haga clic en el enlace para verificar su cuenta.",
+  "amds.account.welcome.headline": "BIENVENIDO",
+  "amds.account.welcome.subheadline":
+    "Gracias por registrarte! Actualice sus preferencias de perfil:",
+  "amds.account.welcome.step-profile": "Perfil",
+  "amds.account.welcome.step-notifications": "Notificaciones",
+  "amds.account.welcome.step-done": "Listo",
+  "amds.account.welcome.form-name": "Nombre",
+  "amds.account.welcome.form-name-input": "Ingresa tu nombre",
+  "amds.account.welcome.form-name-req": "Ingresa un nombre",
+  "amds.account.welcome.form-company": "Nombre de compañía",
+  "amds.account.welcome.form-company-input": "Ingresa el nombre de tu compañía",
+  "amds.account.welcome.form-language": "Idioma preferido",
+  "amds.account.welcome.form-language-input": "Seleccione su idioma preferido",
+  "amds.account.welcome.language-en": "Inglés",
+  "amds.account.welcome.language-es": "Español",
+  "amds.account.welcome.form-bio": "Biografía",
+  "amds.account.welcome.form-bio-input": "Comparte tu biografía",
+  "amds.account.welcome.form-optional": "Opcional",
+  "amds.account.welcome.form-btn-continue": "Continuar",
+  "amds.account.welcome.form-btn-next": "Siguiente",
+  "amds.account.welcome.form-btn-back": "Atrás",
+
+  "amds.account.welcome.notify-enable": "Habilitar notificaciones por correo",
+  "amds.account.welcome.notify-msg":
+    "Elija cuándo y con qué frecuencia recibe notificaciones. Puede recibir correos cuando:",
+  "amds.account.welcome.notify-apps": "Se publica una nueva aplicación",
+  "amds.account.welcome.notify-training":
+    "Se agrega nuevo contenido de capacitación (cursos, videos y codelabs)",
+  "amds.account.welcome.notify-promo": "Promociones y ofertas especiales",
+  "amds.account.welcome.notify-freq-label": "Frecuencia de correos",
+  "amds.account.welcome.notify-freq-msg": "Frecuencia de correos electrónicos",
+  "amds.account.welcome.notify-freq-hint": "Elegir frecuencia de correos",
+
+  "amds.account.welcome.push-enable": "Activar notificaciones web",
+  "amds.account.welcome.push-msg":
+    "Active las notificaciones para recibir alertas en su teléfono o computadora sobre nuevas aplicaciones y cursos de capacitación.",
+  "amds.account.welcome.push-freeapp": "Nueva aplicación gratuita",
+  "amds.account.welcome.push-paidapp": "Nueva aplicación pagada",
+  "amds.account.welcome.push-course": "Nuevo curso de aprendizaje",
+  "amds.account.welcome.push-codelab": "Nuevo codelab",
+  "amds.account.welcome.push-video":
+    "Nuevo video publicado en YouTube o en nuestro sitio web",
+
+  "amds.account.welcome.bypass-btn": "Utilizar preferencias predeterminadas",
+  "amds.account.welcome.bypass-msg":
+    "Al hacer clic en el botón de arriba, omitirá esta pantalla y será redirigido a su página de Perfil."
 }

@@ -11,6 +11,11 @@ export * from './auth-fire/auth-fire.model';
 export * from './auth-fire/auth-fire.reducer';
 export * from './auth-fire/auth-fire.facade';
 
+export * from './auth-profile/auth-profile.actions';
+export * from './auth-profile/auth-profile.model';
+export * from './auth-profile/auth-profile.reducer';
+export * from './auth-profile/auth-profile.facade';
+
 export * from './title/title.service';
 export * from './core.state';
 export * from './core.module';

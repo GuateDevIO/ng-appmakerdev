@@ -4,9 +4,10 @@
 /dist
 /tmp
 /out-tsc
-
+/functions/lib
 # dependencies
 /node_modules
+/functions/node_modules
 yarn.lock
 
 # IDEs and editors

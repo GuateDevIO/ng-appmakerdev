@@ -29,6 +29,7 @@
   "amds.account.login.form-terms-b": "Terms of Service",
   "amds.account.login.form-terms-c": "and",
   "amds.account.login.form-terms-d": "Privacy Policy",
+
   "amds.account.register.title": "REGISTER ACCOUNT",
   "amds.account.register.btn-login": "Existing user? Click here to login",
   "amds.account.register.sign-head": "Sign up",
@@ -39,5 +40,56 @@
   "amds.account.register.sign-github": "Sign up with Github",
   "amds.account.register.sign-email": "Sign up with Email",
   "amds.account.register.sign-phone": "Sign up with Phone",
-  "amds.account.register.sign-or": "or register with"
+  "amds.account.register.sign-or": "or register with",
+
+  "amds.account.welcome.verify-email":
+    "A verfication link was sent to the email address:",
+  "amds.account.welcome.verify-msg":
+    "Check your inbox and click on the link to verify your account.",
+  "amds.account.welcome.headline": "WELCOME",
+  "amds.account.welcome.subheadline":
+    "Thanks for signing up! Please update your profile preferences:",
+  "amds.account.welcome.step-profile": "Profile",
+  "amds.account.welcome.step-notifications": "Notifications",
+  "amds.account.welcome.step-done": "Done",
+  "amds.account.welcome.form-name": "Name",
+  "amds.account.welcome.form-name-input": "Enter your name",
+  "amds.account.welcome.form-name-req": "Enter a name",
+  "amds.account.welcome.form-company": "Company Name",
+  "amds.account.welcome.form-company-input": "Enter your company name",
+  "amds.account.welcome.form-language": "Preferred Language",
+  "amds.account.welcome.form-language-input": "Select your preferred language",
+  "amds.account.welcome.language-en": "English",
+  "amds.account.welcome.language-es": "Spanish",
+  "amds.account.welcome.form-bio": "Biography",
+  "amds.account.welcome.form-bio-input": "Share your biography",
+  "amds.account.welcome.form-optional": "Optional",
+  "amds.account.welcome.form-btn-continue": "Continue",
+  "amds.account.welcome.form-btn-next": "Next",
+  "amds.account.welcome.form-btn-back": "Back",
+
+  "amds.account.welcome.notify-enable": "Enable email notifications",
+  "amds.account.welcome.notify-msg":
+    "Choose when and how often you receive email notifications. You can receive notifications when:",
+  "amds.account.welcome.notify-apps": "A new app is published",
+  "amds.account.welcome.notify-training":
+    "New training content is added (codelabs, videos & courses)",
+  "amds.account.welcome.notify-promo": "Special promotions and offers",
+  "amds.account.welcome.notify-freq-label": "Email frequency",
+  "amds.account.welcome.notify-freq-msg": "Email notifications frequency",
+  "amds.account.welcome.notify-freq-hint": "Choose email frequency",
+
+  "amds.account.welcome.push-enable": "Turn on web notifications",
+  "amds.account.welcome.push-msg":
+    "Turn on notifications to receive alerts on your phone or computer and get notified about new apps & training courses.",
+  "amds.account.welcome.push-freeapp": "New free app",
+  "amds.account.welcome.push-paidapp": "New paid app",
+  "amds.account.welcome.push-course": "New training course",
+  "amds.account.welcome.push-codelab": "New codelab",
+  "amds.account.welcome.push-video":
+    "New video published in YouTube or Website",
+
+  "amds.account.welcome.bypass-btn": "Use default preferences",
+  "amds.account.welcome.bypass-msg":
+    "By clicking the above button, you will bypass this screen and will be redirected to your Profile page."
 }

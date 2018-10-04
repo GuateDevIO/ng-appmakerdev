@@ -17,6 +17,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { UserFacade } from '../app/core/auth-fire/auth-fire.facade';
+import { ProfileFacade } from '../app/core/auth-profile/auth-profile.facade';
 
 import { environment } from '../environments/environment';
 
@@ -70,7 +71,7 @@ export function provideMockStore() {
     SharedModule,
     TranslateModule
   ],
-  providers: [provideMockStore(), UserFacade]
+  providers: [provideMockStore(), UserFacade, ProfileFacade]
 })
 export class TestingModule {
   constructor(sanitizer: DomSanitizer, iconRegistry: MatIconRegistry) {

@@ -17,6 +17,7 @@ import { TitleService } from './title/title.service';
 import { reducers, metaReducers } from './core.state';
 
 import { UserFacade } from './auth-fire/auth-fire.facade';
+import { ProfileFacade } from './auth-profile/auth-profile.facade';
 
 @NgModule({
   imports: [
@@ -25,7 +26,7 @@ import { UserFacade } from './auth-fire/auth-fire.facade';
     HttpClientModule,
     // ngrx
     StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([AuthEffects, UserFacade]),
+    EffectsModule.forRoot([AuthEffects, UserFacade, ProfileFacade]),
     environment.production
       ? []
       : StoreDevtoolsModule.instrument({

@@ -1,0 +1,21 @@
+@import '~@angular/material/theming';
+
+@mixin amds-welcome-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+
+  amds-welcome {
+    > .wrapper {
+      background-color: mat-color($background, card);
+      > .verification-card {
+        background-color: mat-color($warn);
+      }
+
+      > .verify-email-card {
+        background-color: mat-color($warn);
+      }
+    }
+  }
+}
