@@ -1,3 +1,170 @@
-<p>
-  welcome works!
-</p>
+<div class="wrapper">
+
+  <div class="verification-card">
+    <div class="row">
+      <div class="col">
+       <h4>{{ 'amds.account.welcome.verify-email' | translate }} {{ 'amds.account.welcome.verify-msg' | translate }}</h4>
+      </div>
+      <div class="col-1">
+        <button mat-icon-button>
+          <mat-icon aria-label="close-icon-button">close</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="row">
+      <div class="col-md-8 col-lg-7">
+        <mat-card class="heading-card" [class.mat-elevation-z0]="true">
+          <h1 class="mat-headline" [ngClass]="routeAnimationsElements">{{ 'amds.account.welcome.headline' | translate }}</h1>
+          <h4 class="mat-subheading-1" [ngClass]="routeAnimationsElements">{{ 'amds.account.welcome.subheadline' | translate }}</h4>
+        </mat-card>
+
+        <mat-horizontal-stepper [linear]="isLinear" #stepper>
+          <mat-step [stepControl]="firstFormGroup">
+            <form class="form-container" [formGroup]="firstFormGroup" (ngSubmit)="updateProfileInfo()">
+              <ng-template matStepLabel>{{ 'amds.account.welcome.step-profile' | translate }}</ng-template>
+
+              <mat-form-field appearance="fill">
+                <mat-label>{{ 'amds.account.welcome.form-name' | translate }}</mat-label>
+                <input matInput placeholder="{{ 'amds.account.welcome.form-name-input' | translate }}" formControlName="profileName" required>
+                <mat-icon matSuffix>person_pin</mat-icon>
+                <mat-error *ngIf="firstFormGroup.controls.profileName.invalid">{{ 'amds.account.welcome.form-name-req' | translate }}</mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                <mat-label>{{ 'amds.account.login.form-mail' | translate }}</mat-label>
+                <input matInput placeholder="{{ 'amds.account.login.form-mail-input' | translate }}" formControlName="profileEmail" required>
+                <mat-icon matSuffix>domain</mat-icon>
+                <mat-error *ngIf="firstFormGroup.controls.profileEmail.invalid">{{ 'amds.account.login.form-mail-req' | translate }}</mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                  <mat-label>{{ 'amds.account.welcome.form-company' | translate }}</mat-label>
+                  <input matInput placeholder="{{ 'amds.account.welcome.form-company-input' | translate }}" formControlName="profileCompany">
+                  <mat-icon matSuffix>domain</mat-icon>
+                  <mat-hint align="end">{{ 'amds.account.welcome.form-optional' | translate }}</mat-hint>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                <mat-label>{{ 'amds.account.welcome.form-language' | translate }}</mat-label>
+                <mat-select placeholder="{{ 'amds.account.welcome.form-language-input' | translate }}" formControlName="profileLanguage" name="language">
+                <mat-option *ngFor="let language of languages" [value]="language.value">
+                  {{language.viewValue}}
+                </mat-option>
+                </mat-select>
+                <mat-icon matSuffix>public</mat-icon>
+                <mat-hint align="end">{{ 'amds.account.welcome.form-optional' | translate }}</mat-hint>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                <mat-label>{{ 'amds.account.welcome.form-bio' | translate }}</mat-label>
+                <textarea matInput placeholder="{{ 'amds.account.welcome.form-bio-input' | translate }}" formControlName="profileBio"></textarea>
+                <mat-icon matSuffix>domain</mat-icon>
+                <mat-hint align="end">{{ 'amds.account.welcome.form-optional' | translate }}</mat-hint>
+              </mat-form-field>
+
+              <div class="btn-container">
+                <button class="step-continue-btn" mat-raised-button matStepperNext type="submit" [disabled]="firstFormGroup.invalid">{{ 'amds.account.welcome.form-btn-continue' | translate }}</button>
+              </div>
+            </form>
+          </mat-step>
+
+
+
+          <mat-step [stepControl]="secondFormGroup">
+            <form class="form-container" [formGroup]="secondFormGroup" (ngSubmit)="updateUserPreferences()">
+              <ng-template matStepLabel>{{ 'amds.account.welcome.step-notifications' | translate }}</ng-template>
+
+
+              <div class="preference-container">
+                <mat-slide-toggle formControlName="profileNotificationEmail"><b>{{ 'amds.account.welcome.notify-enable' | translate }}</b></mat-slide-toggle>
+                <p>{{ 'amds.account.welcome.notify-msg' | translate }}</p>
+                <mat-checkbox formControlName="profileNotificationApps">{{ 'amds.account.welcome.notify-apps' | translate }}</mat-checkbox>
+                <mat-checkbox formControlName="profileNotificationTraining">{{ 'amds.account.welcome.notify-training' | translate }}</mat-checkbox>
+                <mat-checkbox formControlName="profileNotificationPromo">{{ 'amds.account.welcome.notify-promo' | translate }}</mat-checkbox>
+              
+                <mat-form-field appearance="fill">
+                  <mat-label>{{ 'amds.account.welcome.notify-freq-label' | translate }}</mat-label>
+                  <mat-select placeholder="{{ 'amds.account.welcome.notify-freq-msg' | translate }}" formControlName="profileNotificationFrequency" name="udpate">
+                    <mat-option *ngFor="let update of updates" [value]="update.value">
+                      {{update.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-icon matSuffix>date_range</mat-icon>
+                  <mat-hint align="end">{{ 'amds.account.welcome.notify-freq-hint' | translate }}</mat-hint>
+                </mat-form-field>
+  
+  
+              
+              </div>
+
+
+              <div class="preference-container">
+                  <mat-slide-toggle formControlName="profilePushEnable"><b>{{ 'amds.account.welcome.push-enable' | translate }}</b></mat-slide-toggle>
+                  <p>{{ 'amds.account.welcome.push-msg' | translate }}</p>
+                  <mat-checkbox formControlName="profilePushFreeApp">{{ 'amds.account.welcome.push-freeapp' | translate }}</mat-checkbox>
+                  <mat-checkbox formControlName="profilePushPaidApp">{{ 'amds.account.welcome.push-paidapp' | translate }}</mat-checkbox>
+                  <mat-checkbox formControlName="profilePushCourse">{{ 'amds.account.welcome.push-course' | translate }}</mat-checkbox>
+                  <mat-checkbox formControlName="profilePushCodelab">{{ 'amds.account.welcome.push-codelab' | translate }}</mat-checkbox>
+                  <mat-checkbox formControlName="profilePushVideo">{{ 'amds.account.welcome.push-video' | translate }}</mat-checkbox>
+                </div>
+
+
+              <div class="btn-container">
+                <button class="step-welcome-btn" mat-button matStepperNext>{{ 'amds.account.welcome.form-btn-next' | translate }}</button>
+                <button mat-button matStepperPrevious>{{ 'amds.account.welcome.form-btn-back' | translate }}</button>
+              </div>
+            </form>
+          </mat-step>
+
+          <mat-step>
+            <ng-template matStepLabel>{{ 'amds.account.welcome.step-done' | translate }}</ng-template>
+            <div class="done-container">
+
+              <mat-card class="welcome-end-card">
+                <mat-card-header>
+                  <div mat-card-avatar class="welcome-header-image"></div>
+                  <mat-card-title>Shiba Inu</mat-card-title>
+                  <mat-card-subtitle>Dog Puppy</mat-card-subtitle>
+                </mat-card-header>
+                <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+                <mat-card-content>
+                  <p>
+                    The Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes very
+                    well with mountainous terrain, the Shiba Inu was originally bred for hunting.
+                  </p>
+                </mat-card-content>
+              </mat-card>
+
+            </div>
+
+            <div class="btn-container">
+              <button class="step-welcome-btn" mat-button (click)="stepper.reset()">Reset</button>
+              <button mat-button matStepperPrevious>Back</button>
+            </div>
+
+          </mat-step>
+        </mat-horizontal-stepper>
+      </div>
+
+
+
+
+      <div class="col-md-4 col-lg-5">
+
+        <mat-card class="default-pref-card" [class.mat-elevation-z0]="true">
+          <button mat-flat-button color="warn" (click)="useDefaultProfileInfo()" [ngClass]="routeAnimationsElements">{{ 'amds.account.welcome.bypass-btn' | translate }}</button>
+          <h4 class="mat-subheading-1">{{ 'amds.account.welcome.bypass-msg' | translate }}</h4>
+        </mat-card>
+
+        <mat-card class="push-card" [class.mat-elevation-z0]="true">
+          <mat-slide-toggle>{{ 'amds.account.welcome.push-enable' | translate }}</mat-slide-toggle>
+          <p>{{ 'amds.account.welcome.push-msg' | translate }}</p>
+        </mat-card>
+
+      </div>
+    </div>
+  </div>
+</div>

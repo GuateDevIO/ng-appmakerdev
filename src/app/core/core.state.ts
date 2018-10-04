@@ -13,10 +13,13 @@ import { AuthState } from './auth/auth.models';
 import { authReducer } from './auth/auth.reducer';
 import { User } from './auth-fire/auth-fire.model';
 import { userReducer } from './auth-fire/auth-fire.reducer';
+import { Profile } from './auth-profile/auth-profile.model';
+import { profileReducer } from './auth-profile/auth-profile.reducer';
 
 export const reducers: ActionReducerMap<AppState> = {
   auth: authReducer,
-  user: userReducer
+  user: userReducer,
+  profile: profileReducer
 };
 
 export const metaReducers: MetaReducer<AppState>[] = [
@@ -36,4 +39,5 @@ export const selectAuthState = createFeatureSelector<AppState, AuthState>(
 export interface AppState {
   auth: AuthState;
   user: User;
+  profile: Profile;
 }

@@ -65,7 +65,7 @@
                 {
                   "type": "bundle",
                   "name": "vendor",
-                  "baseline": "1100kb",
+                  "baseline": "1200kb",
                   "warning": "250kb",
                   "error": "500kb"
                 },
@@ -79,9 +79,9 @@
                 {
                   "type": "bundle",
                   "name": "main",
-                  "baseline": "100kb",
-                  "warning": "50kb",
-                  "error": "100kb"
+                  "baseline": "200kb",
+                  "warning": "100kb",
+                  "error": "200kb"
                 }
               ]
             }

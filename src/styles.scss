@@ -25,6 +25,10 @@ $custom-typography: mat-typography-config(
   $input: mat-typography-level(inherit, 1.125, 400)
 );
 
+.mat-checkbox-layout {
+  white-space: normal !important;
+}
+
 @include mat-core($custom-typography);
 
 @import 'themes/default-theme.scss';
@@ -44,6 +48,7 @@ $custom-typography: mat-typography-config(
 @import 'app/account/account/account.component.scss-theme';
 @import 'app/account/login/login.component.scss-theme';
 @import 'app/account/register/register.component.scss-theme';
+@import 'app/account/welcome/welcome.component.scss-theme';
 
 @mixin custom-components-theme($theme) {
   @include amds-styles-reset-theme($theme);
@@ -58,6 +63,7 @@ $custom-typography: mat-typography-config(
   @include amds-account-component-theme($theme);
   @include amds-login-component-theme($theme);
   @include amds-register-component-theme($theme);
+  @include amds-welcome-component-theme($theme);
 }
 
 .default-theme {

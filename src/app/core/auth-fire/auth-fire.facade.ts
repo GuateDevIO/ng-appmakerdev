@@ -247,7 +247,7 @@ export class UserFacade {
         const uid = payload.uid;
         return from(
           this.afs
-            .doc<UserProfile>(`users/${uid}`)
+            .doc<UserProfile>(`profiles/${uid}`)
             .valueChanges()
             .pipe(take(1))
         );
@@ -259,17 +259,21 @@ export class UserFacade {
           console.log('verifyUser$ afs uid: ' + afsData.uid);
           console.log('verifyUser$ afs email: ' + afsData.email);
           console.log('verifyUser$ afs displayName: ' + afsData.displayName);
-          console.log('verifyUser$ afs photoUrl: ' + afsData.photoURL);
-          console.log('verifyUser$ afs provider: ' + afsData.provider);
-          console.log('verifyUser$ afs verified: ' + afsData.verified);
+
+          const uid = afsData.uid;
+          const displayName =
+            afsData.displayName !== 'Unregistered Name'
+              ? afsData.displayName
+              : afsData.email;
+          const email =
+            afsData.email !== 'Unregistered Email'
+              ? afsData.email
+              : afsData.displayName;
 
           const payload = {
-            uid: afsData.uid,
-            email: afsData.email || afsData.displayName,
-            displayName: afsData.displayName,
-            photoURL: afsData.photoURL,
-            provider: afsData.provider,
-            verified: afsData.verified
+            uid: uid,
+            email: email,
+            displayName: displayName
           };
           return new userActions.LoginUser(payload);
         } else {
@@ -281,17 +285,19 @@ export class UserFacade {
           console.log(
             'verifyUser$ afAuth displayName: ' + afAuthData.displayName
           );
-          console.log('verifyUser$ afAuth photoUrl: ' + afAuthData.photoURL);
-          console.log('verifyUser$ afAuth provider: ' + afAuthData.providerId);
+
+          const uid = afAuthData.uid;
+          const displayName = afAuthData.displayName
+            ? afAuthData.displayName
+            : afAuthData.email;
+          const email = afAuthData.email
+            ? afAuthData.email
+            : afAuthData.displayName;
 
           const payload = {
-            uid: afAuthData.uid,
-            email: afAuthData.email || afAuthData.displayName,
-            displayName: afAuthData.displayName || 'update is required',
-            photoURL:
-              afAuthData.photoURL ||
-              'https://angularfirebase.com/images/logo.png',
-            provider: afAuthData.providerId
+            uid: uid,
+            email: email,
+            displayName: displayName
           };
           return new userActions.NewUser(payload);
         }
@@ -307,20 +313,14 @@ export class UserFacade {
   loginUser$: Observable<Action> = this.actions$.pipe(
     ofType(userActions.LOGIN_USER),
     map((action: userActions.LoginUser) => action.payload),
-    concatMap(payload => [
-      new userActions.GetUser(),
-      new userActions.LoginSuccess(payload)
-    ])
+    concatMap(payload => [new userActions.LoginSuccess(payload)])
   );
 
   @Effect()
   newUser$: Observable<Action> = this.actions$.pipe(
     ofType(userActions.NEW_USER),
     map((action: userActions.NewUser) => action.payload),
-    concatMap(payload => [
-      new userActions.GetUser(),
-      new userActions.WelcomeUser(payload)
-    ])
+    concatMap(payload => [new userActions.WelcomeUser(payload)])
   );
 
   @Effect({ dispatch: false })
