@@ -4,6 +4,7 @@ import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
+import { LocalStorageService } from '../local-storage/local-storage.service';
 
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -29,12 +30,15 @@ import { UsersQuery } from './auth-fire.reducer';
 import * as userActions from './auth-fire.actions';
 type Action = userActions.All;
 
+export const AUTH_KEY = 'AUTH-FIRE';
+
 interface UserProfile {
   uid: string;
   email?: string | null;
   displayName?: string;
-  photoURL?: string;
-  provider?: string;
+  photoUrl?: string;
+  phoneNumber?: string;
+  providerId?: string;
   verified?: boolean;
   organization?: string;
   country?: string;
@@ -94,10 +98,12 @@ export class UserFacade {
         const payload = {
           uid: credential.user.uid,
           email: credential.user.email,
-          displayName: 'nameless email',
-          photoURL: 'https://angularfirebase.com/images/logo.png',
-          provider: credential.user.providerId,
-          verified: false
+          displayName: 'Unverified User',
+          photoUrl: 'https://angularfirebase.com/images/logo.png',
+          phoneNumber: 'Unregistered Phone',
+          providerId: credential.user.providerId,
+          verified: false,
+          emailDisplay: credential.user.email
         };
         return new userActions.NewUser(payload);
       }),
@@ -253,51 +259,71 @@ export class UserFacade {
         );
       }),
       map(afsData => {
+        const afAuthData = this.afAuth.auth.currentUser;
+        const uid = afAuthData.uid;
+        const email = afAuthData.email || 'Unregistered Email';
+        const displayName = afAuthData.displayName || 'Unregistered Name';
+        const photoUrl =
+          afAuthData.photoURL || 'https://angularfirebase.com/images/logo.png';
+        const phoneNumber = afAuthData.phoneNumber || 'Unregistered Phone';
+        const providerId = afAuthData.providerId.replace('.com', '');
+        const isEmailVerified = afAuthData.emailVerified;
+        const emailDisplay =
+          email !== 'Unregistered Email' ? email : displayName;
+
         if (afsData) {
           // User is already Registered in Firestore
-          console.log('verifyUser$ afs DATA: TRUE');
-          console.log('verifyUser$ afs uid: ' + afsData.uid);
-          console.log('verifyUser$ afs email: ' + afsData.email);
-          console.log('verifyUser$ afs displayName: ' + afsData.displayName);
+          const afsProfileData = afsData;
+          const afsEmail = afsProfileData.email
+            ? afsProfileData.email
+            : 'Unregistered Email';
+          const afsName = afsProfileData.displayName
+            ? afsProfileData.displayName
+            : 'Unregistered Name';
+          const afsPhotoUrl = afsProfileData.photoUrl
+            ? afsProfileData.photoUrl
+            : 'https://angularfirebase.com/images/logo.png';
+          const afsPhone = afsProfileData.phoneNumber
+            ? afsProfileData.phoneNumber
+            : 'Unregistered Phone';
+          const afsEmailDisplay =
+            afsProfileData.email !== 'Unregistered Email' ? afsEmail : afsName;
 
-          const uid = afsData.uid;
-          const displayName =
-            afsData.displayName !== 'Unregistered Name'
-              ? afsData.displayName
-              : afsData.email;
-          const email =
-            afsData.email !== 'Unregistered Email'
-              ? afsData.email
-              : afsData.displayName;
+          console.log('verifyUser$ afs DATA: TRUE');
+          console.log('verifyUser$ afs email: ' + afsEmail);
+          console.log('verifyUser$ afs displayName: ' + afsName);
+          console.log('verifyUser$ afAuth providerId: ' + providerId);
+          console.log('verifyUser$ afAuth isEmailVerified: ' + isEmailVerified);
 
           const payload = {
             uid: uid,
-            email: email,
-            displayName: displayName
+            email: afsEmail,
+            displayName: afsName,
+            photoUrl: afsPhotoUrl,
+            phoneNumber: afsPhone,
+            providerId: providerId,
+            verified: isEmailVerified,
+            emailDisplay: afsEmailDisplay
           };
+
           return new userActions.LoginUser(payload);
         } else {
           // User is NOT Registered in Firestore
-          const afAuthData = this.afAuth.auth.currentUser;
           console.log('verifyUser$ afs: FALSE');
-          console.log('verifyUser$ afAuth uid: ' + afAuthData.uid);
-          console.log('verifyUser$ afAuth email: ' + afAuthData.email);
-          console.log(
-            'verifyUser$ afAuth displayName: ' + afAuthData.displayName
-          );
-
-          const uid = afAuthData.uid;
-          const displayName = afAuthData.displayName
-            ? afAuthData.displayName
-            : afAuthData.email;
-          const email = afAuthData.email
-            ? afAuthData.email
-            : afAuthData.displayName;
+          console.log('verifyUser$ afAuth email: ' + email);
+          console.log('verifyUser$ afAuth displayName: ' + displayName);
+          console.log('verifyUser$ afAuth providerId: ' + providerId);
+          console.log('verifyUser$ afAuth isEmailVerified: ' + isEmailVerified);
 
           const payload = {
             uid: uid,
             email: email,
-            displayName: displayName
+            displayName: displayName,
+            photoUrl: photoUrl,
+            phoneNumber: phoneNumber,
+            providerId: providerId,
+            verified: isEmailVerified,
+            emailDisplay: emailDisplay
           };
           return new userActions.NewUser(payload);
         }
@@ -328,16 +354,14 @@ export class UserFacade {
     ofType(userActions.LOGIN_SUCCESS),
     map((action: userActions.LoginSuccess) => action.payload),
     tap(payload => {
-      console.log('loginSuccess$ > user/profile [payload]:');
-      console.log('loginSuccess$ > payload uid:' + payload.uid);
-      console.log('loginSuccess$ > payload email:' + payload.email);
-      console.log('loginSuccess$ > payload displayName:' + payload.displayName);
+      console.log('loginSuccess$ > user/profile [payload]: ' + payload);
       const successMsg = this.translateService.instant(
         'amds.auth-fire.signin-success',
-        { email: payload.email }
+        { email: payload.emailDisplay }
       );
       this.showNotification(successMsg, 'Logout');
       this.router.navigate(['account/reset']);
+      this.localStorageService.setItem(AUTH_KEY, payload);
     })
   );
 
@@ -346,16 +370,22 @@ export class UserFacade {
     ofType(userActions.WELCOME_USER),
     map((action: userActions.WelcomeUser) => action.payload),
     tap(payload => {
-      console.log('welcomeUser$ > account/welcome [payload]:');
-      console.log('welcomeUser$ > payload uid:' + payload.uid);
-      console.log('welcomeUser$ > payload email:' + payload.email);
-      console.log('welcomeUser$ > payload displayName:' + payload.displayName);
+      console.log('welcomeUser$ > user/profile [payload]: ' + payload);
+
+      if (payload.displayName === 'Unverified User') {
+        console.log(
+          'welcomeUser$ > Unverified User > sending verification link'
+        );
+        this.sendVerificationLink(payload.email);
+      }
+
       const welcomeMsg = this.translateService.instant(
         'amds.auth-fire.signup-success',
-        { email: payload.email }
+        { email: payload.emailDisplay }
       );
       this.showNotification(welcomeMsg, 'Check Profile');
       this.router.navigate(['account/welcome']);
+      this.localStorageService.setItem(AUTH_KEY, payload);
     })
   );
 
@@ -538,7 +568,8 @@ export class UserFacade {
     private snackBar: MatSnackBar,
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private localStorageService: LocalStorageService
   ) {}
 
   signUpEmail(email: string, password: string): Observable<User> {
@@ -633,6 +664,20 @@ export class UserFacade {
   protected githubLogin(): Promise<any> {
     const provider = new auth.GithubAuthProvider();
     return this.afAuth.auth.signInWithPopup(provider);
+  }
+
+  protected sendVerificationLink(email: string) {
+    this.afAuth.auth.currentUser
+      .sendEmailVerification()
+      .then(function() {
+        // Email sent.
+        console.log('sendVerificationLink to email: ' + email);
+      })
+      .catch(function(error) {
+        // An error happened.
+        console.log('sendVerificationLink failed > email: ' + email);
+        console.log('sendVerificationLink error: ' + error);
+      });
   }
 
   private showNotification(message: string, action?: string) {
