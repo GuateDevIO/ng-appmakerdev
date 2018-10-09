@@ -64,8 +64,9 @@
   "amds.settings.animations.page": "Navigation whole page transition",
   "amds.settings.animations.elements": "Navigation page elements slide up",
 
+  "amds.auth-fire.signin-action": "Update profile",
   "amds.auth-fire.signin-success": "Signed in as {{email}}",
-  "amds.auth-fire.signup-success": "Signed up as {{email}}",
+  "amds.auth-fire.signup-success": "Signed up successfully",
 
   "amds.auth-fire.error-wrong-pass": "Invalid password. Try again",
   "amds.auth-fire.action-reset-pass": "Reset password",

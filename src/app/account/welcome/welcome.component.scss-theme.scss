@@ -5,16 +5,36 @@
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
   $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
 
   amds-welcome {
     > .wrapper {
+      color: mat-color($foreground, text);
       background-color: mat-color($background, card);
       > .verification-card {
         background-color: mat-color($warn);
       }
 
-      > .verify-email-card {
-        background-color: mat-color($warn);
+      > .content {
+        button {
+          color: mat-color($foreground, text);
+          background-color: mat-color($warn);
+        }
+
+        > .row {
+          > .col-md-8 {
+            > .mat-stepper-base {
+              .preference-container {
+                background-color: mat-color($background, background);
+              }
+
+              .done-btn {
+                color: mat-color($background, card);
+                background-color: mat-color($primary);
+              }
+            }
+          }
+        }
       }
     }
   }

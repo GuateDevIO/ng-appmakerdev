@@ -27,22 +27,13 @@ import { AppState } from '../core.state';
 import { User } from './auth-fire.model';
 import { UsersQuery } from './auth-fire.reducer';
 
+import { Profile } from '../auth-profile/auth-profile.model';
+import * as profileActions from '../auth-profile/auth-profile.actions';
 import * as userActions from './auth-fire.actions';
 type Action = userActions.All;
+type ProfileAction = profileActions.AllActions;
 
 export const AUTH_KEY = 'AUTH-FIRE';
-
-interface UserProfile {
-  uid: string;
-  email?: string | null;
-  displayName?: string;
-  photoUrl?: string;
-  phoneNumber?: string;
-  providerId?: string;
-  verified?: boolean;
-  organization?: string;
-  country?: string;
-}
 
 @Injectable()
 export class UserFacade {
@@ -62,11 +53,21 @@ export class UserFacade {
       switchMap(payload => this.afAuth.authState),
       map(authData => {
         if (authData) {
+          const newProviderId = authData.providerData[0].providerId.replace(
+            '.com',
+            ''
+          );
           console.log('getUser$: User is logged in');
+          console.log('getUser$: User PROVIDER ID: ' + newProviderId);
+
           const user = new User(
             authData.uid,
-            authData.displayName || 'nameless user',
-            authData.photoURL || 'https://angularfirebase.com/images/logo.png'
+            authData.email || null,
+            authData.displayName || null,
+            authData.photoURL || 'https://angularfirebase.com/images/logo.png',
+            authData.phoneNumber || 'Unregistered Phone',
+            newProviderId,
+            authData.emailVerified
           );
           return new userActions.Authenticated(user);
         } else {
@@ -90,20 +91,23 @@ export class UserFacade {
     pipe(
       map((action: userActions.EmailSignUp) => action.payload),
       switchMap(payload => {
-        console.log('signUpEmail$ payload: ' + payload.email);
+        console.log('signUpEmail$ payload email: ' + payload.email);
         return from(this.emailSignUp(payload.email, payload.password));
       }),
       map(credential => {
         console.log('signUpEmail$ success > uid: ' + credential.user.uid);
+        console.log(
+          'signUpEmail$ CREDENTIAL > providerId: ' + credential.user.providerId
+        );
+
         const payload = {
           uid: credential.user.uid,
-          email: credential.user.email,
-          displayName: 'Unverified User',
+          email: credential.user.uid,
+          displayName: 'Unregistered Name',
           photoUrl: 'https://angularfirebase.com/images/logo.png',
           phoneNumber: 'Unregistered Phone',
-          providerId: credential.user.providerId,
-          verified: false,
-          emailDisplay: credential.user.email
+          providerId: 'password',
+          verified: false
         };
         return new userActions.NewUser(payload);
       }),
@@ -253,7 +257,7 @@ export class UserFacade {
         const uid = payload.uid;
         return from(
           this.afs
-            .doc<UserProfile>(`profiles/${uid}`)
+            .doc<Profile>(`profiles/${uid}`)
             .valueChanges()
             .pipe(take(1))
         );
@@ -266,10 +270,13 @@ export class UserFacade {
         const photoUrl =
           afAuthData.photoURL || 'https://angularfirebase.com/images/logo.png';
         const phoneNumber = afAuthData.phoneNumber || 'Unregistered Phone';
-        const providerId = afAuthData.providerId.replace('.com', '');
+        const providerId = afAuthData.providerData[0].providerId.replace(
+          '.com',
+          ''
+        );
         const isEmailVerified = afAuthData.emailVerified;
-        const emailDisplay =
-          email !== 'Unregistered Email' ? email : displayName;
+
+        console.log('verifyUser$ CREDENTIAL > providerId: ' + providerId);
 
         if (afsData) {
           // User is already Registered in Firestore
@@ -286,8 +293,6 @@ export class UserFacade {
           const afsPhone = afsProfileData.phoneNumber
             ? afsProfileData.phoneNumber
             : 'Unregistered Phone';
-          const afsEmailDisplay =
-            afsProfileData.email !== 'Unregistered Email' ? afsEmail : afsName;
 
           console.log('verifyUser$ afs DATA: TRUE');
           console.log('verifyUser$ afs email: ' + afsEmail);
@@ -302,8 +307,7 @@ export class UserFacade {
             photoUrl: afsPhotoUrl,
             phoneNumber: afsPhone,
             providerId: providerId,
-            verified: isEmailVerified,
-            emailDisplay: afsEmailDisplay
+            verified: isEmailVerified
           };
 
           return new userActions.LoginUser(payload);
@@ -322,8 +326,7 @@ export class UserFacade {
             photoUrl: photoUrl,
             phoneNumber: phoneNumber,
             providerId: providerId,
-            verified: isEmailVerified,
-            emailDisplay: emailDisplay
+            verified: isEmailVerified
           };
           return new userActions.NewUser(payload);
         }
@@ -336,17 +339,23 @@ export class UserFacade {
   );
 
   @Effect()
-  loginUser$: Observable<Action> = this.actions$.pipe(
+  loginUser$: Observable<Action | ProfileAction> = this.actions$.pipe(
     ofType(userActions.LOGIN_USER),
     map((action: userActions.LoginUser) => action.payload),
-    concatMap(payload => [new userActions.LoginSuccess(payload)])
+    concatMap(payload => [
+      new userActions.LoginSuccess(payload),
+      new profileActions.UpdateProfile(payload)
+    ])
   );
 
   @Effect()
-  newUser$: Observable<Action> = this.actions$.pipe(
+  newUser$: Observable<Action | ProfileAction> = this.actions$.pipe(
     ofType(userActions.NEW_USER),
     map((action: userActions.NewUser) => action.payload),
-    concatMap(payload => [new userActions.WelcomeUser(payload)])
+    concatMap(payload => [
+      new userActions.WelcomeUser(payload),
+      new profileActions.CreateProfile(payload)
+    ])
   );
 
   @Effect({ dispatch: false })
@@ -354,14 +363,20 @@ export class UserFacade {
     ofType(userActions.LOGIN_SUCCESS),
     map((action: userActions.LoginSuccess) => action.payload),
     tap(payload => {
-      console.log('loginSuccess$ > user/profile [payload]: ' + payload);
+      console.log('loginSuccess$ > user/profile [payload.uid]: ' + payload.uid);
+      const emailDisplay =
+        payload.displayName === 'Unregistered Name'
+          ? payload.email
+          : payload.displayName;
       const successMsg = this.translateService.instant(
         'amds.auth-fire.signin-success',
-        { email: payload.emailDisplay }
+        { email: emailDisplay }
       );
-      this.showNotification(successMsg, 'Logout');
-      this.router.navigate(['account/reset']);
-      this.localStorageService.setItem(AUTH_KEY, payload);
+      const actionMsg = this.translateService.instant(
+        'amds.auth-fire.signin-action'
+      );
+      this.showNotification(successMsg, actionMsg);
+      this.router.navigate(['user/profile']);
     })
   );
 
@@ -370,22 +385,20 @@ export class UserFacade {
     ofType(userActions.WELCOME_USER),
     map((action: userActions.WelcomeUser) => action.payload),
     tap(payload => {
-      console.log('welcomeUser$ > user/profile [payload]: ' + payload);
+      console.log('welcomeUser$ > user/profile [payload.uid]: ' + payload.uid);
+      const isEmailVerified = payload.verified;
+      const verifyProvider = payload.providerId === 'password' ? true : false;
 
-      if (payload.displayName === 'Unverified User') {
-        console.log(
-          'welcomeUser$ > Unverified User > sending verification link'
-        );
+      if (!isEmailVerified && verifyProvider) {
+        console.log('welcomeUser$ Unverified Email > verification link sent');
         this.sendVerificationLink(payload.email);
       }
 
       const welcomeMsg = this.translateService.instant(
-        'amds.auth-fire.signup-success',
-        { email: payload.emailDisplay }
+        'amds.auth-fire.signup-success'
       );
-      this.showNotification(welcomeMsg, 'Check Profile');
+      this.showNotification(welcomeMsg, '');
       this.router.navigate(['account/welcome']);
-      this.localStorageService.setItem(AUTH_KEY, payload);
     })
   );
 
@@ -410,6 +423,7 @@ export class UserFacade {
     ofType(userActions.LOGOUT_SUCCESS),
     tap(() => {
       console.log('logoutSuccess$ > about/');
+      this.showNotification('Logout succesfully', '');
       this.router.navigate(['']);
     })
   );
@@ -419,135 +433,8 @@ export class UserFacade {
     ofType(userActions.AUTH_ERROR),
     map((action: userActions.AuthError) => action.payload),
     tap(payload => {
-      // ******** EMAIL LOGIN ERROR MESSAGES ********
-
-      if (payload.error === 'auth/user-not-found') {
-        console.log('authError$: The user does not exist.');
-        const errorMsg = this.translateService.instant(
-          'amds.auth-fire.error-user-not-found'
-        );
-        const errorAction = this.translateService.instant(
-          'amds.auth-fire.action-register-account'
-        );
-        this.snackBar
-          .open(errorMsg, errorAction, {
-            duration: 4000,
-            panelClass: 'app-notification-overlay'
-          })
-          .onAction()
-          .subscribe(() => this.signUpRedirect());
-      } else if (payload.error === 'auth/wrong-password') {
-        console.log('authError$: Password is invalid or does not exist');
-        const errorMsg = this.translateService.instant(
-          'amds.auth-fire.error-wrong-pass'
-        );
-        const errorAction = this.translateService.instant(
-          'amds.auth-fire.action-reset-pass'
-        );
-        this.snackBar
-          .open(errorMsg, errorAction, {
-            duration: 4000,
-            panelClass: 'app-notification-overlay'
-          })
-          .onAction()
-          .subscribe(() => this.resetPassRedirect());
-      } else if (payload.error === 'auth/user-disabled') {
-        console.log('authError$: The Account is disabled.');
-        const errorMsg = this.translateService.instant(
-          'amds.auth-fire.error-user-disabled'
-        );
-        const errorAction = this.translateService.instant(
-          'amds.auth-fire.action-contact-admin'
-        );
-        this.snackBar
-          .open(errorMsg, errorAction, {
-            duration: 4000,
-            panelClass: 'app-notification-overlay'
-          })
-          .onAction()
-          .subscribe(() => this.resetPassRedirect());
-      } else if (payload.error === 'auth/email-already-in-use') {
-        // ******** EMAIL SIGN UP ERROR MESSAGES ********
-        // Note: The other error codes are beomg handled by ANGULAR REACTIVE FORMS.
-
-        console.log('authError$: The user already exist.');
-        const errorMsg = this.translateService.instant(
-          'amds.auth-fire.error-email-already-used'
-        );
-        const errorAction = this.translateService.instant(
-          'amds.auth-fire.action-login-account'
-        );
-        this.snackBar
-          .open(errorMsg, errorAction, {
-            duration: 4000,
-            panelClass: 'app-notification-overlay'
-          })
-          .onAction()
-          .subscribe(() => this.loginRedirect());
-      } else if (
-        payload.error === 'auth/account-exists-with-different-credential'
-      ) {
-        // ******** OAUTH WITH POPUP ERROR MESSAGES ********
-
-        console.log('authError$: Credential email already exist.');
-        const errorMsg = this.translateService.instant(
-          'amds.auth-fire.error-credential-exists'
-        );
-        const errorAction = this.translateService.instant(
-          'amds.auth-fire.action-credential-account'
-        );
-        this.snackBar
-          .open(errorMsg, errorAction, {
-            duration: 4000,
-            panelClass: 'app-notification-overlay'
-          })
-          .onAction()
-          .subscribe(() => this.loginRedirect());
-      } else if (payload.error === 'auth/popup-closed-by-user') {
-        console.log('authError$: OAuth popup CLOSED, try again.');
-        const errorMsg = this.translateService.instant(
-          'amds.auth-fire.error-popup-closed'
-        );
-        this.zone.run(() => {
-          this.snackBar.open(errorMsg, '', {
-            duration: 3500,
-            panelClass: 'app-notification-overlay'
-          });
-        });
-      } else if (payload.error === 'auth/popup-blocked') {
-        console.log('authError$: OAuth popup is BLOCKED, try again.');
-        const errorMsg = this.translateService.instant(
-          'amds.auth-fire.error-popup-blocked'
-        );
-        this.zone.run(() => {
-          this.snackBar.open(errorMsg, '', {
-            duration: 3500,
-            panelClass: 'app-notification-overlay'
-          });
-        });
-      } else if (payload.error === 'auth/cancelled-popup-request') {
-        console.log('authError$: OAuth popup CANCELLED, try again.');
-        const errorMsg = this.translateService.instant(
-          'amds.auth-fire.error-popup-cancelled'
-        );
-        this.zone.run(() => {
-          this.snackBar.open(errorMsg, '', {
-            duration: 3500,
-            panelClass: 'app-notification-overlay'
-          });
-        });
-      } else {
-        console.log('authError$: UNKOWN ERROR: ' + payload.error);
-        const errorMsg = this.translateService.instant(
-          'amds.auth-fire.error-unkown'
-        );
-        this.zone.run(() => {
-          this.snackBar.open(errorMsg, '', {
-            duration: 3500,
-            panelClass: 'app-notification-overlay'
-          });
-        });
-      }
+      console.log('authError$ ERROR > showNotification');
+      this.showNotification('Error occured', 'error', payload.error);
     })
   );
 
@@ -680,10 +567,173 @@ export class UserFacade {
       });
   }
 
-  private showNotification(message: string, action?: string) {
-    return this.snackBar.open(message, action, {
-      duration: 5000,
-      panelClass: 'app-notification-overlay'
-    });
+  private showNotification(
+    message: string,
+    action?: string,
+    messageError?: string
+  ) {
+    if (!messageError) {
+      console.log('showNotification > Type: MESSAGE');
+
+      if (action === 'Update profile' || action === 'Actualizar perfil') {
+        this.zone.run(() => {
+          this.snackBar
+            .open(message, action, {
+              duration: 5000,
+              panelClass: 'app-notification-overlay'
+            })
+            .onAction()
+            .subscribe(() => this.loginRedirect());
+        });
+      } else {
+        this.zone.run(() => {
+          this.snackBar.open(message, action, {
+            duration: 5000,
+            panelClass: 'app-notification-overlay'
+          });
+        });
+      }
+    } else {
+      console.log('showNotification > Type: ERROR');
+
+      // ******** EMAIL LOGIN ERROR MESSAGES ********
+      if (messageError === 'auth/user-not-found') {
+        console.log('authError$: The user does not exist.');
+        const errorMsg = this.translateService.instant(
+          'amds.auth-fire.error-user-not-found'
+        );
+        const errorAction = this.translateService.instant(
+          'amds.auth-fire.action-register-account'
+        );
+        this.zone.run(() => {
+          this.snackBar
+            .open(errorMsg, errorAction, {
+              duration: 4000,
+              panelClass: 'app-notification-overlay'
+            })
+            .onAction()
+            .subscribe(() => this.signUpRedirect());
+        });
+      } else if (messageError === 'auth/wrong-password') {
+        console.log('authError$: Password is invalid or does not exist');
+        const errorMsg = this.translateService.instant(
+          'amds.auth-fire.error-wrong-pass'
+        );
+        const errorAction = this.translateService.instant(
+          'amds.auth-fire.action-reset-pass'
+        );
+        this.zone.run(() => {
+          this.snackBar
+            .open(errorMsg, errorAction, {
+              duration: 4000,
+              panelClass: 'app-notification-overlay'
+            })
+            .onAction()
+            .subscribe(() => this.resetPassRedirect());
+        });
+      } else if (messageError === 'auth/user-disabled') {
+        console.log('authError$: The Account is disabled.');
+        const errorMsg = this.translateService.instant(
+          'amds.auth-fire.error-user-disabled'
+        );
+        const errorAction = this.translateService.instant(
+          'amds.auth-fire.action-contact-admin'
+        );
+        this.zone.run(() => {
+          this.snackBar
+            .open(errorMsg, errorAction, {
+              duration: 4000,
+              panelClass: 'app-notification-overlay'
+            })
+            .onAction()
+            .subscribe(() => this.resetPassRedirect());
+        });
+      } else if (messageError === 'auth/email-already-in-use') {
+        // ******** EMAIL SIGN UP ERROR MESSAGES ********
+        // Note: The other error codes are beomg handled by ANGULAR REACTIVE FORMS.
+
+        console.log('authError$: The user already exist.');
+        const errorMsg = this.translateService.instant(
+          'amds.auth-fire.error-email-already-used'
+        );
+        const errorAction = this.translateService.instant(
+          'amds.auth-fire.action-login-account'
+        );
+        this.zone.run(() => {
+          this.snackBar
+            .open(errorMsg, errorAction, {
+              duration: 4000,
+              panelClass: 'app-notification-overlay'
+            })
+            .onAction()
+            .subscribe(() => this.loginRedirect());
+        });
+      } else if (
+        messageError === 'auth/account-exists-with-different-credential'
+      ) {
+        // ******** OAUTH WITH POPUP ERROR MESSAGES ********
+
+        console.log('authError$: Credential email already exist.');
+        const errorMsg = this.translateService.instant(
+          'amds.auth-fire.error-credential-exists'
+        );
+        const errorAction = this.translateService.instant(
+          'amds.auth-fire.action-credential-account'
+        );
+        this.zone.run(() => {
+          this.snackBar
+            .open(errorMsg, errorAction, {
+              duration: 4000,
+              panelClass: 'app-notification-overlay'
+            })
+            .onAction()
+            .subscribe(() => this.loginRedirect());
+        });
+      } else if (messageError === 'auth/popup-closed-by-user') {
+        console.log('authError$: OAuth popup CLOSED, try again.');
+        const errorMsg = this.translateService.instant(
+          'amds.auth-fire.error-popup-closed'
+        );
+        this.zone.run(() => {
+          this.snackBar.open(errorMsg, '', {
+            duration: 3500,
+            panelClass: 'app-notification-overlay'
+          });
+        });
+      } else if (messageError === 'auth/popup-blocked') {
+        console.log('authError$: OAuth popup is BLOCKED, try again.');
+        const errorMsg = this.translateService.instant(
+          'amds.auth-fire.error-popup-blocked'
+        );
+        this.zone.run(() => {
+          this.snackBar.open(errorMsg, '', {
+            duration: 3500,
+            panelClass: 'app-notification-overlay'
+          });
+        });
+      } else if (messageError === 'auth/cancelled-popup-request') {
+        console.log('authError$: OAuth popup CANCELLED, try again.');
+        const errorMsg = this.translateService.instant(
+          'amds.auth-fire.error-popup-cancelled'
+        );
+        this.zone.run(() => {
+          this.snackBar.open(errorMsg, '', {
+            duration: 3500,
+            panelClass: 'app-notification-overlay'
+          });
+        });
+      } else {
+        console.log('authError$: UNKOWN ERROR: ' + messageError);
+        const errorMsg = this.translateService.instant(
+          'amds.auth-fire.error-unkown'
+        );
+        this.zone.run(() => {
+          this.snackBar.open(errorMsg, '', {
+            duration: 3500,
+            panelClass: 'app-notification-overlay'
+          });
+        });
+      }
+    }
   }
 }

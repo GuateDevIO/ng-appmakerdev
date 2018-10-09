@@ -19,25 +19,25 @@
                 <h4 class="mat-subheading-1" [ngClass]="routeAnimationsElements">{{ 'amds.account.register.sign-sub-head' | translate }}</h4>
     
                 <div class="social-btn">
-                  <button class="btn-google" (click)="signUpWithGoogle()" mat-raised-button [disabled]="user.loading" [ngClass]="routeAnimationsElements">
+                  <button class="btn-google" (click)="signUpWithGoogle()" mat-raised-button [disabled]="user.loading || user.uid" [ngClass]="routeAnimationsElements">
                     <mat-icon svgIcon="google-ic"></mat-icon>
                     <span>{{ 'amds.account.register.sign-google' | translate }}</span>
                   </button>
                 </div>
                 <div class="social-btn">
-                  <button class="btn-fb" mat-raised-button (click)="signUpWithFacebook()" [disabled]="user.loading" [ngClass]="routeAnimationsElements">
+                  <button class="btn-fb" mat-raised-button (click)="signUpWithFacebook()" [disabled]="user.loading || user.uid" [ngClass]="routeAnimationsElements">
                     <mat-icon svgIcon="facebook-ic"></mat-icon>
                     <span>{{ 'amds.account.register.sign-facebook' | translate }}</span>
                   </button>
                 </div>
                 <div class="social-btn">
-                  <button class="btn-twitter" mat-raised-button (click)="signUpWithTwitter()" [disabled]="user.loading" [ngClass]="routeAnimationsElements">
+                  <button class="btn-twitter" mat-raised-button (click)="signUpWithTwitter()" [disabled]="user.loading || user.uid" [ngClass]="routeAnimationsElements">
                     <mat-icon svgIcon="twitter-ic"></mat-icon>
                     <span>{{ 'amds.account.register.sign-twitter' | translate }}</span>
                   </button>
                 </div>
                 <div class="social-btn">
-                    <button class="btn-github" mat-raised-button (click)="signUpWithGithub()" [disabled]="user.loading" [ngClass]="routeAnimationsElements">
+                    <button class="btn-github" mat-raised-button (click)="signUpWithGithub()" [disabled]="user.loading || user.uid" [ngClass]="routeAnimationsElements">
                       <mat-icon svgIcon="github-ic"></mat-icon>
                       <span>{{ 'amds.account.register.sign-github' | translate }}</span>
                     </button>
@@ -48,7 +48,7 @@
                 </div>
 
                 <form class="form-container" [formGroup]="registerForm" (ngSubmit)="submitHandler()" [ngClass]="routeAnimationsElements">
-                  
+
                   <mat-form-field appearance="fill">
                     <mat-label>{{ 'amds.account.login.form-mail' | translate }}</mat-label>
                     <input matInput placeholder="{{ 'amds.account.login.form-mail-input' | translate }}" formControlName="email" required>
@@ -58,29 +58,28 @@
                     <mat-error *ngIf="registerForm.get('email').hasError('required')">{{ 'amds.account.login.form-mail-req' | translate }}</mat-error>
                     <mat-error *ngIf="registerForm.get('email').hasError('email')">{{ 'amds.account.login.form-mail-invalid' | translate }}</mat-error>
                   </mat-form-field>
-    
+
                   <mat-form-field appearance="fill">
                     <mat-label>{{ 'amds.account.login.form-pass' | translate }}</mat-label>
                     <input matInput placeholder="{{ 'amds.account.login.form-pass-input' | translate }}" formControlName="password" [type]="hidePass ? 'password' : 'text'" required>
                     <mat-icon matSuffix matTooltip="{{ 'amds.account.login.form-pass-tooltip' | translate }}" aria-label="tooltip on focused/hovered over" (click)="hidePass = !hidePass">{{hidePass
                       ? 'visibility' : 'visibility_off'}}</mat-icon>
-                    <mat-hint align="end">0/25</mat-hint>
                     <mat-error *ngIf="registerForm.get('password').hasError('required')">{{ 'amds.account.login.form-pass-req' | translate }}</mat-error>
                     <mat-error *ngIf="registerForm.get('password').hasError('minlength')">{{ 'amds.account.login.form-pass-invalid' | translate }}</mat-error>
                   </mat-form-field>
-    
+
                   <div class="social-btn">
-                      <button class="btn-email" mat-raised-button type="submit" [disabled]="registerForm.invalid || user.loading" [ngClass]="routeAnimationsElements">
+                      <button class="btn-email" mat-raised-button type="submit" [disabled]="registerForm.invalid || user.loading || user.uid" [ngClass]="routeAnimationsElements">
                         <mat-icon svgIcon="mail-ic"></mat-icon>
                         <span>{{ 'amds.account.register.sign-email' | translate }}</span>
                       </button>
                   </div>
                 </form>
-    
-    
+
+
                 <mat-divider [inset]="true"></mat-divider>
-    
-    
+
+
                 <div class="terms-container">
                   <h4 class="mat-subheading-1">
                     {{ 'amds.account.login.form-terms-a' | translate }}
@@ -93,7 +92,7 @@
                     </a>
                   </h4>
                 </div>
-    
+
               </mat-card-content>
             </mat-card>
       </div>
@@ -104,7 +103,7 @@
 
           <mat-card class="features-card" [class.mat-elevation-z0]="true">
               <img mat-card-image src="https://www.gstatic.com/images/branding/product/2x/app_maker_64dp.png" alt="amds logo" [ngClass]="routeAnimationsElements">
-    
+
               <mat-card-content class="features-card-content">
                 <h1 class="headline" [ngClass]="routeAnimationsElements">{{ 'amds.account.login.headline' | translate }}</h1>
                 <h2 class="title" [ngClass]="routeAnimationsElements">
@@ -112,7 +111,7 @@
                 </h2>
                 <button mat-flat-button color="primary" [ngClass]="routeAnimationsElements">{{ 'amds.account.login.register-now' | translate }}</button>
               </mat-card-content>
-    
+
             </mat-card>
 
 

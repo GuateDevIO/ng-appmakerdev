@@ -69,8 +69,9 @@
   "amds.settings.animations.elements":
     "Los elementos de la página de navegación se deslizan",
 
+  "amds.auth-fire.signin-action": "Actualizar perfil",
   "amds.auth-fire.signin-success": "Conectado como {{email}}",
-  "amds.auth-fire.signup-success": "Registrado como {{email}}",
+  "amds.auth-fire.signup-success": "Registrado exitosamente",
 
   "amds.auth-fire.error-wrong-pass": "Contraseña invalida. Inténtalo de nuevo",
   "amds.auth-fire.action-reset-pass": "Restablecer contraseña",

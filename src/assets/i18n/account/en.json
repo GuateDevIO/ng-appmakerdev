@@ -55,6 +55,8 @@
   "amds.account.welcome.form-name": "Name",
   "amds.account.welcome.form-name-input": "Enter your name",
   "amds.account.welcome.form-name-req": "Enter a name",
+  "amds.account.welcome.form-phone": "Phone number",
+  "amds.account.welcome.form-phone-input": "Enter your phone number",
   "amds.account.welcome.form-company": "Company Name",
   "amds.account.welcome.form-company-input": "Enter your company name",
   "amds.account.welcome.form-language": "Preferred Language",
@@ -63,10 +65,15 @@
   "amds.account.welcome.language-es": "Spanish",
   "amds.account.welcome.form-bio": "Biography",
   "amds.account.welcome.form-bio-input": "Share your biography",
+  "amds.account.welcome.form-bio-hint": "Max characters:",
   "amds.account.welcome.form-optional": "Optional",
   "amds.account.welcome.form-btn-continue": "Continue",
   "amds.account.welcome.form-btn-next": "Next",
   "amds.account.welcome.form-btn-back": "Back",
+  "amds.account.welcome.form-btn-profile": "Check Profile",
+  "amds.account.welcome.form-step-complete": "Great! Your profile is ready",
+  "amds.account.welcome.form-step-help":
+    "You can change your information including your picture and preferences at any time directly from your Profile settings.",
 
   "amds.account.welcome.notify-enable": "Enable email notifications",
   "amds.account.welcome.notify-msg":
@@ -78,6 +85,11 @@
   "amds.account.welcome.notify-freq-label": "Email frequency",
   "amds.account.welcome.notify-freq-msg": "Email notifications frequency",
   "amds.account.welcome.notify-freq-hint": "Choose email frequency",
+  "amds.account.welcome.notify-freq-a": "Never",
+  "amds.account.welcome.notify-freq-b": "Daily",
+  "amds.account.welcome.notify-freq-c": "Weekly",
+  "amds.account.welcome.notify-freq-d": "Biweekly",
+  "amds.account.welcome.notify-freq-e": "Monthly",
 
   "amds.account.welcome.push-enable": "Turn on web notifications",
   "amds.account.welcome.push-msg":

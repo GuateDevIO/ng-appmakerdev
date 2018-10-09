@@ -64,17 +64,65 @@
   margin-bottom: 10px;
 }
 
+.btn-container {
+  text-align: center;
+}
+
+.step-continue-btn {
+  text-align: center;
+  height: 50px;
+  margin: 10px 5px;
+  font-size: 20px;
+  font-weight: 800;
+}
+
 .preference-container {
   padding: 10px;
   display: flex;
   flex-direction: column;
   border-radius: 6px;
-  background-color: lightgray;
   font-size: 13px;
 
   mat-checkbox {
     padding: 0px 0px 8px 0px;
     font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.done-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+
+  h4 {
+    margin: 0px;
+  }
+}
+
+.done-profile-card {
+  width: 100%;
+  text-align: center;
+
+  img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.done-profile-content {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+
+  button {
+    width: 100%;
+    max-width: 220px;
+    margin: 5px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
