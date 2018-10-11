@@ -24,6 +24,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { BigInputComponent } from './big-input/big-input.component';
 import { BigInputActionComponent } from './big-input/big-input-action.component';
@@ -55,7 +58,10 @@ import { BigInputActionComponent } from './big-input/big-input-action.component'
     MatSlideToggleModule,
     MatProgressBarModule,
     MatDividerModule,
-    MatStepperModule
+    MatStepperModule,
+    MatGridListModule,
+    LayoutModule,
+    MatExpansionModule
   ],
   declarations: [BigInputComponent, BigInputActionComponent],
   exports: [
@@ -85,6 +91,9 @@ import { BigInputActionComponent } from './big-input/big-input-action.component'
     MatProgressBarModule,
     MatDividerModule,
     MatStepperModule,
+    MatGridListModule,
+    LayoutModule,
+    MatExpansionModule,
 
     BigInputComponent,
     BigInputActionComponent

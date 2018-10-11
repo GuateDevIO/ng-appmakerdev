@@ -18,10 +18,19 @@ export function profileReducer(state: Profile, action: ProfileAction) {
     case ProfileActions.GET_PROFILE:
       return { ...state, loading: true };
 
-    case ProfileActions.GET_PROFILE_SUCCESS:
+    case ProfileActions.GET_SUCCESS:
       return { ...state, ...action.payload, loading: false };
 
-    case ProfileActions.GET_PROFILE_FAIL:
+    case ProfileActions.GET_FAIL:
+      return { ...state, ...action.payload, loading: false };
+
+    case ProfileActions.CREATE_PROFILE:
+      return { ...state, ...action.payload, loading: true };
+
+    case ProfileActions.CREATE_SUCCESS:
+      return { ...state, loading: false };
+
+    case ProfileActions.CREATE_FAIL:
       return { ...state, ...action.payload, loading: false };
 
     case ProfileActions.UPDATE_PROFILE:
@@ -31,6 +40,18 @@ export function profileReducer(state: Profile, action: ProfileAction) {
       return { ...state, loading: false };
 
     case ProfileActions.UPDATE_FAIL:
+      return { ...state, ...action.payload, loading: false };
+
+    case ProfileActions.DELETE_PROFILE:
+      return { ...state, loading: true };
+
+    case ProfileActions.DELETE_SUCCESS:
+      return { ...state, loading: false };
+
+    case ProfileActions.DELETE_FAIL:
+      return { ...state, ...action.payload, loading: false };
+
+    case ProfileActions.SAVE_LOCAL_PROFILE:
       return { ...state, ...action.payload, loading: false };
 
     default:

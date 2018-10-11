@@ -1,14 +1,13 @@
 export interface Profile {
-  pushKey: string;
-  loading: boolean;
-  text: string;
-  votes: number;
-  error?: string;
-  email?: string | null;
+  uid?: string;
+  email?: string;
   displayName?: string;
-  photoURL?: string;
-  provider?: string;
+  photoUrl?: string;
+  phoneNumber?: string;
+  providerId?: string;
   verified?: boolean;
   organization?: string;
   country?: string;
+  loading?: boolean;
+  error?: string;
 }

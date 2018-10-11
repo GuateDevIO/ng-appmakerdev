@@ -28,6 +28,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     // Register Form Field configuration and validators
     this.registerForm = this.fb.group({
+      name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
@@ -42,7 +43,11 @@ export class RegisterComponent implements OnInit {
     // Sign up with Email Address
     console.log('sign up with Email Address');
     const formData = this.registerForm.value;
-    this.userService.signUpEmail(formData.email, formData.password);
+    this.userService.signUpEmail(
+      formData.email,
+      formData.password,
+      formData.name
+    );
   }
 
   signUpWithGoogle() {

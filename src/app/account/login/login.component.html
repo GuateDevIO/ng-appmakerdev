@@ -35,25 +35,29 @@
             <h4 class="mat-subheading-1" [ngClass]="routeAnimationsElements">{{ 'amds.account.login.sign-sub-head' | translate }}</h4>
 
             <div class="social-btn">
-              <button class="btn-google" mat-raised-button (click)="signInWithGoogle()" [disabled]="user.loading" [ngClass]="routeAnimationsElements">
+              <button class="btn-google" mat-raised-button (click)="signInWithGoogle()" [disabled]="user.loading || user.uid" [ngClass]="routeAnimationsElements">
+
                 <mat-icon svgIcon="google-ic"></mat-icon>
                 <span>{{ 'amds.account.login.sign-google' | translate }}</span>
               </button>
             </div>
             <div class="social-btn">
-              <button class="btn-fb" mat-raised-button (click)="signInWithFacebook()" [disabled]="user.loading" [ngClass]="routeAnimationsElements">
+              <button class="btn-fb" mat-raised-button (click)="signInWithFacebook()" [disabled]="user.loading  || user.uid" [ngClass]="routeAnimationsElements">
+
                 <mat-icon svgIcon="facebook-ic"></mat-icon>
                 <span>{{ 'amds.account.login.sign-facebook' | translate }}</span>
               </button>
             </div>
             <div class="social-btn">
-              <button class="btn-twitter" mat-raised-button (click)="signInWithTwitter()" [disabled]="user.loading" [ngClass]="routeAnimationsElements">
+              <button class="btn-twitter" mat-raised-button (click)="signInWithTwitter()" [disabled]="user.loading || user.uid" [ngClass]="routeAnimationsElements">
+
                 <mat-icon svgIcon="twitter-ic"></mat-icon>
                 <span>{{ 'amds.account.login.sign-twitter' | translate }}</span>
               </button>
             </div>
             <div class="social-btn">
-                <button class="btn-github" mat-raised-button (click)="signInWithGithub()" [disabled]="user.loading" [ngClass]="routeAnimationsElements">
+                <button class="btn-github" mat-raised-button (click)="signInWithGithub()" [disabled]="user.loading || user.uid" [ngClass]="routeAnimationsElements">
+
                   <mat-icon svgIcon="github-ic"></mat-icon>
                   <span>{{ 'amds.account.login.sign-github' | translate }}</span>
                 </button>
@@ -78,15 +82,15 @@
               <mat-form-field appearance="fill">
                 <mat-label>{{ 'amds.account.login.form-pass' | translate }}</mat-label>
                 <input matInput placeholder="{{ 'amds.account.login.form-pass-input' | translate }}" formControlName="password" [type]="hidePass ? 'password' : 'text'" required>
-                <mat-icon matSuffix matTooltip="{{ 'amds.account.login.form-pass-tooltip' | translate }}" aria-label="tooltip on focused/hovered over" (click)="hidePass = !hidePass">{{hidePass
+                <mat-icon matSuffix matTooltip="{{ 'amds.account.login.form-pass-tooltip' | translate }}" aria-label="tooltip on focused/hovered" (click)="hidePass = !hidePass">{{hidePass
                   ? 'visibility' : 'visibility_off'}}</mat-icon>
-                <mat-hint align="end">0/25</mat-hint>
                 <mat-error *ngIf="loginForm.get('password').hasError('required')">{{ 'amds.account.login.form-pass-req' | translate }}</mat-error>
                 <mat-error *ngIf="loginForm.get('password').hasError('minlength')">{{ 'amds.account.login.form-pass-invalid' | translate }}</mat-error>
               </mat-form-field>
 
               <div class="social-btn">
-                  <button class="btn-email" mat-raised-button type="submit" [disabled]="loginForm.invalid || user.loading" [ngClass]="routeAnimationsElements">
+                  <button class="btn-email" mat-raised-button type="submit" [disabled]="loginForm.invalid || user.loading || user.uid" [ngClass]="routeAnimationsElements">
+
                     <mat-icon svgIcon="mail-ic"></mat-icon>
                     <span>{{ 'amds.account.login.sign-email' | translate }}</span>
                   </button>

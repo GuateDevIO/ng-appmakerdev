@@ -16,7 +16,7 @@
     </mat-nav-list>
   </mat-sidenav>
 
-  <div class="toolbar">
+  <div class="toolbar" *ngIf="user$ | async as user">
     <mat-toolbar color="primary">
       <button mat-icon-button class="d-md-none" (click)="sidenav.open()">
         <mat-icon>menu</mat-icon>
@@ -38,12 +38,12 @@
         </span>
 
       <button mat-button class="sign-in-button"
-              *ngIf="!isAuthenticated"
+              *ngIf="!user.uid"
               (click)="onLoginClick()">
         {{ 'amds.menu.login' | translate }}
       </button>
 
-      <button class="user-button" *ngIf="isAuthenticated && user$ | async as user"
+      <button class="user-button" *ngIf="user.uid"
               mat-icon-button
               [matMenuTriggerFor]="toolbarUserMenu">
         <mat-icon [style.background]="userPhotoUrl">

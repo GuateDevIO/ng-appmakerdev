@@ -4,6 +4,7 @@ import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
+import { LocalStorageService } from '../local-storage/local-storage.service';
 
 import {
   AngularFirestore,
@@ -30,6 +31,9 @@ import * as userActions from '../auth-fire/auth-fire.actions';
 import * as profileActions from './auth-profile.actions';
 type Action = profileActions.AllActions;
 
+export const FORM_KEY = 'AUTH-PROFILE';
+export const AUTH_FIRE_KEY = 'AUTH-FIRE';
+
 @Injectable()
 export class ProfileFacade {
   // ************************************************
@@ -49,17 +53,42 @@ export class ProfileFacade {
     mergeMap(payload => this.afs.doc<Profile>(`${payload}`).valueChanges()),
     map(profile => {
       if (profile) {
+        console.log('getProfile$ > PROFILE FOUND/UPDATED');
         return new profileActions.GetProfileSuccess(profile);
       } else {
+        console.log('getProfile$ > PROFILE NOT FOUND/UPDATED');
         return new profileActions.GetProfileFail();
       }
     })
   );
 
+  @Effect()
+  createProfile$: Observable<Action> = this.actions$.pipe(
+    ofType(profileActions.CREATE_PROFILE),
+    map((action: profileActions.CreateProfile) => action.payload),
+    switchMap(payload => {
+      const ref = this.afs.doc<Profile>(`profiles/${payload.uid}`);
+      return from(ref.set(payload));
+    }),
+    map(() => {
+      console.log('createProfile$ > action.CreateProfileSuccess');
+      return new profileActions.CreateProfileSuccess();
+    }),
+    catchError((err, caught) => {
+      console.log('getProfile$ > FAIL / ERROR');
+      this.store.dispatch(
+        new profileActions.CreateProfileFail({ error: err.message })
+      );
+      return caught;
+    })
+  );
+
+  /*
   @Effect({ dispatch: false })
   getProfileSuccess$ = this.actions$.pipe(
     ofType(profileActions.GET_PROFILE_SUCCESS),
     tap(() => {
+      this.localStorageService.setItem(AUTH_KEY, payload)
       console.log('getProfileSuccess$ action triggered!');
     })
   );
@@ -71,14 +100,41 @@ export class ProfileFacade {
       console.log('getProfileFail$ action triggered!');
     })
   );
+  */
+
+  @Effect({ dispatch: false })
+  createProfileSuccess$ = this.actions$.pipe(
+    ofType(profileActions.CREATE_SUCCESS),
+    map((action: profileActions.CreateProfileSuccess) => action.payload),
+    tap(payload => {
+      console.log('createProfileSuccess$ > SUCCESS *test');
+    })
+  );
+
+  @Effect({ dispatch: false })
+  updateProfile$: Observable<Action> = this.actions$.pipe(
+    ofType(profileActions.UPDATE_PROFILE),
+    map((action: profileActions.UpdateProfile) => action.payload),
+    tap(payload => {
+      console.log('updateProfile$ > SUCCESS *test');
+    })
+  );
+
+  @Effect({ dispatch: false })
+  saveProfileLocal = this.actions$.pipe(
+    ofType(profileActions.SAVE_LOCAL_PROFILE),
+    map((action: profileActions.SaveLocalProfile) => action.payload),
+    tap(payload => {
+      console.log('saveProfileLocal$ > SUCCESS *test');
+      this.localStorageService.setItem(AUTH_FIRE_KEY, payload);
+    })
+  );
 
   @Effect()
   init$: Observable<Action> = this.actions$.pipe(
     ofType(userActions.AUTHENTICATED),
     map((action: userActions.Authenticated) => action.payload),
-    concatMap(payload => [
-      new profileActions.GetProfile(`/profiles/${payload.uid}`)
-    ])
+    concatMap(payload => [new profileActions.SaveLocalProfile(payload)])
   );
 
   // ************************************************
@@ -88,15 +144,16 @@ export class ProfileFacade {
   constructor(
     private actions$: Actions,
     private store: Store<AppState>,
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private localStorageService: LocalStorageService
   ) {}
 
-  loadPost(name = 'testPost'): Observable<Profile> {
-    this.store.dispatch(new profileActions.GetProfile(`/profile/${name}`));
+  loadProfile(uid: string): Observable<Profile> {
+    this.store.dispatch(new profileActions.GetProfile(`/profiles/${uid}`));
     return this.profile$;
   }
 
-  vote(post: Profile, val: number): void {
-    this.store.dispatch(new profileActions.UpdateProfile({ post, val }));
+  updateProfile(profile: Profile): void {
+    this.store.dispatch(new profileActions.UpdateProfile(profile));
   }
 }

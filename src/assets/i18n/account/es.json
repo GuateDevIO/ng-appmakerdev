@@ -27,9 +27,9 @@
   "amds.account.login.form-pass-tooltip": "Ver / Ocultar contraseña",
   "amds.account.login.form-terms-a":
     "Al continuar, confirmas que aceptas nuestras",
-  "amds.account.login.form-terms-b": "condiciones del servicio",
-  "amds.account.login.form-terms-c": "y nuestra",
-  "amds.account.login.form-terms-d": "política de privacidad",
+  "amds.account.login.form-terms-b": "Condiciones del Servicio",
+  "amds.account.login.form-terms-c": " y",
+  "amds.account.login.form-terms-d": "Política de Privacidad",
 
   "amds.account.register.title": "REGISTRAR CUENTA",
   "amds.account.register.btn-login":
@@ -57,6 +57,8 @@
   "amds.account.welcome.form-name": "Nombre",
   "amds.account.welcome.form-name-input": "Ingresa tu nombre",
   "amds.account.welcome.form-name-req": "Ingresa un nombre",
+  "amds.account.welcome.form-phone": "Número de teléfono",
+  "amds.account.welcome.form-phone-input": "Ingresa tu número de teléfono",
   "amds.account.welcome.form-company": "Nombre de compañía",
   "amds.account.welcome.form-company-input": "Ingresa el nombre de tu compañía",
   "amds.account.welcome.form-language": "Idioma preferido",
@@ -65,11 +67,16 @@
   "amds.account.welcome.language-es": "Español",
   "amds.account.welcome.form-bio": "Biografía",
   "amds.account.welcome.form-bio-input": "Comparte tu biografía",
+  "amds.account.welcome.form-bio-hint": "Límite de caracteres:",
   "amds.account.welcome.form-optional": "Opcional",
   "amds.account.welcome.form-btn-continue": "Continuar",
   "amds.account.welcome.form-btn-next": "Siguiente",
   "amds.account.welcome.form-btn-back": "Atrás",
-
+  "amds.account.welcome.form-btn-profile": "Verificar perfil",
+  "amds.account.welcome.form-step-complete":
+    "¡Estupendo! Tu perfil esta listo...",
+  "amds.account.welcome.form-step-help":
+    "Puede cambiar su información, incluyendo su imagen y preferencias en cualquier momento directamente desde la configuración de su perfil.",
   "amds.account.welcome.notify-enable": "Habilitar notificaciones por correo",
   "amds.account.welcome.notify-msg":
     "Elija cuándo y con qué frecuencia recibe notificaciones. Puede recibir correos cuando:",
@@ -80,6 +87,11 @@
   "amds.account.welcome.notify-freq-label": "Frecuencia de correos",
   "amds.account.welcome.notify-freq-msg": "Frecuencia de correos electrónicos",
   "amds.account.welcome.notify-freq-hint": "Elegir frecuencia de correos",
+  "amds.account.welcome.notify-freq-a": "Nunca",
+  "amds.account.welcome.notify-freq-b": "Diario",
+  "amds.account.welcome.notify-freq-c": "Semanal",
+  "amds.account.welcome.notify-freq-d": "Quincenal",
+  "amds.account.welcome.notify-freq-e": "Mensual",
 
   "amds.account.welcome.push-enable": "Activar notificaciones web",
   "amds.account.welcome.push-msg":
@@ -91,7 +103,7 @@
   "amds.account.welcome.push-video":
     "Nuevo video publicado en YouTube o en nuestro sitio web",
 
-  "amds.account.welcome.bypass-btn": "Utilizar preferencias predeterminadas",
+  "amds.account.welcome.bypass-btn": "Usar preferencias predeterminadas",
   "amds.account.welcome.bypass-msg":
     "Al hacer clic en el botón de arriba, omitirá esta pantalla y será redirigido a su página de Perfil."
 }

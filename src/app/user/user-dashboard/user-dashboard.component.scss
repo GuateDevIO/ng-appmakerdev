@@ -1,0 +1,46 @@
+@import '../../../styles-variables';
+
+.grid-container {
+  margin: 20px;
+}
+
+.heading-card {
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  border-radius: 0px;
+  text-align: center;
+  background-color: transparent;
+  img {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+  }
+}
+
+.dashboard-card {
+  position: absolute;
+
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+}
+
+.expansion-container {
+  margin: 30px;
+}
+
+.more-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.dashboard-card-content {
+  text-align: center;
+  flex-direction: column;
+  height: 500px;
+  width: 100%;
+}

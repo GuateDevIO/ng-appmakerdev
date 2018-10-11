@@ -5,7 +5,7 @@ import { User } from './auth-fire.model';
 
 export type Action = userActions.All;
 
-const defaultUser = new User(null, 'nameless', null);
+const defaultUser = new User(null, null, null, null, null, null, false);
 
 /**
  * Define all store queries for User

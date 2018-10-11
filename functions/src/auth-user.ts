@@ -10,7 +10,7 @@ const mailTransport = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: gmailEmail,
-      pass: gmailPassword,
+      pass: gmailPassword
     },
   });
 
@@ -102,7 +102,7 @@ export const createUserRecord = functions.auth
         promises.push(dayCount, monthCount, usersCount)
 
 
-        if (email) {
+        if (email && emailVerified) {
             const mailOptions = {
               from: `"GuateDev" <${gmailEmail}>`,
               to: email,

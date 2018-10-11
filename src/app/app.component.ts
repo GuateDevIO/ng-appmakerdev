@@ -66,7 +66,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ];
 
   settings: SettingsState;
-  isAuthenticated: boolean;
+  // isAuthenticated: boolean;
   userPhotoUrl: any;
 
   constructor(
@@ -149,15 +149,13 @@ export class AppComponent implements OnInit, OnDestroy {
     // Subscribe to User facade authentication
     this.user$.subscribe(user => {
       console.log('ngOnInit User ID:' + user.uid);
-      if (user.uid !== null) {
-        if (user.photoUrl !== null) {
+      if (user.uid) {
+        if (user.photoUrl) {
           this.userPhotoUrl = this.sanitizer.bypassSecurityTrustStyle(
             `url(${user.photoUrl}) no-repeat center center/40px 40px`
           );
         }
-        this.isAuthenticated = true;
-      } else {
-        this.isAuthenticated = false;
+        // this.isAuthenticated = true;
       }
     });
 
@@ -187,11 +185,13 @@ export class AppComponent implements OnInit, OnDestroy {
     this.store.dispatch(new ActionSettingsPersist({ settings: this.settings }));
   }
 
+  /*
   private subscribeToIsAuthenticated() {
     this.store
       .pipe(select(selectAuth), takeUntil(this.unsubscribe$))
       .subscribe(auth => (this.isAuthenticated = auth.isAuthenticated));
   }
+  */
 
   private subscribeToSettings() {
     if (AppComponent.isIEorEdgeOrSafari()) {
