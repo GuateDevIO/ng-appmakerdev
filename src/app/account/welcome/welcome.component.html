@@ -8,6 +8,7 @@
       <div class="col-1">
         <button mat-icon-button>
           <mat-icon aria-label="close-icon-button" (click)="hideEmailCard()">close</mat-icon>
+
         </button>
       </div>
     </div>
@@ -16,12 +17,14 @@
   <div class="content">
     <div class="row">
       <div class="col-md-7 col-lg-6">
+
         <mat-card class="heading-card" [class.mat-elevation-z0]="true">
           <h1 class="mat-headline" [ngClass]="routeAnimationsElements">{{ 'amds.account.welcome.headline' | translate }}</h1>
           <h4 class="mat-subheading-1" [ngClass]="routeAnimationsElements">{{ 'amds.account.welcome.subheadline' | translate }}</h4>
         </mat-card>
 
         <mat-horizontal-stepper class="mat-stepper-base" [linear]="isLinear" #stepper>
+
           <mat-step [stepControl]="firstFormGroup">
             <form class="form-container" [formGroup]="firstFormGroup" (ngSubmit)="updateProfileInfo()">
               <ng-template matStepLabel>{{ 'amds.account.welcome.step-profile' | translate }}</ng-template>
@@ -31,6 +34,7 @@
                 <input matInput placeholder="{{ 'amds.account.welcome.form-name-input' | translate }}" formControlName="profileName" required>
                 <mat-icon matSuffix>contacts</mat-icon>
                 <mat-error *ngIf="firstFormGroup.get('profileName').hasError('required')">{{ 'amds.account.welcome.form-name-req' | translate }}</mat-error>
+
               </mat-form-field>
 
               <mat-form-field appearance="fill">
@@ -46,6 +50,7 @@
                 <input matInput placeholder="{{ 'amds.account.welcome.form-phone-input' | translate }}" formControlName="profilePhone">
                 <mat-icon matSuffix>contact_phone</mat-icon>
                 <mat-hint align="end">{{ 'amds.account.welcome.form-optional' | translate }}</mat-hint>
+
               </mat-form-field>
 
               <mat-form-field appearance="fill">
@@ -112,6 +117,7 @@
 
               <div class="preference-container">
                   <mat-slide-toggle color="warn" formControlName="profilePushEnable"><b>{{ 'amds.account.welcome.push-enable' | translate }}</b></mat-slide-toggle>
+
                   <p>{{ 'amds.account.welcome.push-msg' | translate }}</p>
                   <mat-checkbox formControlName="profilePushFreeApp">{{ 'amds.account.welcome.push-freeapp' | translate }}</mat-checkbox>
                   <mat-checkbox formControlName="profilePushPaidApp">{{ 'amds.account.welcome.push-paidapp' | translate }}</mat-checkbox>
@@ -179,8 +185,6 @@
                   <mat-icon>arrow_right</mat-icon>
               </button>
             </div>
-
-
           </mat-step>
         </mat-horizontal-stepper>
       </div>
@@ -191,6 +195,7 @@
 
         <mat-card class="default-pref-card" [class.mat-elevation-z0]="true">
           <button mat-flat-button color="accent" (click)="useDefaultProfileInfo()" [ngClass]="routeAnimationsElements">{{ 'amds.account.welcome.bypass-btn' | translate }}</button>
+
           <h4 class="mat-subheading-1">{{ 'amds.account.welcome.bypass-msg' | translate }}</h4>
         </mat-card>
 

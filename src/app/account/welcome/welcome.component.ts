@@ -11,6 +11,7 @@ import { User } from '../../core/auth-fire/auth-fire.model';
 
 import { filter, takeUntil, tap } from 'rxjs/operators';
 
+
 @Component({
   selector: 'amds-welcome',
   templateUrl: './welcome.component.html',
@@ -18,6 +19,7 @@ import { filter, takeUntil, tap } from 'rxjs/operators';
 })
 export class WelcomeComponent implements OnInit, OnDestroy {
   // private watch: Subscription;
+
 
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
   isLinear = true;
@@ -49,6 +51,7 @@ export class WelcomeComponent implements OnInit, OnDestroy {
     { value: 'freq-3', viewValue: 'Quincenal' },
     { value: 'freq-4', viewValue: 'Mensual' }
   ];
+
 
   // Observable User Facade property
   user$: Observable<User> = this.userService.user$;
@@ -183,7 +186,6 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   // First Submit Form handler (Save current profile info to Firestore)
   updateProfileInfo() {
     console.log('submitHandler > ');
-
     const formEmail = this.firstFormGroup.value.profileEmail;
     const formName = this.firstFormGroup.value.profileName;
 

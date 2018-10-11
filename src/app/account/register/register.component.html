@@ -20,24 +20,28 @@
     
                 <div class="social-btn">
                   <button class="btn-google" (click)="signUpWithGoogle()" mat-raised-button [disabled]="user.loading || user.uid" [ngClass]="routeAnimationsElements">
+
                     <mat-icon svgIcon="google-ic"></mat-icon>
                     <span>{{ 'amds.account.register.sign-google' | translate }}</span>
                   </button>
                 </div>
                 <div class="social-btn">
                   <button class="btn-fb" mat-raised-button (click)="signUpWithFacebook()" [disabled]="user.loading || user.uid" [ngClass]="routeAnimationsElements">
+
                     <mat-icon svgIcon="facebook-ic"></mat-icon>
                     <span>{{ 'amds.account.register.sign-facebook' | translate }}</span>
                   </button>
                 </div>
                 <div class="social-btn">
                   <button class="btn-twitter" mat-raised-button (click)="signUpWithTwitter()" [disabled]="user.loading || user.uid" [ngClass]="routeAnimationsElements">
+
                     <mat-icon svgIcon="twitter-ic"></mat-icon>
                     <span>{{ 'amds.account.register.sign-twitter' | translate }}</span>
                   </button>
                 </div>
                 <div class="social-btn">
                     <button class="btn-github" mat-raised-button (click)="signUpWithGithub()" [disabled]="user.loading || user.uid" [ngClass]="routeAnimationsElements">
+
                       <mat-icon svgIcon="github-ic"></mat-icon>
                       <span>{{ 'amds.account.register.sign-github' | translate }}</span>
                     </button>
@@ -79,6 +83,7 @@
 
                   <div class="social-btn">
                       <button class="btn-email" mat-raised-button type="submit" [disabled]="registerForm.invalid || user.loading || user.uid" [ngClass]="routeAnimationsElements">
+
                         <mat-icon svgIcon="mail-ic"></mat-icon>
                         <span>{{ 'amds.account.register.sign-email' | translate }}</span>
                       </button>

@@ -425,6 +425,7 @@ export class UserFacade {
 
       this.showNotification(welcomeMsg, '');
       this.router.navigate(['account/welcome']);
+      this.localStorageService.setItem(AUTH_KEY, payload);
     })
   );
 
