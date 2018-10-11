@@ -41,6 +41,7 @@ export class UserFacade {
   // Observable Queries available for consumption by views
   // ************************************************
   user$ = this.store.pipe(select(UsersQuery.getUser));
+  tempDisplayName: string;
 
   // ************************************************
   // Effects to be registered at the Module level
@@ -53,17 +54,21 @@ export class UserFacade {
       switchMap(payload => this.afAuth.authState),
       map(authData => {
         if (authData) {
+          const tempDisplayName = this.tempDisplayName
+            ? this.tempDisplayName
+            : null;
           const newProviderId = authData.providerData[0].providerId.replace(
             '.com',
             ''
           );
           console.log('getUser$: User is logged in');
           console.log('getUser$: User PROVIDER ID: ' + newProviderId);
+          console.log('getUser$ TEMP NAME=email: ' + tempDisplayName);
 
           const user = new User(
             authData.uid,
             authData.email || null,
-            authData.displayName || null,
+            authData.displayName || tempDisplayName,
             authData.photoURL || 'https://angularfirebase.com/images/logo.png',
             authData.phoneNumber || 'Unregistered Phone',
             newProviderId,
@@ -92,6 +97,9 @@ export class UserFacade {
       map((action: userActions.EmailSignUp) => action.payload),
       switchMap(payload => {
         console.log('signUpEmail$ payload email: ' + payload.email);
+        console.log('signUpEmail$ payload name: ' + payload.name);
+        const nameForm = payload.name;
+        this.tempDisplayName = nameForm;
         return from(this.emailSignUp(payload.email, payload.password));
       }),
       map(credential => {
@@ -99,16 +107,21 @@ export class UserFacade {
         console.log(
           'signUpEmail$ CREDENTIAL > providerId: ' + credential.user.providerId
         );
+        console.log('signUpEmail$ TEMP NAME=test: ' + this.tempDisplayName);
+        const displayNameForm = this.tempDisplayName
+          ? this.tempDisplayName
+          : 'Unregistered Name';
 
         const payload = {
           uid: credential.user.uid,
-          email: credential.user.uid,
-          displayName: 'Unregistered Name',
+          email: credential.user.email,
+          displayName: displayNameForm,
           photoUrl: 'https://angularfirebase.com/images/logo.png',
           phoneNumber: 'Unregistered Phone',
           providerId: 'password',
           verified: false
         };
+
         return new userActions.NewUser(payload);
       }),
       catchError((err, caught) => {
@@ -386,17 +399,30 @@ export class UserFacade {
     map((action: userActions.WelcomeUser) => action.payload),
     tap(payload => {
       console.log('welcomeUser$ > user/profile [payload.uid]: ' + payload.uid);
-      const isEmailVerified = payload.verified;
-      const verifyProvider = payload.providerId === 'password' ? true : false;
-
-      if (!isEmailVerified && verifyProvider) {
-        console.log('welcomeUser$ Unverified Email > verification link sent');
-        this.sendVerificationLink(payload.email);
-      }
 
       const welcomeMsg = this.translateService.instant(
         'amds.auth-fire.signup-success'
       );
+
+      const isEmailVerified = payload.verified;
+      const verifyProvider = payload.providerId === 'password' ? true : false;
+      const nameDisplayTemp = this.tempDisplayName ? true : false;
+
+      if (nameDisplayTemp && verifyProvider) {
+        console.log('welcomeUser$ New email User  > updateEmailUserProfile()');
+        const userDisplayName = this.tempDisplayName;
+        const userPhotoUrl = payload.photoUrl;
+        this.updateEmailUserProfile(userDisplayName, userPhotoUrl);
+      }
+
+      if (!isEmailVerified && verifyProvider) {
+        console.log('welcomeUser$ Unverified Email > sendVerificationLink()');
+        const userEmail = payload.email;
+        const lang = this.translateService.currentLang;
+        this.afAuth.auth.languageCode = lang;
+        this.sendVerificationLink(userEmail);
+      }
+
       this.showNotification(welcomeMsg, '');
       this.router.navigate(['account/welcome']);
     })
@@ -459,10 +485,11 @@ export class UserFacade {
     private localStorageService: LocalStorageService
   ) {}
 
-  signUpEmail(email: string, password: string): Observable<User> {
+  signUpEmail(email: string, password: string, name: string): Observable<User> {
     const payload = {
       email: email,
-      password: password
+      password: password,
+      name: name
     };
     this.store.dispatch(new userActions.EmailSignUp(payload));
     return this.user$;
@@ -551,6 +578,35 @@ export class UserFacade {
   protected githubLogin(): Promise<any> {
     const provider = new auth.GithubAuthProvider();
     return this.afAuth.auth.signInWithPopup(provider);
+  }
+
+  /*
+        credential.updateProfile({
+          displayName: displayNameForm,
+          photoURL: 'https://angularfirebase.com/images/logo.png'
+       }).then(
+        (s)=> {
+          console.log('signUpEmail$ updateProfile() success!!!!!!');
+        }
+      )
+      */
+
+  protected updateEmailUserProfile(
+    userDisplayName: string,
+    userPhotoUrl: string
+  ) {
+    this.afAuth.auth.currentUser
+      .updateProfile({
+        displayName: userDisplayName,
+        photoURL: userPhotoUrl
+      })
+      .then(s => {
+        console.log('updateEmailUserProfile success!!!!!!');
+      })
+      .catch(function(error) {
+        // An error happened.
+        console.log('updateEmailUserProfile error: ' + error);
+      });
   }
 
   protected sendVerificationLink(email: string) {

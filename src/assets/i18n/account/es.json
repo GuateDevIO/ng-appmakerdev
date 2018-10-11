@@ -27,9 +27,9 @@
   "amds.account.login.form-pass-tooltip": "Ver / Ocultar contraseña",
   "amds.account.login.form-terms-a":
     "Al continuar, confirmas que aceptas nuestras",
-  "amds.account.login.form-terms-b": "condiciones del servicio",
-  "amds.account.login.form-terms-c": "y nuestra",
-  "amds.account.login.form-terms-d": "política de privacidad",
+  "amds.account.login.form-terms-b": "Condiciones del Servicio",
+  "amds.account.login.form-terms-c": " y",
+  "amds.account.login.form-terms-d": "Política de Privacidad",
 
   "amds.account.register.title": "REGISTRAR CUENTA",
   "amds.account.register.btn-login":
@@ -73,7 +73,8 @@
   "amds.account.welcome.form-btn-next": "Siguiente",
   "amds.account.welcome.form-btn-back": "Atrás",
   "amds.account.welcome.form-btn-profile": "Verificar perfil",
-  "amds.account.welcome.form-step-complete": "¡Estupendo! Tu perfil esta listo",
+  "amds.account.welcome.form-step-complete":
+    "¡Estupendo! Tu perfil esta listo...",
   "amds.account.welcome.form-step-help":
     "Puede cambiar su información, incluyendo su imagen y preferencias en cualquier momento directamente desde la configuración de su perfil.",
 
@@ -103,7 +104,7 @@
   "amds.account.welcome.push-video":
     "Nuevo video publicado en YouTube o en nuestro sitio web",
 
-  "amds.account.welcome.bypass-btn": "Utilizar preferencias predeterminadas",
+  "amds.account.welcome.bypass-btn": "Usar preferencias predeterminadas",
   "amds.account.welcome.bypass-msg":
     "Al hacer clic en el botón de arriba, omitirá esta pantalla y será redirigido a su página de Perfil."
 }

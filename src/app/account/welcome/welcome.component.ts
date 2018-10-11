@@ -99,8 +99,7 @@ export class WelcomeComponent implements OnInit, OnDestroy {
       profilePushFreeApp: true,
       profilePushPaidApp: true,
       profilePushCourse: true,
-      profilePushVideo: true,
-      profilePushCodelab: true
+      profilePushVideo: true
     });
 
     this.user$ = this.userService.user$.pipe(
@@ -200,5 +199,25 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   // Save Default Profile information to Firestore
   useDefaultProfileInfo() {
     console.log('useDefaultProfileInfo success > Profile page');
+  }
+
+  redirectDashboard() {
+    console.log('redirectDashboard > triggered!');
+    this.router.navigate(['user/home']);
+  }
+
+  redirectProfile() {
+    console.log('redirectProfile > triggered!');
+    this.router.navigate(['user/profile']);
+  }
+
+  redirectCourses() {
+    console.log('redirectCourses > triggered!');
+    this.router.navigate(['user/courses']);
+  }
+
+  redirectApps() {
+    console.log('redirectApps > triggered!');
+    this.router.navigate(['user/earnings']);
   }
 }

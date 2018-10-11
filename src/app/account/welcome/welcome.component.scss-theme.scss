@@ -22,7 +22,7 @@
         }
 
         > .row {
-          > .col-md-8 {
+          > .col-md-7 {
             > .mat-stepper-base {
               .preference-container {
                 background-color: mat-color($background, background);
@@ -31,6 +31,14 @@
               .done-btn {
                 color: mat-color($background, card);
                 background-color: mat-color($primary);
+              }
+            }
+          }
+          > .col-md-5 {
+            > .default-pref-card {
+              button {
+                color: mat-color($foreground, text);
+                background-color: mat-color($accent);
               }
             }
           }

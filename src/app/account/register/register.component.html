@@ -50,6 +50,15 @@
                 <form class="form-container" [formGroup]="registerForm" (ngSubmit)="submitHandler()" [ngClass]="routeAnimationsElements">
 
                   <mat-form-field appearance="fill">
+                      <mat-label>{{ 'amds.account.welcome.form-name' | translate }}</mat-label>
+                      <input matInput placeholder="{{ 'amds.account.welcome.form-name-input' | translate }}" formControlName="name" required>
+                      <mat-icon matSuffix aria-label="focused/hovered ">
+                        alternate_email
+                      </mat-icon>
+                      <mat-error *ngIf="registerForm.get('name').hasError('required')">{{ 'amds.account.welcome.form-name-req' | translate }}</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="fill">
                     <mat-label>{{ 'amds.account.login.form-mail' | translate }}</mat-label>
                     <input matInput placeholder="{{ 'amds.account.login.form-mail-input' | translate }}" formControlName="email" required>
                     <mat-icon matSuffix matTooltip="{{ 'amds.account.login.form-mail-tooltip' | translate }}" aria-label="displays tooltip on focused/hovered over" (click)="insertAt()">

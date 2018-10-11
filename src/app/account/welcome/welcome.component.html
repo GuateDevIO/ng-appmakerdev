@@ -15,7 +15,7 @@
 
   <div class="content">
     <div class="row">
-      <div class="col-md-8 col-lg-7">
+      <div class="col-md-7 col-lg-6">
         <mat-card class="heading-card" [class.mat-elevation-z0]="true">
           <h1 class="mat-headline" [ngClass]="routeAnimationsElements">{{ 'amds.account.welcome.headline' | translate }}</h1>
           <h4 class="mat-subheading-1" [ngClass]="routeAnimationsElements">{{ 'amds.account.welcome.subheadline' | translate }}</h4>
@@ -78,38 +78,37 @@
             <form class="form-container" [formGroup]="secondFormGroup" (ngSubmit)="updateUserPreferences()">
               <ng-template matStepLabel>{{ 'amds.account.welcome.step-notifications' | translate }}</ng-template>
 
-
               <div class="preference-container">
+
                 <mat-slide-toggle color="warn" formControlName="profileNotificationEmail"><b>{{ 'amds.account.welcome.notify-enable' | translate }}</b></mat-slide-toggle>
                 <p>{{ 'amds.account.welcome.notify-msg' | translate }}</p>
+
                 <mat-checkbox formControlName="profileNotificationApps">{{ 'amds.account.welcome.notify-apps' | translate }}</mat-checkbox>
                 <mat-checkbox formControlName="profileNotificationTraining">{{ 'amds.account.welcome.notify-training' | translate }}</mat-checkbox>
                 <mat-checkbox formControlName="profileNotificationPromo">{{ 'amds.account.welcome.notify-promo' | translate }}</mat-checkbox>
-              
+    
                 <mat-form-field appearance="standard">
-                  <mat-label>{{ 'amds.account.welcome.notify-freq-label' | translate }}</mat-label>
-                  <mat-select placeholder="{{ 'amds.account.welcome.notify-freq-msg' | translate }}" formControlName="profileNotificationFrequency" name="udpate">
-                    <mat-option *ngFor="let update of updates" [value]="update.value">
-                      {{update.viewValue}}
+                    <mat-label>{{ 'amds.account.welcome.form-language' | translate }}</mat-label>
+                    <mat-select placeholder="{{ 'amds.account.welcome.form-language-input' | translate }}" formControlName="profileNotificationLang" name="language">
+                    <mat-option *ngFor="let language of languages" [value]="language.value">
+                      {{language.viewValue}}
                     </mat-option>
-                  </mat-select>
-                  <mat-icon matSuffix>date_range</mat-icon>
-                  <mat-hint align="end">{{ 'amds.account.welcome.notify-freq-hint' | translate }}</mat-hint>
+                    </mat-select>
+                    <mat-icon matSuffix>public</mat-icon>
+                    <mat-hint align="end">{{ 'amds.account.welcome.form-optional' | translate }}</mat-hint>
                 </mat-form-field>
-  
+
                 <mat-form-field appearance="standard">
-                  <mat-label>{{ 'amds.account.welcome.form-language' | translate }}</mat-label>
-                  <mat-select placeholder="{{ 'amds.account.welcome.form-language-input' | translate }}" formControlName="profileNotificationLang" name="language">
-                  <mat-option *ngFor="let language of languages" [value]="language.value">
-                    {{language.viewValue}}
-                  </mat-option>
-                  </mat-select>
-                  <mat-icon matSuffix>public</mat-icon>
-                  <mat-hint align="end">{{ 'amds.account.welcome.form-optional' | translate }}</mat-hint>
+                    <mat-label>{{ 'amds.account.welcome.notify-freq-label' | translate }}</mat-label>
+                    <mat-select placeholder="{{ 'amds.account.welcome.notify-freq-msg' | translate }}" formControlName="profileNotificationFrequency" name="udpate">
+                      <mat-option *ngFor="let update of updates" [value]="update.value">
+                        {{update.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-icon matSuffix>date_range</mat-icon>
+                    <mat-hint align="end">{{ 'amds.account.welcome.notify-freq-hint' | translate }}</mat-hint>
                 </mat-form-field>
               </div>
-
-
 
               <div class="preference-container">
                   <mat-slide-toggle color="warn" formControlName="profilePushEnable"><b>{{ 'amds.account.welcome.push-enable' | translate }}</b></mat-slide-toggle>
@@ -117,10 +116,8 @@
                   <mat-checkbox formControlName="profilePushFreeApp">{{ 'amds.account.welcome.push-freeapp' | translate }}</mat-checkbox>
                   <mat-checkbox formControlName="profilePushPaidApp">{{ 'amds.account.welcome.push-paidapp' | translate }}</mat-checkbox>
                   <mat-checkbox formControlName="profilePushCourse">{{ 'amds.account.welcome.push-course' | translate }}</mat-checkbox>
-                  <mat-checkbox formControlName="profilePushCodelab">{{ 'amds.account.welcome.push-codelab' | translate }}</mat-checkbox>
                   <mat-checkbox formControlName="profilePushVideo">{{ 'amds.account.welcome.push-video' | translate }}</mat-checkbox>
               </div>
-
 
               <div class="btn-container">
                 <button class="step-continue-btn" mat-button matStepperPrevious>
@@ -135,42 +132,41 @@
             </form>
           </mat-step>
 
+
+
           <mat-step>
             <ng-template matStepLabel>{{ 'amds.account.welcome.step-done' | translate }}</ng-template>
             <div class="done-container">
 
               <mat-card class="done-profile-card" [class.mat-elevation-z0]="true">
-                <img mat-card-image src="{{user.photoUrl}}" alt="User Photo">
-                <h4 class="mat-subheading-1">{{ 'amds.account.welcome.form-step-complete' | translate }}</h4>
+                <h3 class="mat-subheading-2">{{ 'amds.account.welcome.form-step-complete' | translate }}</h3>
+                <h4 class="mat-subheading-1">{{ 'amds.account.welcome.form-step-help' | translate }}</h4>
+
+                <img mat-card-image src="{{user.photoUrl}}" alt="User Photo" *ngIf="user.photoUrl">
+
 
                 <mat-card-content class="done-profile-content">
-
-                  <button class="done-btn" mat-raised-button>Go to your Dashoard</button>
-                  <button class="done-btn" mat-raised-button>Take Training Courses</button>
-                  <button class="done-btn" mat-raised-button>Upload & share your Apps</button>
-
+                  <button class="done-btn" mat-raised-button (click)="redirectDashboard()">Go to your Dashoard</button>
+                  <button class="done-btn" mat-raised-button (click)="redirectCourses()">Take Training Courses</button>
+                  <button class="done-btn" mat-raised-button (click)="redirectApps()">Upload & share your Apps</button>
                 </mat-card-content>
 
-                <h4 class="mat-subheading-1">{{ 'amds.account.welcome.form-step-help' | translate }}</h4>
-                <mat-divider></mat-divider>
+
 
                 <div class="terms-container">
-                  <h4 class="mat-subheading-1">
-                    <a style="text-decoration: underline;" href="https://opensource.org/licenses/MIT" target="_blank">
-                      {{ 'amds.account.login.form-terms-b' | translate }}
-                    </a>
-                    {{ 'amds.account.login.form-terms-c' | translate }}
-                    <a style="text-decoration: underline;" href="https://opensource.org/licenses/MIT" target="_blank">
-                    {{ 'amds.account.login.form-terms-d' | translate }}
-                    </a>
-                  </h4>
-                </div>
+                    <h4 class="mat-subheading-1">
+                      <a style="text-decoration: underline;" href="https://opensource.org/licenses/MIT" target="_blank">
+                        {{ 'amds.account.login.form-terms-b' | translate }}
+                      </a>
+                      {{ 'amds.account.login.form-terms-c' | translate }}
+                      <a style="text-decoration: underline;" href="https://opensource.org/licenses/MIT" target="_blank">
+                      {{ 'amds.account.login.form-terms-d' | translate }}
+                      </a>
+                    </h4>
+                  </div>
+
 
               </mat-card>
-
-
-
-
             </div>
 
             <div class="btn-container">
@@ -178,11 +174,12 @@
                 <mat-icon>arrow_left</mat-icon>
                 {{ 'amds.account.welcome.form-btn-back' | translate }}
               </button>
-              <button class="step-continue-btn" mat-button>
+              <button class="step-continue-btn" mat-button (click)="redirectProfile()">
                   {{ 'amds.account.welcome.form-btn-profile' | translate }}
                   <mat-icon>arrow_right</mat-icon>
               </button>
             </div>
+
 
           </mat-step>
         </mat-horizontal-stepper>
@@ -190,11 +187,10 @@
 
 
 
-
-      <div class="col-md-4 col-lg-5">
+      <div class="col-md-5 col-lg-6">
 
         <mat-card class="default-pref-card" [class.mat-elevation-z0]="true">
-          <button mat-flat-button color="warn" (click)="useDefaultProfileInfo()" [ngClass]="routeAnimationsElements">{{ 'amds.account.welcome.bypass-btn' | translate }}</button>
+          <button mat-flat-button color="accent" (click)="useDefaultProfileInfo()" [ngClass]="routeAnimationsElements">{{ 'amds.account.welcome.bypass-btn' | translate }}</button>
           <h4 class="mat-subheading-1">{{ 'amds.account.welcome.bypass-msg' | translate }}</h4>
         </mat-card>
 
