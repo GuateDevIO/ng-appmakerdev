@@ -11,7 +11,6 @@ import { User } from '../../core/auth-fire/auth-fire.model';
 
 import { filter, takeUntil, tap } from 'rxjs/operators';
 
-
 @Component({
   selector: 'amds-welcome',
   templateUrl: './welcome.component.html',
@@ -19,7 +18,6 @@ import { filter, takeUntil, tap } from 'rxjs/operators';
 })
 export class WelcomeComponent implements OnInit, OnDestroy {
   // private watch: Subscription;
-
 
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
   isLinear = true;
@@ -52,7 +50,6 @@ export class WelcomeComponent implements OnInit, OnDestroy {
     { value: 'freq-4', viewValue: 'Mensual' }
   ];
 
-
   // Observable User Facade property
   user$: Observable<User> = this.userService.user$;
 
@@ -62,14 +59,7 @@ export class WelcomeComponent implements OnInit, OnDestroy {
     private localStorageService: LocalStorageService,
     private form: FormBuilder,
     private userService: UserFacade
-  ) {
-    /*
-      this.watch = this.user$.subscribe(userData => {
-        console.log('watch SUBSCRIPTION' + userData.uid);
-        this.profileInfo = userData;
-      });
-  */
-  }
+  ) {}
 
   ngOnInit() {
     this.closeEmailCard = true;
