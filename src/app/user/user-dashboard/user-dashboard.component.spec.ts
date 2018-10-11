@@ -1,4 +1,4 @@
-import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CoreModule } from '@app/core';
 import { TestingModule } from '@testing/utils';
 
@@ -9,19 +9,21 @@ describe('UserDashboardComponent', () => {
   let fixture: ComponentFixture<UserDashboardComponent>;
 
   beforeEach(
-    fakeAsync(() => {
+    async(() => {
       TestBed.configureTestingModule({
         imports: [TestingModule, CoreModule],
         declarations: [UserDashboardComponent]
       }).compileComponents();
-
-      fixture = TestBed.createComponent(UserDashboardComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
     })
   );
 
-  it('should compile', () => {
+  beforeEach(() => {
+    fixture = TestBed.createComponent(UserDashboardComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 });
