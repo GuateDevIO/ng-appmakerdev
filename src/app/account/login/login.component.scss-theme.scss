@@ -33,7 +33,14 @@
         );
       }
 
-      > .container {
+      > .logout-card {
+        background-color: transparentize(
+          $color: mat-color($primary),
+          $amount: 0.5
+        );
+      }
+
+      > .login-container {
         > .row {
           > .col-md-6 {
             > .login-card {

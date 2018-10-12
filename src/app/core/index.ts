@@ -10,6 +10,7 @@ export * from './auth-fire/auth-fire.actions';
 export * from './auth-fire/auth-fire.model';
 export * from './auth-fire/auth-fire.reducer';
 export * from './auth-fire/auth-fire.facade';
+export * from './auth-fire/auth-fire-guard.service';
 
 export * from './auth-profile/auth-profile.actions';
 export * from './auth-profile/auth-profile.model';

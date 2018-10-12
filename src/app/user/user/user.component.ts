@@ -9,6 +9,9 @@ import { routeAnimations, TitleService } from '@app/core';
 import { selectSettings, SettingsState } from '@app/settings';
 import { AppState } from '@app/core';
 
+import { UserFacade } from '../../core/auth-fire/auth-fire.facade';
+import { User } from '../../core/auth-fire/auth-fire.model';
+
 @Component({
   selector: 'amds-user',
   templateUrl: './user.component.html',
@@ -18,19 +21,27 @@ import { AppState } from '@app/core';
 export class UserComponent implements OnInit, OnDestroy {
   private unsubscribe$: Subject<void> = new Subject<void>();
 
-  user = [
-    { link: 'home', label: 'amds.user.menu.home' },
-    { link: 'profile', label: 'amds.user.menu.profile' },
-    { link: 'notifications', label: 'amds.user.menu.notifications' },
-    { link: 'courses', label: 'amds.user.menu.courses' },
-    { link: 'earnings', label: 'amds.user.menu.earnings' }
+  // Observable User Facade property
+  user$: Observable<User> = this.userService.user$;
+
+  users = [
+    { link: 'home', label: 'amds.user.menu.home', auth: false },
+    { link: 'profile', label: 'amds.user.menu.profile', auth: true },
+    {
+      link: 'notifications',
+      label: 'amds.user.menu.notifications',
+      auth: true
+    },
+    { link: 'courses', label: 'amds.user.menu.courses', auth: true },
+    { link: 'earnings', label: 'amds.user.menu.earnings', auth: true }
   ];
 
   constructor(
     private store: Store<AppState>,
     private router: Router,
     private titleService: TitleService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private userService: UserFacade
   ) {}
 
   ngOnInit(): void {

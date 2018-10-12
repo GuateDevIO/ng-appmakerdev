@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
   loginForm: FormGroup;
   hidePass = true;
+  signInit: boolean;
 
   // Observable User Facade property
   user$: Observable<User> = this.userService.user$;
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.signInit = false;
     // Login Form Field configuration and validators
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -41,27 +43,32 @@ export class LoginComponent implements OnInit {
   submitHandler() {
     // Sign in with Email Address
     console.log('sign in Email attempt');
+    this.signInit = true;
     const formData = this.loginForm.value;
     this.userService.loginEmail(formData.email, formData.password);
   }
 
   signInWithGoogle() {
     console.log('sign in Google attempt');
+    this.signInit = true;
     this.userService.loginGoogle();
   }
 
   signInWithFacebook() {
     console.log('sign in Facebook attempt');
+    this.signInit = true;
     this.userService.loginFacebook();
   }
 
   signInWithTwitter() {
     console.log('sign in Twitter attempt');
+    this.signInit = true;
     this.userService.loginTwitter();
   }
 
   signInWithGithub() {
     console.log('sign in Github attempt');
+    this.signInit = true;
     this.userService.loginGithub();
   }
 
@@ -73,5 +80,10 @@ export class LoginComponent implements OnInit {
   goRegister() {
     console.log('Redirect to Register Page');
     this.router.navigate(['account/register']);
+  }
+
+  goSignout() {
+    console.log('Log out user');
+    this.userService.logoutUser();
   }
 }

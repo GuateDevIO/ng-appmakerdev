@@ -1,29 +1,35 @@
-<div class="wrapper">
-  <mat-card class="heading-card" [class.mat-elevation-z0]="true">
+<div class="wrapper" *ngIf="user$ | async as user">
+
+  <mat-card class="heading-card" *ngIf="!user.uid || signInit" [class.mat-elevation-z0]="true">
     <img mat-card-image src="https://tpc.googlesyndication.com/simgad/5087173954933374359" [ngClass]="routeAnimationsElements"
       alt="login header" (click)="goRegister()">
   </mat-card>
 
-  <div class="container">
+  <mat-card class="logout-card" *ngIf="user.uid && !signInit" [ngClass]="routeAnimationsElements" [class.mat-elevation-z0]="true">
+    <h1 class="mat-headline">{{ 'amds.account.login.signed-in' | translate }}</h1>
+    <h2 class="title" *ngIf="user.displayName">{{ user.displayName }}</h2>
+    <h2 class="title" *ngIf="user.email">{{ user.email }}</h2>
+    <button mat-raised-button color="warn" (click)="goSignout()" [ngClass]="routeAnimationsElements">{{ 'amds.account.login.sign-out' | translate }}</button>
+  </mat-card>
+
+  <div class="login-container">
     <div class="row">
-      <div class="col-md-5 offset-md-0 col-lg-5 offset-lg-1 ">
+      <div class="col-md-6 col-lg-7 col-xl-8">
         <mat-card class="register-card" [class.mat-elevation-z0]="true">
           <img mat-card-image src="https://www.gstatic.com/images/branding/product/2x/app_maker_64dp.png" alt="amds logo" [ngClass]="routeAnimationsElements">
 
           <mat-card-content class="register-card-content">
-
             <h1 class="headline" [ngClass]="routeAnimationsElements">{{ 'amds.account.login.headline' | translate }}</h1>
             <h2 class="title" [ngClass]="routeAnimationsElements">
                 {{ 'amds.account.login.title' | translate }}
             </h2>
-            <button mat-flat-button color="primary" (click)="goRegister()" [ngClass]="routeAnimationsElements">{{ 'amds.account.login.register-now' | translate }}</button>
-
+            <button mat-raised-button color="primary" (click)="goRegister()" [ngClass]="routeAnimationsElements">{{ 'amds.account.login.register-now' | translate }}</button>
           </mat-card-content>
         </mat-card>
       </div>
 
 
-      <div class="col-md-6 offset-md-1 col-lg-5 offset-lg-1" *ngIf="user$ | async as user">
+      <div class="col-md-6 col-lg-5 col-xl-4">
         <mat-card class="login-card" [ngClass]="routeAnimationsElements">
           
           <div>

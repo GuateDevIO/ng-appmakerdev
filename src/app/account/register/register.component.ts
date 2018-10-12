@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
   registerForm: FormGroup;
   hidePass = true;
+  signInit: boolean;
 
   // Observable User Facade property
   user$: Observable<User> = this.userService.user$;
@@ -26,6 +27,8 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.signInit = false;
+
     // Register Form Field configuration and validators
     this.registerForm = this.fb.group({
       name: ['', [Validators.required]],
@@ -42,6 +45,7 @@ export class RegisterComponent implements OnInit {
   submitHandler() {
     // Sign up with Email Address
     console.log('sign up with Email Address');
+    this.signInit = true;
     const formData = this.registerForm.value;
     this.userService.signUpEmail(
       formData.email,
@@ -52,26 +56,35 @@ export class RegisterComponent implements OnInit {
 
   signUpWithGoogle() {
     console.log('sign up with Google');
+    this.signInit = true;
     this.userService.loginGoogle();
   }
 
   signUpWithFacebook() {
     console.log('sign up with Faceebook');
+    this.signInit = true;
     this.userService.loginFacebook();
   }
 
   signUpWithTwitter() {
     console.log('sign up with Twitter');
+    this.signInit = true;
     this.userService.loginTwitter();
   }
 
   signUpWithGithub() {
     console.log('sign up with Github');
+    this.signInit = true;
     this.userService.loginGithub();
   }
 
   goLogin() {
     console.log('Redirect to Login Page');
     this.router.navigate(['account/login']);
+  }
+
+  goSignout() {
+    console.log('Log out user');
+    this.userService.logoutUser();
   }
 }

@@ -1,29 +1,33 @@
 import { Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
-import { Store, select } from '@ngrx/store';
+import {
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  Router
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 
-import { User } from './auth-fire.model';
 import { UserFacade } from './auth-fire.facade';
 
 @Injectable()
 export class AuthFireGuardService implements CanActivate {
-  user$: Observable<User> = this.userService.user$;
-  isAuthenticated = false;
+  constructor(private userService: UserFacade, private router: Router) {}
 
-  constructor(private userService: UserFacade) {
-    this.user$.subscribe(user => {
-      console.log('AuthFireGuardService $user ID:' + user.uid);
-      if (user.uid !== null) {
-        this.isAuthenticated = true;
-      } else {
-        this.isAuthenticated = false;
-      }
-    });
-  }
-
-  canActivate(): boolean {
-    return this.isAuthenticated;
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean> | Promise<boolean> | boolean {
+    return this.userService.user$.pipe(
+      take(1),
+      map(user => !!user.uid),
+      tap(loggedIn => {
+        if (!loggedIn) {
+          console.log('access denied');
+          console.log('You must be logged in!', 'error');
+          this.router.navigate(['account/login']);
+        }
+      })
+    );
   }
 }

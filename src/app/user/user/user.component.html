@@ -1,9 +1,10 @@
-<nav mat-tab-nav-bar >
+<nav mat-tab-nav-bar *ngIf="user$ | async as user">
   <a mat-tab-link
-     *ngFor="let e of user"
+     *ngFor="let e of users"
      [routerLink]="e.link"
      routerLinkActive #rla="routerLinkActive"
-     [active]="rla.isActive">
+     [active]="rla.isActive"
+     [disabled]="e.auth && !user.uid">
     {{e.label | translate}}
   </a>
 </nav>

@@ -2,7 +2,9 @@
   "amds.account.login.headline": "App Maker Developers",
   "amds.account.login.title":
     "The App Maker Developers Platform is a free collection of tools and resources to help you learn and get started with App Maker. You can also share or sell your own apps to other users!",
-  "amds.account.login.register-now": "CREATE NEW ACCOUNT",
+  "amds.account.login.register-now": "New user? Register here!",
+  "amds.account.login.signed-in": "You are already signed-in to the account:",
+  "amds.account.login.sign-out": "Sign out",
   "amds.account.login.sign-head": "Sign in",
   "amds.account.login.sign-sub-head": "Use your existing account",
   "amds.account.login.sign-google": "Sign in with Google",
@@ -41,6 +43,7 @@
   "amds.account.register.sign-email": "Sign up with Email",
   "amds.account.register.sign-phone": "Sign up with Phone",
   "amds.account.register.sign-or": "or register with",
+  "amds.account.register.slogan": "Go from idea to apps in days, not months!",
 
   "amds.account.welcome.verify-email":
     "A verfication link was sent to the email address:",

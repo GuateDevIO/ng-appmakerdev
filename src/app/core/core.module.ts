@@ -16,6 +16,7 @@ import { AnimationsService } from './animations/animations.service';
 import { TitleService } from './title/title.service';
 import { reducers, metaReducers } from './core.state';
 
+import { AuthFireGuardService } from './auth-fire/auth-fire-guard.service';
 import { UserFacade } from './auth-fire/auth-fire.facade';
 import { ProfileFacade } from './auth-profile/auth-profile.facade';
 
@@ -46,6 +47,7 @@ import { ProfileFacade } from './auth-profile/auth-profile.facade';
   providers: [
     LocalStorageService,
     AuthGuardService,
+    AuthFireGuardService,
     AnimationsService,
     TitleService
   ],

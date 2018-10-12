@@ -18,13 +18,13 @@ export namespace UsersQuery {
 export function userReducer(state: User = defaultUser, action: Action) {
   switch (action.type) {
     case userActions.GET_USER:
-      return { ...state, loading: true };
+      return { ...state };
 
     case userActions.AUTHENTICATED:
-      return { ...state, ...action.payload, loading: false };
+      return { ...state, ...action.payload };
 
     case userActions.NOT_AUTHENTICATED:
-      return { ...state, ...defaultUser, loading: false };
+      return { ...state, ...defaultUser };
 
     case userActions.EMAIL_SIGN_UP:
       return { ...state, ...action.payload, loading: true };

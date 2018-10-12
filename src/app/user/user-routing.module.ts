@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AuthGuardService } from '@app/core';
+import { AuthFireGuardService } from '@app/core';
 
 import { UserComponent } from './user/user.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -28,21 +28,25 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
+        canActivate: [AuthFireGuardService],
         data: { title: 'amds.user.menu.profile' }
       },
       {
         path: 'notifications',
         component: NotificationsComponent,
+        canActivate: [AuthFireGuardService],
         data: { title: 'amds.user.menu.notifications' }
       },
       {
         path: 'courses',
         component: CoursesComponent,
+        canActivate: [AuthFireGuardService],
         data: { title: 'amds.user.menu.courses' }
       },
       {
         path: 'earnings',
         component: EarningsComponent,
+        canActivate: [AuthFireGuardService],
         data: { title: 'amds.user.menu.earnings' }
       }
     ]

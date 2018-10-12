@@ -2,15 +2,17 @@
   "amds.account.login.headline": "App Maker Developers",
   "amds.account.login.title":
     "La plataforma de App Maker Developers es una colección gratuita de herramientas y recursos para ayudarte a aprender y comenzar con App Maker. ¡También puedes compartir o vender tus propias aplicaciones a otros usuarios!",
-  "amds.account.login.register-now": "CREAR CUENTA NUEVA",
+  "amds.account.login.register-now": "¿Nuevo usuario? ¡Registrate aquí!",
+  "amds.account.login.signed-in": "Ya has iniciado sesión en la cuenta:",
+  "amds.account.login.sign-out": "Desconectar sesión",
   "amds.account.login.sign-head": "Iniciar sesión",
   "amds.account.login.sign-sub-head": "Utiliza tu cuenta existente",
-  "amds.account.login.sign-google": "Iniciar sesión con Google",
-  "amds.account.login.sign-facebook": "Iniciar sesión con Facebook",
-  "amds.account.login.sign-twitter": "Iniciar sesión con Twitter",
-  "amds.account.login.sign-github": "Iniciar sesión con Github",
-  "amds.account.login.sign-email": "Iniciar sesión con Correo",
-  "amds.account.login.sign-phone": "Iniciar sesión con Telefono",
+  "amds.account.login.sign-google": "Iniciar con Google",
+  "amds.account.login.sign-facebook": "Iniciar con Facebook",
+  "amds.account.login.sign-twitter": "Iniciar con Twitter",
+  "amds.account.login.sign-github": "Iniciar con Github",
+  "amds.account.login.sign-email": "Iniciar con Correo",
+  "amds.account.login.sign-phone": "Iniciar con Telefono",
   "amds.account.login.sign-or": "o inicie sesión con",
   "amds.account.login.form-mail": "Correo electrónico",
   "amds.account.login.form-mail-input": "Ingresa tu correo electrónico",
@@ -33,7 +35,7 @@
 
   "amds.account.register.title": "REGISTRAR CUENTA",
   "amds.account.register.btn-login":
-    "¿Usuario existente? Clic aquí para ingresar",
+    "¿Usuario existente? Clic aquí para iniciar",
   "amds.account.register.sign-head": "Regístrate",
   "amds.account.register.sign-sub-head": "Crear una nueva cuenta",
   "amds.account.register.sign-google": "Regístrate con Google",
@@ -43,6 +45,8 @@
   "amds.account.register.sign-email": "Regístrate con Correo",
   "amds.account.register.sign-phone": "Regístrate con Telefono",
   "amds.account.register.sign-or": "o registrarse con",
+  "amds.account.register.slogan":
+    "¡Construye tus propias aplicaciones en días, no en meses!",
 
   "amds.account.welcome.verify-email":
     "Se envió un enlace de verificación al correo electrónico:",

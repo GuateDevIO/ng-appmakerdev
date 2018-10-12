@@ -376,6 +376,8 @@ export class UserFacade {
     ofType(userActions.LOGIN_SUCCESS),
     map((action: userActions.LoginSuccess) => action.payload),
     tap(payload => {
+      this.router.navigate(['user/home']);
+
       console.log('loginSuccess$ > user/profile [payload.uid]: ' + payload.uid);
       const emailDisplay =
         payload.displayName === 'Unregistered Name'
@@ -389,7 +391,6 @@ export class UserFacade {
         'amds.auth-fire.signin-action'
       );
       this.showNotification(successMsg, actionMsg);
-      this.router.navigate(['user/profile']);
     })
   );
 

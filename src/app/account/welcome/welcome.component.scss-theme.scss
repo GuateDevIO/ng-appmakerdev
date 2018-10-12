@@ -29,7 +29,7 @@
               }
 
               .done-btn {
-                color: mat-color($background, card);
+                color: mat-color($foreground, text);
                 background-color: mat-color($primary);
               }
             }
