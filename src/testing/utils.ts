@@ -118,15 +118,15 @@ export class TestingModule {
       )
     );
     iconRegistry.addSvgIcon(
-      'googleplus-ic',
-      sanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/social-icons/google-plus.svg'
-      )
-    );
-    iconRegistry.addSvgIcon(
       'medium-ic',
       sanitizer.bypassSecurityTrustResourceUrl(
         '../assets/social-icons/medium.svg'
+      )
+    );
+    iconRegistry.addSvgIcon(
+      'instagram-ic',
+      sanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/social-icons/instagram.svg'
       )
     );
   }

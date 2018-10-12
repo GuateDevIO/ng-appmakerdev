@@ -19,7 +19,9 @@ mat-sidenav-container {
 
     .branding {
       cursor: pointer;
+      overflow: hidden;
       padding-top: 4px;
+      text-overflow: ellipsis;
 
       &.center {
         text-align: center;
@@ -36,6 +38,8 @@ mat-sidenav-container {
     .sign-in-button {
       line-height: 35px;
       margin-right: 10px;
+      overflow: visible;
+      white-space: nowrap;
     }
 
     .user-button {

@@ -16,11 +16,8 @@ import { User } from './core/auth-fire/auth-fire.model';
 import { UserFacade } from './core/auth-fire/auth-fire.facade';
 
 import {
-  ActionAuthLogin,
-  ActionAuthLogout,
   AnimationsService,
   TitleService,
-  selectAuth,
   routeAnimations,
   AppState
 } from '@app/core';
@@ -66,7 +63,6 @@ export class AppComponent implements OnInit, OnDestroy {
   ];
 
   settings: SettingsState;
-  // isAuthenticated: boolean;
   userPhotoUrl: any;
 
   constructor(
@@ -123,15 +119,15 @@ export class AppComponent implements OnInit, OnDestroy {
       )
     );
     iconRegistry.addSvgIcon(
-      'googleplus-ic',
-      sanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/social-icons/google-plus.svg'
-      )
-    );
-    iconRegistry.addSvgIcon(
       'medium-ic',
       sanitizer.bypassSecurityTrustResourceUrl(
         '../assets/social-icons/medium.svg'
+      )
+    );
+    iconRegistry.addSvgIcon(
+      'instagram-ic',
+      sanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/social-icons/instagram.svg'
       )
     );
   }
@@ -155,11 +151,9 @@ export class AppComponent implements OnInit, OnDestroy {
             `url(${user.photoUrl}) no-repeat center center/40px 40px`
           );
         }
-        // this.isAuthenticated = true;
       }
     });
 
-    // this.subscribeToIsAuthenticated();
     this.translate.setDefaultLang('en');
     this.subscribeToSettings();
     this.subscribeToRouterEvents();
@@ -171,12 +165,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   onLoginClick() {
-    // this.store.dispatch(new ActionAuthLogin());
     this.router.navigate(['account/login']);
   }
 
   onLogoutClick() {
-    // this.store.dispatch(new ActionAuthLogout());
     this.userService.logoutUser();
   }
 
@@ -184,14 +176,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.store.dispatch(new ActionSettingsChangeLanguage({ language }));
     this.store.dispatch(new ActionSettingsPersist({ settings: this.settings }));
   }
-
-  /*
-  private subscribeToIsAuthenticated() {
-    this.store
-      .pipe(select(selectAuth), takeUntil(this.unsubscribe$))
-      .subscribe(auth => (this.isAuthenticated = auth.isAuthenticated));
-  }
-  */
 
   private subscribeToSettings() {
     if (AppComponent.isIEorEdgeOrSafari()) {
