@@ -40,7 +40,7 @@ export class ProfileFacade {
   // Observable Queries available for consumption by views
   // ************************************************
 
-  profile$ = this.store.select(ProfileQuery.getProfile);
+  profile$ = this.store.pipe(select(ProfileQuery.getProfile));
 
   // ************************************************
   // Effects to be registered at the Module level

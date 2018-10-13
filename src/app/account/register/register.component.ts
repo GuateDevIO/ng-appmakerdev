@@ -79,12 +79,10 @@ export class RegisterComponent implements OnInit {
   }
 
   goLogin() {
-    console.log('Redirect to Login Page');
     this.router.navigate(['account/login']);
   }
 
   goSignout() {
-    console.log('Log out user');
     this.userService.logoutUser();
   }
 }

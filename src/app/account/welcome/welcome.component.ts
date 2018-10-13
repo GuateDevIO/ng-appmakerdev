@@ -162,21 +162,17 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.watch.unsubscribe();
+    console.log('ngOnDestroy');
   }
 
-  // Second Submit  Form handler (Save current profile preferences to Firestore)
   hideEmailCard() {
-    console.log('updateUserPreferences > ');
     this.closeEmailCard = true;
   }
 
   // First Submit Form handler (Save current profile info to Firestore)
   updateProfileInfo() {
-    console.log('submitHandler > ');
     const formEmail = this.firstFormGroup.value.profileEmail;
     const formName = this.firstFormGroup.value.profileName;
-
     console.log('formEmail: ' + formEmail);
     console.log('formName: ' + formName);
   }
@@ -188,27 +184,22 @@ export class WelcomeComponent implements OnInit, OnDestroy {
 
   // Save Default Profile information to Firestore
   useDefaultProfileInfo() {
-    console.log('useDefaultProfileInfo success > Profile page');
     this.router.navigate(['user/home']);
   }
 
   redirectDashboard() {
-    console.log('redirectDashboard > triggered!');
     this.router.navigate(['user/home']);
   }
 
   redirectProfile() {
-    console.log('redirectProfile > triggered!');
     this.router.navigate(['user/profile']);
   }
 
   redirectCourses() {
-    console.log('redirectCourses > triggered!');
     this.router.navigate(['user/courses']);
   }
 
   redirectApps() {
-    console.log('redirectApps > triggered!');
     this.router.navigate(['user/earnings']);
   }
 }
