@@ -17,8 +17,6 @@ import { filter, takeUntil, tap } from 'rxjs/operators';
   styleUrls: ['./welcome.component.scss']
 })
 export class WelcomeComponent implements OnInit, OnDestroy {
-  // private watch: Subscription;
-
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
   isLinear = true;
   firstFormGroup: FormGroup;
@@ -95,7 +93,7 @@ export class WelcomeComponent implements OnInit, OnDestroy {
       profilePushVideo: true
     });
 
-    this.user$ = this.userService.user$.pipe(
+    this.userService.user$.pipe(
       tap(userData => {
         if (userData.uid) {
           if (!userData.verified) {
@@ -191,6 +189,7 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   // Save Default Profile information to Firestore
   useDefaultProfileInfo() {
     console.log('useDefaultProfileInfo success > Profile page');
+    this.router.navigate(['user/home']);
   }
 
   redirectDashboard() {

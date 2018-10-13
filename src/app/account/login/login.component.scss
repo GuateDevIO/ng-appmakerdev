@@ -59,9 +59,8 @@
 }
 
 .register-card {
-  margin: 0px;
-  padding: 0px 80px;
-  background-color: transparent;
+  margin: 40px 0px;
+  padding: 0px 50px;
 
   img {
     width: 96px;
@@ -93,15 +92,11 @@
   }
 }
 
-.login-container {
-  margin: 0px;
-  padding: 70px;
-}
-
 .login-card {
-  margin: 0px;
+  margin: 40px 0px;
   padding: 0px;
   text-align: center;
+  border-radius: 10px;
 
   h3 {
     margin: 0px;
@@ -216,7 +211,7 @@
 @media (max-width: map-get($grid-breakpoints, xl)) {
   .heading-card {
     margin: 0px;
-    padding: 15px;
+    padding: 20px;
   }
 
   .login-container {
@@ -225,14 +220,8 @@
   }
 
   .register-card {
-    margin: 0px;
     padding: 0px 40px;
     text-align: left;
-  }
-
-  .login-card-content {
-    margin: 0px;
-    padding: 30px;
   }
 }
 
@@ -248,14 +237,8 @@
   }
 
   .register-card {
-    margin: 0px;
-    padding: 0px 15px;
+    padding: 0px;
     text-align: left;
-  }
-
-  .login-card-content {
-    margin: 0px;
-    padding: 30px;
   }
 }
 
@@ -271,14 +254,9 @@
   }
 
   .register-card {
-    margin: 0px;
     padding: 25px;
     text-align: center;
-  }
-
-  .login-card-content {
     margin: 0px;
-    padding: 25px 50px;
   }
 }
 
@@ -294,13 +272,8 @@
   }
 
   .register-card {
-    margin: 0px;
     padding: 15px;
-    text-align: center;
-  }
-
-  .login-card-content {
     margin: 0px;
-    padding: 30px;
+    text-align: center;
   }
 }

@@ -40,8 +40,13 @@
         );
       }
 
-      > .login-container {
+      > .container {
         > .row {
+          > .col-md-6 {
+            > .register-card {
+              background: transparent;
+            }
+          }
           > .col-md-6 {
             > .login-card {
               background: mat-color($background, background);

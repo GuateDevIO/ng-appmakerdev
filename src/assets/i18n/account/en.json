@@ -104,6 +104,10 @@
   "amds.account.welcome.push-video":
     "New video published in YouTube or Website",
 
+  "amds.account.welcome.go-dashboard": "Go to your Dashboard",
+  "amds.account.welcome.go-courses": "View online courses",
+  "amds.account.welcome.go-apps": "Download or Upload Apps",
+
   "amds.account.welcome.bypass-btn": "Use default preferences",
   "amds.account.welcome.bypass-msg":
     "By clicking the above button, you will bypass this screen and will be redirected to your Profile page."

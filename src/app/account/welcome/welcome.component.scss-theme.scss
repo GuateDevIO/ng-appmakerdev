@@ -17,7 +17,7 @@
 
       > .content {
         button {
-          color: mat-color($foreground, text);
+          color: mat-color($warn, default-contrast);
           background-color: mat-color($warn);
         }
 
@@ -29,15 +29,15 @@
               }
 
               .done-btn {
-                color: mat-color($foreground, text);
                 background-color: mat-color($primary);
+                color: mat-color($primary, default-contrast);
               }
             }
           }
           > .col-md-5 {
             > .default-pref-card {
               button {
-                color: mat-color($foreground, text);
+                color: mat-color($accent, default-contrast);
                 background-color: mat-color($accent);
               }
             }

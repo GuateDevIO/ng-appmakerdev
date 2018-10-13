@@ -107,6 +107,10 @@
   "amds.account.welcome.push-video":
     "Nuevo video publicado en YouTube o en nuestro sitio web",
 
+  "amds.account.welcome.go-dashboard": "Ir al panel de control",
+  "amds.account.welcome.go-courses": "Ver cursos en línea",
+  "amds.account.welcome.go-apps": "Descarga o sube aplicaciones",
+
   "amds.account.welcome.bypass-btn": "Usar preferencias predeterminadas",
   "amds.account.welcome.bypass-msg":
     "Al hacer clic en el botón de arriba, omitirá esta pantalla y será redirigido a su página de Perfil."

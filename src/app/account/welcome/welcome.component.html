@@ -16,7 +16,7 @@
 
   <div class="content">
     <div class="row">
-      <div class="col-md-7 col-lg-6">
+      <div class="col-md-7 col-lg-6 col-xl-5">
 
         <mat-card class="heading-card" [class.mat-elevation-z0]="true">
           <h1 class="mat-headline" [ngClass]="routeAnimationsElements">{{ 'amds.account.welcome.headline' | translate }}</h1>
@@ -152,9 +152,21 @@
 
 
                 <mat-card-content class="done-profile-content">
-                  <button class="done-btn" mat-raised-button (click)="redirectDashboard()">Go to your Dashoard</button>
-                  <button class="done-btn" mat-raised-button (click)="redirectCourses()">Take Training Courses</button>
-                  <button class="done-btn" mat-raised-button (click)="redirectApps()">Upload & share your Apps</button>
+                  <mat-icon>dashboard</mat-icon>
+
+                  <button class="done-btn" mat-raised-button (click)="redirectDashboard()">
+                    {{ 'amds.account.welcome.go-dashboard' | translate }}
+                  </button>
+                  <mat-icon>school</mat-icon>
+
+                  <button class="done-btn" mat-raised-button (click)="redirectCourses()">
+                    {{ 'amds.account.welcome.go-courses' | translate }}
+                  </button>
+                  <mat-icon>share</mat-icon>
+
+                  <button class="done-btn" mat-raised-button (click)="redirectApps()">
+                    {{ 'amds.account.welcome.go-apps' | translate }}
+                  </button>
                 </mat-card-content>
 
 
@@ -191,17 +203,13 @@
 
 
 
-      <div class="col-md-5 col-lg-6">
+      <div class="col-md-5 col-lg-6 col-xl-7">
 
         <mat-card class="default-pref-card" [class.mat-elevation-z0]="true">
+          <img mat-card-image src="../../../assets/app-promo.png" alt="amds logo" [ngClass]="routeAnimationsElements">
           <button mat-flat-button color="accent" (click)="useDefaultProfileInfo()" [ngClass]="routeAnimationsElements">{{ 'amds.account.welcome.bypass-btn' | translate }}</button>
-
           <h4 class="mat-subheading-1">{{ 'amds.account.welcome.bypass-msg' | translate }}</h4>
-        </mat-card>
 
-        <mat-card class="push-card" [class.mat-elevation-z0]="true">
-          <mat-slide-toggle>{{ 'amds.account.welcome.push-enable' | translate }}</mat-slide-toggle>
-          <p>{{ 'amds.account.welcome.push-msg' | translate }}</p>
         </mat-card>
 
       </div>
