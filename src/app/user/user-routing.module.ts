@@ -9,6 +9,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { CoursesComponent } from './courses/courses.component';
 import { EarningsComponent } from './earnings/earnings.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
@@ -22,13 +23,12 @@ const routes: Routes = [
       },
       {
         path: 'home',
-        component: UserDashboardComponent,
+        component: HomeComponent,
         data: { title: 'amds.user.menu.home' }
       },
       {
         path: 'profile',
         component: ProfileComponent,
-        canActivate: [AuthFireGuardService],
         data: { title: 'amds.user.menu.profile' }
       },
       {

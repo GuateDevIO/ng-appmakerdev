@@ -1,0 +1,17 @@
+@import '~@angular/material/theming';
+
+@mixin amds-home-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $background: map-get($theme, background);
+
+  amds-home {
+    > .home-container {
+      > .grid-container {
+        .dashboard-card {
+          background-color: mat-color($background, card);
+        }
+      }
+    }
+  }
+}

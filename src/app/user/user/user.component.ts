@@ -26,7 +26,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   users = [
     { link: 'home', label: 'amds.user.menu.home', auth: false },
-    { link: 'profile', label: 'amds.user.menu.profile', auth: true },
+    { link: 'profile', label: 'amds.user.menu.profile', auth: false },
     {
       link: 'notifications',
       label: 'amds.user.menu.notifications',

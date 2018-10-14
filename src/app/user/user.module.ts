@@ -12,6 +12,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { CoursesComponent } from './courses/courses.component';
 import { EarningsComponent } from './earnings/earnings.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
     NotificationsComponent,
     CoursesComponent,
     EarningsComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
+    HomeComponent
   ]
 })
 export class UserModule {
