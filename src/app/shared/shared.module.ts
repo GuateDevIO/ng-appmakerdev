@@ -27,6 +27,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatBadgeModule } from '@angular/material/badge';
 
 import { BigInputComponent } from './big-input/big-input.component';
 import { BigInputActionComponent } from './big-input/big-input-action.component';
@@ -61,7 +62,8 @@ import { BigInputActionComponent } from './big-input/big-input-action.component'
     MatStepperModule,
     MatGridListModule,
     LayoutModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatBadgeModule
   ],
   declarations: [BigInputComponent, BigInputActionComponent],
   exports: [
@@ -94,6 +96,7 @@ import { BigInputActionComponent } from './big-input/big-input-action.component'
     MatGridListModule,
     LayoutModule,
     MatExpansionModule,
+    MatBadgeModule,
 
     BigInputComponent,
     BigInputActionComponent

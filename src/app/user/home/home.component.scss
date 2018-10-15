@@ -39,12 +39,42 @@
   border-radius: 8px;
 }
 
-.more-button {
+.card-content {
   position: absolute;
-  top: 5px;
-  right: 10px;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  height: 100%;
+  padding: 15px;
+  text-align: left;
+  border-radius: 8px;
 }
 
-.dashboard-card-content {
-  text-align: center;
+.card-content-title {
+  font-size: 18px;
+  font-weight: 900;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  mat-icon {
+    display: inline-flex;
+    vertical-align: middle;
+  }
+}
+
+.card-content-body {
+  font-size: 18px;
+  margin-top: 4px;
+  margin-left: 4px;
+  font-weight: 600;
+}
+
+.card-content-actions {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  button {
+    font-weight: 800;
+  }
 }

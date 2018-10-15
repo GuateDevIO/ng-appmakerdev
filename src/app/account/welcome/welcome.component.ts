@@ -93,7 +93,7 @@ export class WelcomeComponent implements OnInit, OnDestroy {
       profilePushVideo: true
     });
 
-    this.userService.user$.pipe(
+    this.user$ = this.userService.user$.pipe(
       tap(userData => {
         if (userData.uid) {
           if (!userData.verified) {
@@ -166,11 +166,13 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   }
 
   hideEmailCard() {
+    console.log('hideEmailCard > ');
     this.closeEmailCard = true;
   }
 
   // First Submit Form handler (Save current profile info to Firestore)
   updateProfileInfo() {
+    console.log('updateProfileInfo > ');
     const formEmail = this.firstFormGroup.value.profileEmail;
     const formName = this.firstFormGroup.value.profileName;
     console.log('formEmail: ' + formEmail);
@@ -184,6 +186,7 @@ export class WelcomeComponent implements OnInit, OnDestroy {
 
   // Save Default Profile information to Firestore
   useDefaultProfileInfo() {
+    console.log('useDefaultProfileInfo > user/home');
     this.router.navigate(['user/home']);
   }
 
