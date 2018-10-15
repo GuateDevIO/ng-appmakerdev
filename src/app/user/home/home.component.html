@@ -1,49 +1,89 @@
-
 <div class="home-container" *ngIf="user$ | async as user">
 
   <mat-card class="heading-card" *ngIf="!user.uid" [class.mat-elevation-z0]="true">
     <img mat-card-image src="https://tpc.googlesyndication.com/simgad/5087173954933374359" [ngClass]="routeAnimationsElements"
       alt="login header" (click)="goSignUp()">
-      <mat-card-actions>
-        <button mat-raised-button color="primary">Login with existing account</button>
-        <button mat-stroked-button color="warn">Issues signing in?</button>
-
-      </mat-card-actions>
+    <mat-card-actions>
+      <button mat-raised-button color="primary">Login with existing account</button>
+      <button mat-stroked-button color="warn">Issues signing in?</button>
+    </mat-card-actions>
   </mat-card>
 
-
   <div class="grid-container">
-
-    <mat-grid-list cols="6" rowHeight="170px">
+    <mat-grid-list cols="4" rowHeight="200px">
       <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
         <mat-card class="dashboard-card">
-          <mat-card-header>
-            <mat-card-title>
-              {{card.title}}
-              <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-              <mat-menu #menu="matMenu" xPosition="before">
-                <button mat-menu-item>Expand</button>
-                <button mat-menu-item>Remove</button>
-              </mat-menu>
-            </mat-card-title>
-          </mat-card-header>
-          <mat-card-content class="dashboard-card-content">
-            <div>Card Content Here</div>
+          <mat-card-content>
 
-            
-          <div class="card-content-a" *ngIf="card.title=='My Apps'">
-         
+            <div class="card-content" *ngIf="card.id=='a'" style="background:url('http://www.managementmix.com/wp-content/uploads/2017/04/training-icon-111.png') lightgreen top 70px left no-repeat;">
+              <div class="card-content-title">
+                <mat-icon>apps</mat-icon>
+                {{card.title}}
+              </div>
 
-            tester
+              <div class="card-content-body">
+                History of your downloaded and/or uploaded apps.
+              </div>
 
-            
-          </div>
+              <div class="card-content-actions">
+                <button mat-flat-button disabled>LOGIN REQUIRED</button>
+              </div>
+            </div>
+
+
+            <div class="card-content" *ngIf="card.id=='b'" style="background:url('http://www.managementmix.com/wp-content/uploads/2017/04/training-icon-111.png') lightskyblue top 70px left no-repeat;">
+              <div class="card-content-title">
+                <mat-icon>school</mat-icon>
+                {{card.title}}
+              </div>
+
+              <div class="card-content-body">
+                Keep track of all your courses and progress.
+              </div>
+  
+              <div class="card-content-actions">
+                <button mat-flat-button disabled>LOGIN REQUIRED</button>
+              </div>
+            </div>
+
+            <div class="card-content" *ngIf="card.id=='c'" style="background:url('http://www.managementmix.com/wp-content/uploads/2017/04/training-icon-111.png') lightcoral top 70px left no-repeat;">
+              <div class="card-content-title">
+                  <mat-icon>school</mat-icon>
+                  {{card.title}}
+              </div>
+  
+              <div class="card-content-body">
+                Submit questions or request assistance here!
+              </div>
+
+              <div class="card-content-actions">
+                <button mat-raised-button color="primary">CHECK RESOURCES</button>
+              </div>
+            </div>
+
+
+            <div class="card-content" *ngIf="card.id=='d'" style="background:url('http://www.managementmix.com/wp-content/uploads/2017/04/training-icon-111.png') lightgoldenrodyellow top 70px left no-repeat;">
+              <div class="card-content-title">
+                <mat-icon>school</mat-icon>
+                {{card.title}}
+              </div>
+
+              <div class="card-content-body">
+                Submit questions or request assistance here!
+              </div>
+
+              <div class="card-content-actions">
+                <button mat-raised-button color="primary">SUBMIT</button>
+              </div>
+  
+            </div>
 
 
 
           </mat-card-content>
+
+
+
         </mat-card>
       </mat-grid-tile>
     </mat-grid-list>
