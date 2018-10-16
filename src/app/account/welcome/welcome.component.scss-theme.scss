@@ -12,6 +12,7 @@
       color: mat-color($foreground, text);
       background-color: mat-color($background, card);
       > .verification-card {
+        color: mat-color($warn, default-contrast);
         background-color: mat-color($warn);
       }
 
@@ -29,8 +30,8 @@
               }
 
               .done-btn {
-                background-color: mat-color($primary);
                 color: mat-color($primary, default-contrast);
+                background-color: mat-color($primary);
               }
             }
           }

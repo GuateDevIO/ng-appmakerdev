@@ -1,15 +1,8 @@
 <div class="wrapper" *ngIf="user$ | async as user">
   
-  <mat-card class="heading-card" *ngIf="!user.uid || signInit" [class.mat-elevation-z0]="true">
+  <mat-card class="heading-card" [class.mat-elevation-z0]="true">
     <h1 class="mat-headline" [ngClass]="routeAnimationsElements">{{ 'amds.account.register.title' | translate }}</h1>
-    <button mat-stroked-button color="accent" (click)="goLogin()" [ngClass]="routeAnimationsElements">{{ 'amds.account.register.btn-login' | translate }}</button>
-  </mat-card>
-
-  <mat-card class="logout-card" *ngIf="user.uid && !signInit" [ngClass]="routeAnimationsElements" [class.mat-elevation-z0]="true">
-      <h1 class="mat-headline">{{ 'amds.account.login.signed-in' | translate }}</h1>
-      <h2 class="title" *ngIf="user.displayName">{{ user.displayName }}</h2>
-      <h2 class="title" *ngIf="user.email">{{ user.email }}</h2>
-      <button mat-raised-button color="warn" (click)="goSignout()" [ngClass]="routeAnimationsElements">{{ 'amds.account.login.sign-out' | translate }}</button>
+    <button mat-stroked-button color="accent" (click)="goLogin()"  [disabled]="user.signing || user.uid" [ngClass]="routeAnimationsElements">{{ 'amds.account.register.btn-login' | translate }}</button>
   </mat-card>
 
   <div class="container">
@@ -19,7 +12,7 @@
           <mat-card class="login-card" [ngClass]="routeAnimationsElements">
 
               <div>
-                <mat-progress-bar *ngIf="user.loading" mode="indeterminate" ></mat-progress-bar>
+                <mat-progress-bar *ngIf="user.signing || user.uid" mode="indeterminate" ></mat-progress-bar>
               </div>
 
               <mat-card-content class="login-card-content">
@@ -27,28 +20,28 @@
                 <h4 class="mat-subheading-1" [ngClass]="routeAnimationsElements">{{ 'amds.account.register.sign-sub-head' | translate }}</h4>
     
                 <div class="social-btn">
-                  <button class="btn-google" (click)="signUpWithGoogle()" mat-raised-button [disabled]="user.loading || user.uid" [ngClass]="routeAnimationsElements">
+                  <button class="btn-google" (click)="signUpWithGoogle()" mat-raised-button [disabled]="user.signing || user.uid" [ngClass]="routeAnimationsElements">
 
                     <mat-icon svgIcon="google-ic"></mat-icon>
                     <span>{{ 'amds.account.register.sign-google' | translate }}</span>
                   </button>
                 </div>
                 <div class="social-btn">
-                  <button class="btn-fb" mat-raised-button (click)="signUpWithFacebook()" [disabled]="user.loading || user.uid" [ngClass]="routeAnimationsElements">
+                  <button class="btn-fb" mat-raised-button (click)="signUpWithFacebook()" [disabled]="user.signing || user.uid" [ngClass]="routeAnimationsElements">
 
                     <mat-icon svgIcon="facebook-ic"></mat-icon>
                     <span>{{ 'amds.account.register.sign-facebook' | translate }}</span>
                   </button>
                 </div>
                 <div class="social-btn">
-                  <button class="btn-twitter" mat-raised-button (click)="signUpWithTwitter()" [disabled]="user.loading || user.uid" [ngClass]="routeAnimationsElements">
+                  <button class="btn-twitter" mat-raised-button (click)="signUpWithTwitter()" [disabled]="user.signing || user.uid" [ngClass]="routeAnimationsElements">
 
                     <mat-icon svgIcon="twitter-ic"></mat-icon>
                     <span>{{ 'amds.account.register.sign-twitter' | translate }}</span>
                   </button>
                 </div>
                 <div class="social-btn">
-                    <button class="btn-github" mat-raised-button (click)="signUpWithGithub()" [disabled]="user.loading || user.uid" [ngClass]="routeAnimationsElements">
+                    <button class="btn-github" mat-raised-button (click)="signUpWithGithub()" [disabled]="user.signing || user.uid" [ngClass]="routeAnimationsElements">
 
                       <mat-icon svgIcon="github-ic"></mat-icon>
                       <span>{{ 'amds.account.register.sign-github' | translate }}</span>
@@ -90,7 +83,7 @@
                   </mat-form-field>
 
                   <div class="social-btn">
-                      <button class="btn-email" mat-raised-button type="submit" [disabled]="registerForm.invalid || user.loading || user.uid" [ngClass]="routeAnimationsElements">
+                      <button class="btn-email" mat-raised-button type="submit" [disabled]="registerForm.invalid || user.signing || user.uid" [ngClass]="routeAnimationsElements">
 
                         <mat-icon svgIcon="mail-ic"></mat-icon>
                         <span>{{ 'amds.account.register.sign-email' | translate }}</span>

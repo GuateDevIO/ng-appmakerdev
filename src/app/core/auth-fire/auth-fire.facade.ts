@@ -41,7 +41,7 @@ export class UserFacade {
   // Observable Queries available for consumption by views
   // ************************************************
   user$ = this.store.pipe(select(UsersQuery.getUser));
-  tempDisplayName: string;
+  formUserName: string;
 
   // ************************************************
   // Effects to be registered at the Module level
@@ -54,21 +54,18 @@ export class UserFacade {
       switchMap(payload => this.afAuth.authState),
       map(authData => {
         if (authData) {
-          const tempDisplayName = this.tempDisplayName
-            ? this.tempDisplayName
-            : null;
           const newProviderId = authData.providerData[0].providerId.replace(
             '.com',
             ''
           );
+
           console.log('getUser$: User is logged in');
           console.log('getUser$: User PROVIDER ID: ' + newProviderId);
-          console.log('getUser$ TEMP NAME=email: ' + tempDisplayName);
 
           const user = new User(
             authData.uid,
             authData.email || null,
-            authData.displayName || tempDisplayName,
+            authData.displayName || 'Unregistered Name',
             authData.photoURL || 'https://angularfirebase.com/images/logo.png',
             authData.phoneNumber || 'Unregistered Phone',
             newProviderId,
@@ -96,26 +93,23 @@ export class UserFacade {
     pipe(
       map((action: userActions.EmailSignUp) => action.payload),
       switchMap(payload => {
-        console.log('signUpEmail$ payload email: ' + payload.email);
-        console.log('signUpEmail$ payload name: ' + payload.name);
-        const nameForm = payload.name;
-        this.tempDisplayName = nameForm;
-        return from(this.emailSignUp(payload.email, payload.password));
+        console.log('signUpEmail$ payload EMAIL: ' + payload.email);
+        const formPayload = payload;
+        this.formUserName = formPayload.name;
+        return from(this.emailSignUp(formPayload.email, formPayload.password));
       }),
       map(credential => {
-        console.log('signUpEmail$ success > uid: ' + credential.user.uid);
-        console.log(
-          'signUpEmail$ CREDENTIAL > providerId: ' + credential.user.providerId
-        );
-        console.log('signUpEmail$ TEMP NAME=test: ' + this.tempDisplayName);
-        const displayNameForm = this.tempDisplayName
-          ? this.tempDisplayName
+        console.log('signUpEmail$ SUCCESS > New UID: ' + credential.user.uid);
+        console.log('signUpEmail$ get FORM USER NAME: ' + this.formUserName);
+
+        const formDisplayName = this.formUserName
+          ? this.formUserName
           : 'Unregistered Name';
 
         const payload = {
           uid: credential.user.uid,
           email: credential.user.email,
-          displayName: displayNameForm,
+          displayName: formDisplayName,
           photoUrl: 'https://angularfirebase.com/images/logo.png',
           phoneNumber: 'Unregistered Phone',
           providerId: 'password',
@@ -308,10 +302,6 @@ export class UserFacade {
             : 'Unregistered Phone';
 
           console.log('verifyUser$ afs DATA: TRUE');
-          console.log('verifyUser$ afs email: ' + afsEmail);
-          console.log('verifyUser$ afs displayName: ' + afsName);
-          console.log('verifyUser$ afAuth providerId: ' + providerId);
-          console.log('verifyUser$ afAuth isEmailVerified: ' + isEmailVerified);
 
           const payload = {
             uid: uid,
@@ -327,10 +317,6 @@ export class UserFacade {
         } else {
           // User is NOT Registered in Firestore
           console.log('verifyUser$ afs: FALSE');
-          console.log('verifyUser$ afAuth email: ' + email);
-          console.log('verifyUser$ afAuth displayName: ' + displayName);
-          console.log('verifyUser$ afAuth providerId: ' + providerId);
-          console.log('verifyUser$ afAuth isEmailVerified: ' + isEmailVerified);
 
           const payload = {
             uid: uid,
@@ -356,8 +342,8 @@ export class UserFacade {
     ofType(userActions.LOGIN_USER),
     map((action: userActions.LoginUser) => action.payload),
     concatMap(payload => [
-      new userActions.LoginSuccess(payload),
-      new profileActions.UpdateProfile(payload)
+      new profileActions.UpdateProfile(payload),
+      new userActions.LoginSuccess(payload)
     ])
   );
 
@@ -366,8 +352,8 @@ export class UserFacade {
     ofType(userActions.NEW_USER),
     map((action: userActions.NewUser) => action.payload),
     concatMap(payload => [
-      new userActions.WelcomeUser(payload),
-      new profileActions.CreateProfile(payload)
+      new profileActions.CreateProfile(payload),
+      new userActions.WelcomeUser(payload)
     ])
   );
 
@@ -376,21 +362,27 @@ export class UserFacade {
     ofType(userActions.LOGIN_SUCCESS),
     map((action: userActions.LoginSuccess) => action.payload),
     tap(payload => {
-      this.router.navigate(['user/home']);
-
       console.log('loginSuccess$ > user/profile [payload.uid]: ' + payload.uid);
+
+      this.localStorageService.setItem(AUTH_KEY, payload);
+
       const emailDisplay =
         payload.displayName === 'Unregistered Name'
           ? payload.email
           : payload.displayName;
+
       const successMsg = this.translateService.instant(
         'amds.auth-fire.signin-success',
         { email: emailDisplay }
       );
+
       const actionMsg = this.translateService.instant(
         'amds.auth-fire.signin-action'
       );
+
       this.showNotification(successMsg, actionMsg);
+
+      this.router.navigate(['user/home']);
     })
   );
 
@@ -401,32 +393,42 @@ export class UserFacade {
     tap(payload => {
       console.log('welcomeUser$ > user/profile [payload.uid]: ' + payload.uid);
 
+      this.localStorageService.setItem(AUTH_KEY, payload);
+
       const welcomeMsg = this.translateService.instant(
         'amds.auth-fire.signup-success'
       );
 
       const isEmailVerified = payload.verified;
-      const verifyProvider = payload.providerId === 'password' ? true : false;
-      const nameDisplayTemp = this.tempDisplayName ? true : false;
+      const verifyEmailProvider =
+        payload.providerId === 'password' ? true : false;
+      const formNameExist = this.formUserName ? true : false;
 
-      if (nameDisplayTemp && verifyProvider) {
-        console.log('welcomeUser$ New email User  > updateEmailUserProfile()');
-        const userDisplayName = this.tempDisplayName;
+      if (formNameExist && verifyEmailProvider) {
+        console.log(
+          'welcomeUser$ New regsitration EMAIL User  > updateEmailUserProfile()'
+        );
+        const userDisplayName = this.formUserName;
         const userPhotoUrl = payload.photoUrl;
         this.updateEmailUserProfile(userDisplayName, userPhotoUrl);
       }
 
-      if (!isEmailVerified && verifyProvider) {
-        console.log('welcomeUser$ Unverified Email > sendVerificationLink()');
+      if (!isEmailVerified && verifyEmailProvider) {
+        console.log(
+          'welcomeUser$ New Unverified Email user > sendVerificationLink()'
+        );
+
+        // UPDATE FIREBASE LANG AND SEND EMAIL BASED ON translateService.currentLang
         const userEmail = payload.email;
-        const lang = this.translateService.currentLang;
+        const lang = this.translateService.currentLang
+          ? this.translateService.currentLang
+          : 'en';
         this.afAuth.auth.languageCode = lang;
         this.sendVerificationLink(userEmail);
       }
 
       this.showNotification(welcomeMsg, '');
       this.router.navigate(['account/welcome']);
-      this.localStorageService.setItem(AUTH_KEY, payload);
     })
   );
 
@@ -450,8 +452,12 @@ export class UserFacade {
   logoutSuccess$ = this.actions$.pipe(
     ofType(userActions.LOGOUT_SUCCESS),
     tap(() => {
+      const successLogoutMsg = this.translateService.instant(
+        'amds.auth-fire.signout-success'
+      );
+
       console.log('logoutSuccess$ > about/');
-      this.showNotification('Logout succesfully', '');
+      this.showNotification(successLogoutMsg, '');
       this.router.navigate(['']);
     })
   );
@@ -528,6 +534,11 @@ export class UserFacade {
 
   logoutUser(): Observable<User> {
     this.store.dispatch(new userActions.LogoutUser());
+    return this.user$;
+  }
+
+  reloadUser(): Observable<User> {
+    this.store.dispatch(new userActions.GetUser());
     return this.user$;
   }
 

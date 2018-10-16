@@ -5,20 +5,8 @@
   $accent: map-get($theme, accent);
   $background: map-get($theme, background);
 
-  .login-notify-overlay {
-    .mat-simple-snackbar {
-      align-items: center;
-
-      button {
-        border-radius: 2px;
-        background-color: mat-color($accent);
-        color: mat-color($accent, default-contrast);
-      }
-    }
-  }
-
   mat-divider {
-    background-color: mat-color($accent);
+    background-color: mat-color($primary);
   }
 
   amds-login {
@@ -27,13 +15,6 @@
         linear-gradient(87deg, mat-color($accent) 0, mat-color($primary) 100%);
 
       > .heading-card {
-        background-color: transparentize(
-          $color: mat-color($primary),
-          $amount: 0.5
-        );
-      }
-
-      > .logout-card {
         background-color: transparentize(
           $color: mat-color($primary),
           $amount: 0.5

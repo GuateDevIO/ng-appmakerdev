@@ -68,6 +68,8 @@
   "amds.auth-fire.signin-success": "Signed in as {{email}}",
   "amds.auth-fire.signup-success": "Signed up successfully",
 
+  "amds.auth-fire.signout-success": "Logged out successfully",
+
   "amds.auth-fire.error-wrong-pass": "Invalid password. Try again",
   "amds.auth-fire.action-reset-pass": "Reset password",
 

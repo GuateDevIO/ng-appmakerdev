@@ -8,26 +8,31 @@
 }
 
 .verification-card {
-  margin: 0px;
-  padding: 10px 25px 10px 30px;
-  text-align: left;
-  .col {
-    display: inline-flex;
-    align-items: center;
-    h4 {
-      margin: 0px;
-      padding: 0px;
-    }
-  }
-  .col-1 {
+  .row {
     margin: 0px;
     padding: 0px;
-    display: inline-flex;
-    vertical-align: middle;
-    align-items: center;
-    button {
+    .col {
       margin: 0px;
       padding: 0px;
+      display: inline-flex;
+      vertical-align: middle;
+      align-items: center;
+      h4 {
+        margin: 0px;
+        padding: 10px 0px 10px 25px;
+      }
+    }
+    .col-1 {
+      width: 100%;
+      margin-right: 0px;
+      padding: 0px;
+      display: inline-flex;
+      vertical-align: middle;
+      align-items: center;
+      button {
+        margin: 0px;
+        padding: 0px;
+      }
     }
   }
 }
@@ -155,7 +160,7 @@
   text-align: left;
   align-items: left;
   img {
-    width: 50%;
+    width: 55%;
     max-width: 800px;
     height: 100%;
     max-height: 731px;
@@ -229,6 +234,18 @@
     }
     h4 {
       padding: 0px;
+    }
+  }
+  .verification-card {
+    .row {
+      .col {
+        h4 {
+          padding: 10px;
+        }
+      }
+      .col-1 {
+        margin-right: 10px;
+      }
     }
   }
 }

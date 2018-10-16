@@ -15,7 +15,6 @@ export class RegisterComponent implements OnInit {
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
   registerForm: FormGroup;
   hidePass = true;
-  signInit: boolean;
 
   // Observable User Facade property
   user$: Observable<User> = this.userService.user$;
@@ -27,8 +26,6 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.signInit = false;
-
     // Register Form Field configuration and validators
     this.registerForm = this.fb.group({
       name: ['', [Validators.required]],
@@ -38,14 +35,14 @@ export class RegisterComponent implements OnInit {
   }
 
   insertAt() {
+    // Helper to insert '@' to the email field ***KEEP?
     const formEmail = this.registerForm.value.email;
     this.registerForm.patchValue({ email: formEmail + '@' });
   }
 
   submitHandler() {
-    // Sign up with Email Address
-    console.log('sign up with Email Address');
-    this.signInit = true;
+    // Sign up with Email Address + include user name
+    console.log('submitHandler() > Sign up Email attempt');
     const formData = this.registerForm.value;
     this.userService.signUpEmail(
       formData.email,
@@ -55,34 +52,32 @@ export class RegisterComponent implements OnInit {
   }
 
   signUpWithGoogle() {
-    console.log('sign up with Google');
-    this.signInit = true;
+    // Sign up with Google account
+    console.log('signUpWithGoogle() attempt');
     this.userService.loginGoogle();
   }
 
   signUpWithFacebook() {
-    console.log('sign up with Faceebook');
-    this.signInit = true;
+    // Sign up with Faceebook account
+    console.log('signUpWithFacebook() attempt');
     this.userService.loginFacebook();
   }
 
   signUpWithTwitter() {
-    console.log('sign up with Twitter');
-    this.signInit = true;
+    // Sign up with Twitter account
+    console.log('signUpWithTwitter() attempt');
     this.userService.loginTwitter();
   }
 
   signUpWithGithub() {
-    console.log('sign up with Github');
-    this.signInit = true;
+    // Sign up with Github account
+    console.log('signUpWithGithub() attempt');
     this.userService.loginGithub();
   }
 
   goLogin() {
+    // Redirect user > account/login
+    console.log('goLogin() > account/login ');
     this.router.navigate(['account/login']);
-  }
-
-  goSignout() {
-    this.userService.logoutUser();
   }
 }

@@ -3,13 +3,12 @@
   <div class="verification-card" *ngIf="!user.verified && !closeEmailCard" [ngClass]="routeAnimationsElements">
     <div class="row">
       <div class="col">
-        <h4>{{ 'amds.account.welcome.verify-email' | translate }} {{user.email}}. {{ 'amds.account.welcome.verify-msg'
+        <h4 [ngClass]="routeAnimationsElements">{{ 'amds.account.welcome.verify-email' | translate }} {{user.email}}. {{ 'amds.account.welcome.verify-msg'
           | translate }}</h4>
       </div>
       <div class="col-1">
         <button mat-icon-button>
-          <mat-icon aria-label="close-icon-button" (click)="hideEmailCard()">close</mat-icon>
-
+        <mat-icon aria-label="close-icon-button" (click)="hideEmailCard()" [ngClass]="routeAnimationsElements">close</mat-icon>
         </button>
       </div>
     </div>

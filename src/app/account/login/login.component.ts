@@ -15,7 +15,6 @@ export class LoginComponent implements OnInit {
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
   loginForm: FormGroup;
   hidePass = true;
-  signInit: boolean;
 
   // Observable User Facade property
   user$: Observable<User> = this.userService.user$;
@@ -27,7 +26,6 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.signInit = false;
     // Login Form Field configuration and validators
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -36,54 +34,58 @@ export class LoginComponent implements OnInit {
   }
 
   insertAt() {
+    // Helper to insert '@' to the email field ***KEEP?
     const formEmail = this.loginForm.value.email;
     this.loginForm.patchValue({ email: formEmail + '@' });
   }
 
   submitHandler() {
     // Sign in with Email Address
-    console.log('sign in Email attempt');
-    this.signInit = true;
+    console.log('submitHandler() > Login with Email attempt');
     const formData = this.loginForm.value;
     this.userService.loginEmail(formData.email, formData.password);
   }
 
   signInWithGoogle() {
-    console.log('sign in Google attempt');
-    this.signInit = true;
+    // Sign in with Google account
+    console.log('signInWithGoogle() attempt');
     this.userService.loginGoogle();
   }
 
   signInWithFacebook() {
-    console.log('sign in Facebook attempt');
-    this.signInit = true;
+    // Sign in with Facebook account
+    console.log('signInWithFacebook() attempt');
     this.userService.loginFacebook();
   }
 
   signInWithTwitter() {
-    console.log('sign in Twitter attempt');
-    this.signInit = true;
+    // Sign in with Twitter account
+    console.log('signInWithTwitter() attempt');
     this.userService.loginTwitter();
   }
 
   signInWithGithub() {
-    console.log('sign in Github attempt');
-    this.signInit = true;
+    // Sign in with Github account
+    console.log('signInWithGithub() attempt');
     this.userService.loginGithub();
   }
 
   resetPassword() {
-    console.log('reset password');
+    // Redirect user > account/reset > Password reset for Email Provider
+    console.log('resetPassword() > account/reset');
+    // *** CAPTURE ANY EXISTING EMAIL ADDRESS BEFORE REDIRECTING USER ***
+    // const formEmail = this.loginForm.value.email;
     this.router.navigate(['account/reset']);
   }
 
-  goRegister() {
-    console.log('Redirect to Register Page');
-    this.router.navigate(['account/register']);
-  }
+  goRegister(signing?: boolean) {
+    // Redirect user > account/register
+    const isUserSigning = signing;
+    console.log('goRegister() > Check isUserSigning: ' + isUserSigning);
 
-  goSignout() {
-    console.log('Log out user');
-    this.userService.logoutUser();
+    if (!isUserSigning) {
+      console.log('goRegister() > account/register');
+      this.router.navigate(['account/register']);
+    }
   }
 }

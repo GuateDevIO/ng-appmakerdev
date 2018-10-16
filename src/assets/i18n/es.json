@@ -73,6 +73,8 @@
   "amds.auth-fire.signin-success": "Conectado como {{email}}",
   "amds.auth-fire.signup-success": "Registrado exitosamente",
 
+  "amds.auth-fire.signout-success": "Desconectado exitosamente",
+
   "amds.auth-fire.error-wrong-pass": "Contraseña invalida. Inténtalo de nuevo",
   "amds.auth-fire.action-reset-pass": "Restablecer contraseña",
 

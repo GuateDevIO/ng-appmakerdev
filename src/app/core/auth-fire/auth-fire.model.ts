@@ -12,6 +12,7 @@ export class User {
     public phoneNumber: string,
     public providerId: string,
     public verified: boolean,
-    public loading?: boolean
+    public loading?: boolean,
+    public signing?: boolean
   ) {}
 }

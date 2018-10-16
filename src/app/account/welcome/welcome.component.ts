@@ -22,6 +22,7 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   closeEmailCard: boolean;
+  localUserData: any;
   lang: string;
   languages: any;
   updates: any;
@@ -60,9 +61,13 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    // CLOSE / HIDE EMAIL VERIFICATION CARD ON INIT
     this.closeEmailCard = true;
-    console.log('Current Lang: ' + this.translate.currentLang);
-    this.lang = this.translate.currentLang;
+
+    // GET CURRECT SELECTED LANGUAGE AND UPDATE DISPLAY VALUES
+    this.lang = this.translate.currentLang ? this.translate.currentLang : 'en';
+    console.log('Current Lang: ' + this.lang);
+
     if (this.lang === 'en') {
       this.languages = this.enLang;
       this.updates = this.enUpdates;
@@ -71,6 +76,7 @@ export class WelcomeComponent implements OnInit, OnDestroy {
       this.updates = this.esUpdates;
     }
 
+    // SET FORM INITIAL VALUES
     this.firstFormGroup = this.form.group({
       profileName: ['', [Validators.required]],
       profileEmail: ['', [Validators.email]],
@@ -87,28 +93,71 @@ export class WelcomeComponent implements OnInit, OnDestroy {
       profileNotificationLang: [this.lang],
 
       profilePushEnable: false,
-      profilePushFreeApp: true,
-      profilePushPaidApp: true,
-      profilePushCourse: true,
-      profilePushVideo: true
+      profilePushFreeApp: false,
+      profilePushPaidApp: false,
+      profilePushCourse: false,
+      profilePushVideo: false
     });
 
     this.user$ = this.userService.user$.pipe(
       tap(userData => {
         if (userData.uid) {
-          if (!userData.verified) {
+          console.log('this.user$.pipe > tap SUCCESS > uid: ' + userData.uid);
+
+          const userAuthData = userData;
+          const isEmailProvider =
+            userAuthData.providerId === 'password' ? true : false;
+          const isUserVerified = userAuthData.verified;
+          const userName = userAuthData.displayName
+            ? userAuthData.displayName
+            : '';
+          const userEmail = userAuthData.email ? userAuthData.email : '';
+
+          if (!isEmailProvider) {
+            this.firstFormGroup.patchValue({
+              profileName: userName,
+              profileEmail: userEmail
+            });
+          }
+
+          if (!isUserVerified && isEmailProvider) {
             this.closeEmailCard = false;
           }
 
-          console.log('this.user$.pipe > tap: ' + userData.uid);
-          const user = userData;
-          const name = user.displayName ? user.displayName : '';
-          const email = user.email ? user.email : '';
+          if (isEmailProvider) {
+            const isNameUnregistered =
+              userAuthData.displayName === 'Unregistered Name' ? true : false;
 
-          this.firstFormGroup.patchValue({
-            profileName: name,
-            profileEmail: email
-          });
+            if (!isNameUnregistered) {
+              this.firstFormGroup.patchValue({
+                profileName: userName,
+                profileEmail: userEmail
+              });
+            } else {
+              console.log('THE USER DISPLAY NAME IS NOT REGISTERED YET');
+
+              // GET LOCAL STORAGE DATA IN ORDER TO UPDATE EMAIL NAME
+              const localUserData = this.localStorageService.getItem(
+                'AUTH-FIRE'
+              );
+
+              if (localUserData) {
+                console.log('ngOnInit() Local USER Data EXIST');
+                const localDisplayName = localUserData.displayName;
+
+                this.firstFormGroup.patchValue({
+                  profileName: localDisplayName,
+                  profileEmail: userEmail
+                });
+              } else {
+                // Update the email address ONLY
+                console.log('ngOnInit() Local USER Data does NOT EXIST');
+                this.firstFormGroup.patchValue({
+                  profileEmail: userEmail
+                });
+              }
+            }
+          }
         }
       })
     );

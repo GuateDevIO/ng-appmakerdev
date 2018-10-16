@@ -18,46 +18,46 @@ export namespace UsersQuery {
 export function userReducer(state: User = defaultUser, action: Action) {
   switch (action.type) {
     case userActions.GET_USER:
-      return { ...state };
+      return { ...state, loading: true };
 
     case userActions.AUTHENTICATED:
-      return { ...state, ...action.payload };
+      return { ...state, ...action.payload, loading: false };
 
     case userActions.NOT_AUTHENTICATED:
-      return { ...state, ...defaultUser };
+      return { ...state, ...defaultUser, loading: false };
 
     case userActions.EMAIL_SIGN_UP:
-      return { ...state, ...action.payload, loading: true };
+      return { ...state, ...action.payload, signing: true };
 
     case userActions.EMAIL_LOGIN:
-      return { ...state, ...action.payload, loading: true };
+      return { ...state, ...action.payload, signing: true };
 
     case userActions.GOOGLE_LOGIN:
-      return { ...state, loading: true };
+      return { ...state, signing: true };
 
     case userActions.FACEBOOK_LOGIN:
-      return { ...state, loading: true };
+      return { ...state, signing: true };
 
     case userActions.TWITTER_LOGIN:
-      return { ...state, loading: true };
+      return { ...state, signing: true };
 
     case userActions.GITHUB_LOGIN:
-      return { ...state, loading: true };
+      return { ...state, signing: true };
 
     case userActions.VERIFY_USER:
-      return { ...state, ...action.payload, loading: true };
+      return { ...state, ...action.payload, signing: true };
 
     case userActions.LOGIN_USER:
-      return { ...state, ...action.payload, loading: true };
+      return { ...state, ...action.payload, signing: true };
 
     case userActions.NEW_USER:
-      return { ...state, ...action.payload, loading: true };
+      return { ...state, ...action.payload, signing: true };
 
     case userActions.LOGIN_SUCCESS:
-      return { ...state, ...action.payload, loading: false };
+      return { ...state, ...action.payload, signing: false };
 
     case userActions.WELCOME_USER:
-      return { ...state, ...action.payload, loading: false };
+      return { ...state, ...action.payload, signing: false };
 
     case userActions.LOGOUT_USER:
       return { ...state, loading: true };
@@ -66,7 +66,7 @@ export function userReducer(state: User = defaultUser, action: Action) {
       return { ...state, loading: false };
 
     case userActions.AUTH_ERROR:
-      return { ...state, ...action.payload, loading: false };
+      return { ...state, ...action.payload, loading: false, signing: false };
 
     default:
       return state;

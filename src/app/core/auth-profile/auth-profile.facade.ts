@@ -126,7 +126,7 @@ export class ProfileFacade {
     map((action: profileActions.SaveLocalProfile) => action.payload),
     tap(payload => {
       console.log('saveProfileLocal$ > SUCCESS *test');
-      this.localStorageService.setItem(AUTH_FIRE_KEY, payload);
+      this.localStorageService.setItem(FORM_KEY, payload);
     })
   );
 
